@@ -1,11 +1,11 @@
-const babel = require('rollup-plugin-babel')
 const replace = require('rollup-plugin-replace')
+const typescript = require('rollup-plugin-typescript')
 
 const env = process.env.NODE_ENV
 module.exports = function(config) {
   config.set({
     frameworks: ['mocha', 'chai', 'sinon'],
-    files: ['test/**/*.spec.js'],
+    files: ['test/**/*.spec.ts'],
     reporters: ['mocha'],
     port: 9876,  // karma web server port
     colors: true,
@@ -21,14 +21,15 @@ module.exports = function(config) {
 
     rollupPreprocessor: {
       plugins: [
-        babel(),
+        typescript({
+          typescript: require('typescript'),
+        }),
         replace({
           'process.env.NODE_ENV': JSON.stringify(env),
         }),
       ],
       output: {
-        format: 'umd',
-        name: 'PWSDK',
+        format: 'iife',
         sourcemap: 'inline',        // Sensible for testing.
       },
     },

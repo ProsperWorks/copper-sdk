@@ -1,4 +1,4 @@
-import { getParameterByName } from '../lib/utils'
+import { getParameterByName } from '../src/utils'
 
 describe('test', function () {
   it('should sum 1+1=2', function () {

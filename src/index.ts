@@ -1,9 +1,11 @@
-import {
-  getParameterByName,
-  defer,
-} from './utils'
+import { Deferred } from 'ts-deferred'
+import { getParameterByName } from './utils'
 
 class PWSDK {
+  public static init() {
+    return new PWSDK()
+  }
+
   constructor() {
 
     if (window.top === window) {
@@ -53,7 +55,7 @@ class PWSDK {
   }
 
   getContext() {
-    this.deferred.getContext = defer()
+    this.deferred.getContext = new Deferred()
     this.postMessage({
       type: 'getContext',
     })

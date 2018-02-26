@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "noEmitOnError": false,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "src",
+    "test"
+  ]
+}
