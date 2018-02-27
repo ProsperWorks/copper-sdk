@@ -8,6 +8,6 @@
     "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
     "no-unused-expression": false,
     "object-literal-sort-keys": false,
-    "semicolon": [true, "never"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
   }
 }

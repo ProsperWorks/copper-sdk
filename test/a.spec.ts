@@ -1,4 +1,6 @@
-import { getParameterByName } from '../src/utils'
+import { getParameterByName } from '../src/utils';
+import { assert, expect } from 'chai';
+import sinon from 'sinon';
 
 describe('test', function () {
   it('should sum 1+1=2', function () {
@@ -14,4 +16,4 @@ describe('test', function () {
   it('should sinon', function () {
     assert.isOk(sinon)
   })
-})
+});

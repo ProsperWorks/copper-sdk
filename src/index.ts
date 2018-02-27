@@ -1,112 +1,110 @@
-import { Deferred } from 'ts-deferred'
-import { getParameterByName } from './utils'
+import Deferred from './defer';
+import { getParameterByName } from './utils';
 
 class PWSDK {
   public static init() {
-    return new PWSDK()
+    const origin = getParameterByName('origin');
+    const instanceId = getParameterByName('instanceId');
+
+    return new PWSDK(origin, instanceId);
   }
 
-  constructor() {
+  private deferred: any = {};
+  private events = {};
+
+  constructor(private origin: string, private instanceId: string) {
 
     if (window.top === window) {
-      throw new Error('PWSDK can only work inside an iframe')
+      throw new Error('PWSDK can only work inside an iframe');
     }
 
-    this.deferred = {}
-    this.events = {}
-
-    const origin = getParameterByName('origin')
-    const instanceId = getParameterByName('instanceId')
-    this.origin = origin
-    this.instanceId = instanceId
-
-
-    window.addEventListener('message', event => {
+    window.addEventListener('message', (event) => {
       if (event.origin === this.origin) {
         if (this.deferred.getContext) {
-          this.deferred.getContext.resolve(event.data)
-          this.deferred.getContext = null
+          this.deferred.getContext.resolve(event.data);
+          this.deferred.getContext = null;
         }
       }
 
       switch (event.data.type) {
         case 'closeWindow':
-          this.trigger('closeWindow', 'hey')
-          break
+          this.trigger('closeWindow', 'hey');
+          break;
         case 'addButtonClicked':
-          this.trigger('addButtonClicked')
-          break
+          this.trigger('addButtonClicked');
+          break;
         case 'addNewConversation':
-          this.trigger('addNewConversation', event.data)
-          break
+          this.trigger('addNewConversation', event.data);
+          break;
         default:
-          break
+          break;
       }
 
-    }, false)
+    }, false);
   }
 
-  postMessage(message) {
+  public postMessage(message) {
     window.top.postMessage({
       instanceId: this.instanceId,
       // iframeOrigin: window.location.origin,
       ...message,
-    }, this.origin)
+    }, this.origin);
   }
 
-  getContext() {
-    this.deferred.getContext = new Deferred()
+  public getContext() {
+    this.deferred.getContext = new Deferred();
     this.postMessage({
       type: 'getContext',
-    })
-    return this.deferred.getContext.promise
+    });
+    return this.deferred.getContext.promise;
   }
 
-  setAppUI(data) {
+  public setAppUI(data) {
     return new Promise((resolve) => {
-      this.deferred.setAppUI = { resolve }
+      this.deferred.setAppUI = { resolve };
       this.postMessage({
         type: 'setUI',
         data,
-      })
-    })
+      });
+    });
   }
 
-  showModal(params = {}) {
+  public showModal(params = {}) {
     this.postMessage({
       type: 'showModal',
       params,
-    })
+    });
   }
 
-  closeModal() {
+  public closeModal() {
     this.postMessage({
       type: 'closeModal',
-    })
+    });
   }
 
-  proxyMessage(target, data = {}) {
+  public proxyMessage(target, data = {}) {
     this.postMessage({
       type: 'proxyMessage',
       target,
       data,
-    })
+    });
   }
 
-  on(eventName, cb) {
-    if (!this.events[eventName])
-      this.events[eventName] = []
+  public on(eventName, cb) {
+    if (!this.events[eventName]) {
+      this.events[eventName] = [];
+    }
 
-    this.events[eventName].push(cb)
+    this.events[eventName].push(cb);
   }
 
-  trigger(eventName, ...args) {
+  public trigger(eventName, ...args) {
     if (this.events[eventName]) {
       this.events[eventName].forEach((cb) => {
-        cb.call(this, ...args)
-      })
+        cb.call(this, ...args);
+      });
     }
   }
 }
 
-export default PWSDK
+export default PWSDK;

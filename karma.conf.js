@@ -1,5 +1,5 @@
 const replace = require('rollup-plugin-replace')
-const typescript = require('rollup-plugin-typescript')
+const typescript = require('rollup-plugin-typescript2')
 
 const env = process.env.NODE_ENV
 module.exports = function(config) {
@@ -16,14 +16,12 @@ module.exports = function(config) {
     concurrency: Infinity,
 
     preprocessors: {
-      'test/**/*.spec.js': ['rollup'],
+      'test/**/*.spec.ts': ['rollup'],
     },
 
     rollupPreprocessor: {
       plugins: [
-        typescript({
-          typescript: require('typescript'),
-        }),
+        typescript(),
         replace({
           'process.env.NODE_ENV': JSON.stringify(env),
         }),
@@ -31,6 +29,10 @@ module.exports = function(config) {
       output: {
         format: 'iife',
         sourcemap: 'inline',        // Sensible for testing.
+      },
+      globals: {
+        chai: 'chai',
+        sinon: 'sinon',
       },
     },
   })

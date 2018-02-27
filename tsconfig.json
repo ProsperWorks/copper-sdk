@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es5",
+    "lib": ["dom", "es2017", "dom.iterable"],
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
@@ -10,9 +11,5 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "moduleResolution": "node"
-  },
-  "include": [
-    "src",
-    "test"
-  ]
+  }
 }
