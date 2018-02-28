@@ -25,7 +25,9 @@ module.exports = function(config) {
 
     rollupPreprocessor: {
       plugins: [
-        typescript(),
+        typescript({
+          tsconfig: './test/tsconfig.json',
+        }),
         replace({
           'process.env.NODE_ENV': JSON.stringify(env),
         }),
