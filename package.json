@@ -1,10 +1,16 @@
 {
-  "name": "prosperworks-app-sdk",
+  "name": "pw-app-sdk",
   "version": "0.1.0",
   "description": "ProsperWorks App SDK",
   "main": "lib/pwsdk.js",
   "module": "es/pwsdk.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src"
+  ],
   "scripts": {
     "clean": "rimraf lib es dist",
     "build:umd": "cross-env COMPILE_ENV=umd NODE_ENV=development rollup -c -o dist/pwsdk.js",
@@ -17,18 +23,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProsperWorks/prosperworks-app-sdk.git"
+    "url": "git+https://github.com/ProsperWorks/pw-app-sdk.git"
   },
   "keywords": [
     "ProsperWorks",
-    "SDK"
+    "SDK",
+    "app",
+    "framework",
+    "integration"
   ],
   "author": "Guangda Zhang <zhangxiaoyu9350@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ProsperWorks/prosperworks-app-sdk/issues"
+    "url": "https://github.com/ProsperWorks/pw-app-sdk/issues"
   },
-  "homepage": "https://github.com/ProsperWorks/prosperworks-app-sdk#readme",
+  "homepage": "https://github.com/ProsperWorks/pw-app-sdk#readme",
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/mocha": "^2.2.48",
@@ -52,12 +61,9 @@
     "rollup": "^0.56.2",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-typescript2": "^0.11.1",
     "rollup-plugin-uglify": "^3.0.0",
     "sinon": "^4.3.0",
     "typescript": "^2.7.2"
-  },
-  "dependencies": {
-    "rollup-plugin-typescript2": "^0.11.1",
-    "ts-deferred": "^1.0.4"
   }
 }

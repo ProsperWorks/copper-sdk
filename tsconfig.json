@@ -11,5 +11,9 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "moduleResolution": "node"
-  }
+  },
+  "include": [
+    "src",
+    "test"
+  ]
 }

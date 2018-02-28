@@ -13,7 +13,6 @@ class PWSDK {
   private events = {};
 
   constructor(private origin: string, private instanceId: string) {
-
     if (window.top === window) {
       throw new Error('PWSDK can only work inside an iframe');
     }
