@@ -19,6 +19,10 @@ module.exports = function(config) {
       'test/**/*.spec.ts': ['rollup'],
     },
 
+    mime: {
+      'text/x-typescript': ['ts','tsx'],
+    },
+
     rollupPreprocessor: {
       plugins: [
         typescript(),
@@ -29,11 +33,12 @@ module.exports = function(config) {
       output: {
         format: 'iife',
         sourcemap: 'inline',        // Sensible for testing.
+        globals: {
+          chai: 'chai',
+          sinon: 'sinon',
+        },
       },
-      globals: {
-        chai: 'chai',
-        sinon: 'sinon',
-      },
+      external: ['chai', 'sinon'],
     },
   })
 }

@@ -4723,10 +4723,6 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-deferred@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/ts-deferred/-/ts-deferred-1.0.4.tgz#58145ebaeef5b8f2a290b8cec3d060839f9489c7"
-
 tslib@^1.9.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.0.tgz#e37a86fda8cbbaf23a057f473c9f4dc64e5fc2e8"
