@@ -1,95 +1,91 @@
 import Deferred from './defer';
-import { getParameterByName } from './utils';
+import { getParameterByName, log } from './utils';
 
 class PWSDK {
   public static init() {
-    const origin = getParameterByName('origin');
+    const parentOrigin = getParameterByName('origin');
     const instanceId = getParameterByName('instanceId');
 
-    return new PWSDK(origin, instanceId);
-  }
-
-  private deferred: any = {};
-  private events = {};
-
-  constructor(private origin: string, private instanceId: string) {
-    if (window.top === window) {
-      throw new Error('PWSDK can only work inside an iframe');
+    if (!PWSDK.checkEnvironment()) {
+      throw new Error('Environment checking does not pass.');
     }
 
-    window.addEventListener('message', (event) => {
-      if (event.origin === this.origin) {
-        if (this.deferred.getContext) {
-          this.deferred.getContext.resolve(event.data);
-          this.deferred.getContext = null;
-        }
-      }
-
-      switch (event.data.type) {
-        case 'closeWindow':
-          this.trigger('closeWindow', 'hey');
-          break;
-        case 'addButtonClicked':
-          this.trigger('addButtonClicked');
-          break;
-        case 'addNewConversation':
-          this.trigger('addNewConversation', event.data);
-          break;
-        default:
-          break;
-      }
-
-    }, false);
+    return new PWSDK(parentOrigin, instanceId);
   }
 
-  public postMessage(message) {
-    window.top.postMessage({
-      instanceId: this.instanceId,
-      // iframeOrigin: window.location.origin,
-      ...message,
-    }, this.origin);
+  public static checkEnvironment(): boolean {
+    // when the running environment is node.js, throwing error
+    if (typeof window === 'undefined') {
+      log('PWSDK can only run in browser environment');
+      return false;
+    }
+
+    if (window.top === window) {
+      log('PWSDK should be inside an iframe, otherwise it might not work as expected.');
+    }
+
+    return true;
+  }
+
+  /**
+   * store deferred queues by name
+   */
+  private deferredQueues: {[name: string]: Array<Deferred<any>>} = {};
+
+  /**
+   * store event callbacks by event name
+   */
+  private events: {[name: string]: Array<() => any>} = {};
+
+  constructor(private parentOrigin: string, private instanceId: string) {
+    this._listenMessage();
   }
 
   public getContext() {
-    this.deferred.getContext = new Deferred();
-    this.postMessage({
+    const deferred = new Deferred<any>();
+    this._enqueueDeferred('getContext', deferred);
+    this._postMessage({
       type: 'getContext',
     });
-    return this.deferred.getContext.promise;
+    return deferred.promise;
   }
 
-  public setAppUI(data) {
-    return new Promise((resolve) => {
-      this.deferred.setAppUI = { resolve };
-      this.postMessage({
-        type: 'setUI',
-        data,
-      });
+  public setAppUI(data: {}) {
+    this._postMessage({
+      type: 'setUI',
+      data,
     });
   }
 
   public showModal(params = {}) {
-    this.postMessage({
+    this._postMessage({
       type: 'showModal',
       params,
     });
   }
 
   public closeModal() {
-    this.postMessage({
+    this._postMessage({
       type: 'closeModal',
     });
   }
 
-  public proxyMessage(target, data = {}) {
-    this.postMessage({
+  /**
+   * Allows developer to send message to another instance of its app
+   * e.g. Sending data from modal to sidebar, so sidebar can display some data immediately
+   *
+   * @param target another instance/location of the app
+   * @param data
+   */
+  public proxyMessage(target: string, data = {}) {
+    this._postMessage({
       type: 'proxyMessage',
       target,
       data,
     });
   }
 
-  public on(eventName, cb) {
+  public on(eventName: string, cb: () => any) {
     if (!this.events[eventName]) {
       this.events[eventName] = [];
     }
@@ -97,11 +93,58 @@ class PWSDK {
     this.events[eventName].push(cb);
   }
 
-  public trigger(eventName, ...args) {
+  public trigger(eventName: string, data: {}) {
     if (this.events[eventName]) {
       this.events[eventName].forEach((cb) => {
-        cb.call(this, ...args);
+        cb.call(this, data);
       });
+    }
+  }
+
+  private _postMessage(message: {[name: string]: any}) {
+    window.top.postMessage({
+      instanceId: this.instanceId,
+      ...message,
+    }, this.parentOrigin);
+  }
+
+  private _listenMessage() {
+    window.addEventListener('message', (event: MessageEvent) => {
+      if (!this._isOriginValid(event)) {
+        return;
+      }
+
+      // if type is a deferred type, we resolve it
+      // otherwise we do something else
+      this._resolveDeferred(event.data.type, event.data);
+
+      // if event type exists, we pass the event to SDK
+      // so sdk user can subscribe those events
+      if (event.data.type) {
+        this.trigger(event.data.type, event.data);
+      }
+    }, false);
+  }
+
+  private _isOriginValid(event): boolean {
+    // only check origin for now
+    return event.origin === this.parentOrigin;
+  }
+
+  private _enqueueDeferred(queueName: string, deferred: Deferred<any>) {
+    if (!this.deferredQueues[queueName]) {
+      this.deferredQueues[queueName] = [];
+    }
+    this.deferredQueues[queueName].push(deferred);
+  }
+
+  private _resolveDeferred(queueName: string, data: any) {
+    if (!this.deferredQueues[queueName]) {
+      return;
+    }
+    const deferred = this.deferredQueues[queueName].shift();
+    if (deferred) {
+      deferred.resolve(data);
     }
   }
 }
