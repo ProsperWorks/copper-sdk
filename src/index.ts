@@ -2,6 +2,7 @@ import Deferred from './defer';
 import { getParameterByName, log } from './utils';
 
 class PWSDK {
+
   public static init() {
     const parentOrigin = getParameterByName('origin');
     const instanceId = getParameterByName('instanceId');
@@ -38,6 +39,10 @@ class PWSDK {
   private events: {[name: string]: Array<() => any>} = {};
 
   constructor(private parentOrigin: string, private instanceId: string) {
+    if (!this.parentOrigin || !this.instanceId) {
+      throw new Error('parentOrigin or instanceId is empty');
+    }
+
     this._listenMessage();
   }
 
@@ -126,7 +131,7 @@ class PWSDK {
     }, false);
   }
 
-  private _isOriginValid(event): boolean {
+  private _isOriginValid(event: MessageEvent): boolean {
     // only check origin for now
     return event.origin === this.parentOrigin;
   }
