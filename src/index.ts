@@ -38,12 +38,24 @@ class PWSDK {
    */
   private events: {[name: string]: Array<() => any>} = {};
 
-  constructor(private parentOrigin: string, private instanceId: string) {
+  /**
+   * Creates an instance of PWSDK.
+   * @param {*} [_win=window] has to be any type to support testing
+   * @memberof PWSDK
+   */
+  constructor(
+    private parentOrigin: string,
+    private instanceId: string,
+    private _win: any = window) {
     if (!this.parentOrigin || !this.instanceId) {
       throw new Error('parentOrigin or instanceId is empty');
     }
 
     this._listenMessage();
+  }
+
+  public get win(): Window {
+    return this._win;
   }
 
   public getContext() {
@@ -107,14 +119,14 @@ class PWSDK {
   }
 
   private _postMessage(message: {[name: string]: any}) {
-    window.top.postMessage({
+    this.win.top.postMessage({
       instanceId: this.instanceId,
       ...message,
     }, this.parentOrigin);
   }
 
   private _listenMessage() {
-    window.addEventListener('message', (event: MessageEvent) => {
+    this.win.addEventListener('message', (event: MessageEvent) => {
       if (!this._isOriginValid(event)) {
         return;
       }
