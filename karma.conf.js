@@ -1,13 +1,13 @@
 const replace = require('rollup-plugin-replace')
 const typescript = require('rollup-plugin-typescript2')
 const json = require('rollup-plugin-json')
+const istanbul = require('rollup-plugin-istanbul')
 
 const env = process.env.NODE_ENV
 module.exports = function(config) {
   config.set({
     frameworks: ['mocha', 'chai', 'sinon'],
     files: ['test/**/*.spec.ts'],
-    reporters: ['mocha'],
     port: 9876,  // karma web server port
     colors: true,
     logLevel: config.LOG_INFO,
@@ -33,6 +33,9 @@ module.exports = function(config) {
           'process.env.NODE_ENV': JSON.stringify(env),
         }),
         json(),
+        istanbul({
+          exclude: ['test/**/*.ts'],
+        }),
       ],
       output: {
         format: 'iife',
@@ -43,6 +46,13 @@ module.exports = function(config) {
         },
       },
       external: ['chai', 'sinon'],
+    },
+
+    reporters: ['mocha', 'coverage-istanbul'],
+
+    coverageIstanbulReporter: {
+      dir: 'coverage',
+      reports: ['html', 'lcovonly', 'text-summary'],
     },
   })
 }
