@@ -1,6 +1,6 @@
 {
   "name": "pw-app-sdk",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "ProsperWorks App SDK",
   "main": "lib/pwsdk.js",
   "module": "es/pwsdk.js",
