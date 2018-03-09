@@ -15,13 +15,7 @@ if (compileEnv === 'es')  {
   }
 
   config.plugins.push(
-    typescript({
-      tsconfigOverride: {
-        compilerOptions: {
-          target: 'es2017',
-        },
-      },
-    })
+    typescript()
   )
 }
 
