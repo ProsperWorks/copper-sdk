@@ -12,19 +12,9 @@ const config = {
   ],
 }
 
-if (compileEnv === 'es')  {
+if (compileEnv === 'es' || compileEnv === 'cjs')  {
   config.output = {
-    format: 'es',
-  }
-
-  config.plugins.push(
-    typescript()
-  )
-}
-
-if (compileEnv === 'cjs')  {
-  config.output = {
-    format: 'cjs',
+    format: compileEnv,
   }
 
   config.plugins.push(
