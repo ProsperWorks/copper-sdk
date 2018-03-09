@@ -146,5 +146,67 @@ describe('PWSDK', function () {
         assert(spy1.calledWithMatch(sinon.match.has('yo', 42)));
       });
     });
+
+    context('message handler', function () {
+      it('should not respond to message from unknown origin', function () {
+        const spy = sinon.spy(sdk, 'trigger');
+        window.dispatchEvent(new MessageEvent('message', {
+          origin: 'https://otherorigin.com',
+          data: {
+            type: 'myType',
+            context: {
+              id: '1',
+              name: 'Alice',
+            },
+          },
+        }));
+        assert(spy.notCalled);
+        spy.restore();
+      });
+
+      it('should not trigger if message does not have type', function () {
+        const spy = sinon.spy(sdk, 'trigger');
+        window.dispatchEvent(new MessageEvent('message', {
+          origin,
+          data: {
+            foo: 'bar',
+          },
+        }));
+        assert(spy.notCalled);
+        spy.restore();
+      });
+    });
+
+    context('deferredQueue', function () {
+      it('should resolve based on fifo', async function () {
+        const contexts = [
+          { id: '1', name: 'Alice' },
+          { id: '2', name: 'Bob' },
+        ];
+        let count = 0;
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(new MessageEvent('message', {
+            origin,
+            data: {
+              type: 'getContext',
+              context: contexts[count++],
+            },
+          }));
+        });
+
+        expect(sdk.deferredQueues.getContext).to.be.undefined;
+
+        const [data1, data2] = await Promise.all([
+          sdk.getContext(),
+          sdk.getContext(),
+        ]);
+
+        expect(data1.context).to.eql(contexts[0]);
+        expect(data2.context).to.eql(contexts[1]);
+        expect(sdk.deferredQueues.getContext).to.be.an('array')
+          .that.has.length(0);
+      });
+    });
   });
+
 });
