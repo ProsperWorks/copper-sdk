@@ -17,3 +17,13 @@ export function getParameterByName(name: string, url = ''): string {
 export function log(...msg): void {
   console.log(...msg); // tslint:disable-line
 }
+
+/**
+ * This method has side effect,
+ * it will alter the obj passed in
+ */
+export function createArrayWhenEmpty<T>(obj: { [key: string]: T[] }, name: string): void {
+  if (!obj[name]) {
+    obj[name] = [];
+  }
+}

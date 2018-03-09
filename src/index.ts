@@ -1,6 +1,10 @@
 import { version } from '../package.json';
 import Deferred from './defer';
-import { getParameterByName, log } from './utils';
+import {
+  createArrayWhenEmpty,
+  getParameterByName,
+  log,
+} from './utils';
 
 class PWSDK {
 
@@ -53,7 +57,7 @@ class PWSDK {
     private instanceId: string,
     private _win: any = window) {
     if (!this.parentOrigin || !this.instanceId) {
-      throw new Error('parentOrigin or instanceId is empty');
+      throw new TypeError('parentOrigin or instanceId is empty');
     }
 
     this._listenMessage();
@@ -97,10 +101,7 @@ class PWSDK {
   }
 
   public on(eventName: string, cb: () => any) {
-    if (!this.events[eventName]) {
-      this.events[eventName] = [];
-    }
-
+    createArrayWhenEmpty(this.events, eventName);
     this.events[eventName].push(cb);
   }
 
@@ -149,9 +150,7 @@ class PWSDK {
   }
 
   private _enqueueDeferred(queueName: string, deferred: Deferred<any>) {
-    if (!this.deferredQueues[queueName]) {
-      this.deferredQueues[queueName] = [];
-    }
+    createArrayWhenEmpty(this.deferredQueues, queueName);
     this.deferredQueues[queueName].push(deferred);
   }
 

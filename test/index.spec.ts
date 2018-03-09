@@ -2,27 +2,39 @@ import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { version } from '../package.json';
 import PWSDK from '../src/index';
-import { getParameterByName, log } from '../src/utils';
 
 describe('PWSDK', function () {
 
-  context('when checking environment', function () {
-    it('should show log when it\'s not in iframe', function () {
-      const stub = sinon.stub(window, 'top');
-      stub.returns(window);
-      const spy = sinon.spy(log);
-
-      assert(PWSDK.checkEnvironment());
-      spy.calledOnce;
+  context('when init', function () {
+    it('should throw error if invalid arguments', function () {
+      expect(() => {
+        PWSDK.init();
+      }).to.throw(TypeError, 'parentOrigin or instanceId is empty');
     });
+  });
 
-    it('should not log when it\'s in iframe', function () {
-      const stub = sinon.stub(window, 'top');
-      stub.returns({});
-      const spy = sinon.spy(log);
-
+  context('when checking environment', function () {
+    it('should show log depends on if in iframe or not', function () {
+      const isTop = window.top === window;
+      const spy = sinon.spy(console, 'log');
       assert(PWSDK.checkEnvironment());
-      spy.notCalled;
+      expect(spy.calledOnce).to.equal(isTop);
+      spy.restore();
+    });
+  });
+
+  context('when checking version', function () {
+    it('should be the same as the version from package.json', function () {
+      expect(PWSDK.version).to.equal(version);
+    });
+  });
+
+  context('when create new instance', function () {
+    it('should throw if not enough parameter', function () {
+      expect(() => {
+        // need to cast it to any so typescript won't throw error
+        const sdk = new (PWSDK as any)(); // tslint:disable-line
+      }).to.throw(TypeError, 'parentOrigin or instanceId is empty');
     });
   });
 
@@ -144,6 +156,17 @@ describe('PWSDK', function () {
 
         assert(spy1.calledTwice);
         assert(spy1.calledWithMatch(sinon.match.has('yo', 42)));
+      });
+
+      it('should trigger all callback subscribed to one event', function () {
+        const spy1 = sinon.spy();
+        const spy2 = sinon.spy();
+        sdk.on('myevent1', spy1);
+        sdk.on('myevent1', spy2);
+        sdk.trigger('myevent1', { yo: 42 });
+
+        assert(spy1.calledWithMatch(sinon.match.has('yo', 42)));
+        assert(spy2.calledWithMatch(sinon.match.has('yo', 42)));
       });
     });
 
