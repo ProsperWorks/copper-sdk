@@ -1,5 +1,6 @@
 const replace = require('rollup-plugin-replace')
 const typescript = require('rollup-plugin-typescript2')
+const json = require('rollup-plugin-json')
 
 const env = process.env.NODE_ENV
 module.exports = function(config) {
@@ -31,6 +32,7 @@ module.exports = function(config) {
         replace({
           'process.env.NODE_ENV': JSON.stringify(env),
         }),
+        json(),
       ],
       output: {
         format: 'iife',

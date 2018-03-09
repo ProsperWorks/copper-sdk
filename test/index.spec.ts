@@ -1,5 +1,6 @@
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
+import { version } from '../package.json';
 import PWSDK from '../src/index';
 import { getParameterByName, log } from '../src/utils';
 
@@ -77,6 +78,7 @@ describe('PWSDK', function () {
           return expect(value).to.eql({
             type: 'setUI',
             instanceId,
+            version,
             data: {
               count: 0,
             },
@@ -92,6 +94,7 @@ describe('PWSDK', function () {
           return expect(value).to.eql({
             type: 'showModal',
             instanceId,
+            version,
             params: {
               name: 'Alice',
             },
@@ -107,6 +110,7 @@ describe('PWSDK', function () {
           return expect(value).to.eql({
             type: 'closeModal',
             instanceId,
+            version,
           });
         }));
       });
@@ -121,6 +125,7 @@ describe('PWSDK', function () {
           return expect(value).to.eql({
             type: 'proxyMessage',
             instanceId,
+            version,
             target: 'target',
             data: {
               yo: 42,

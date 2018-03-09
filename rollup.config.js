@@ -1,12 +1,15 @@
 import replace from 'rollup-plugin-replace'
 import typescript from 'rollup-plugin-typescript2'
 import uglify from 'rollup-plugin-uglify'
+import json from 'rollup-plugin-json'
 
 const env = process.env.NODE_ENV
 const compileEnv = process.env.COMPILE_ENV || 'umd'
 const config = {
   input: 'src/index.ts',
-  plugins: [],
+  plugins: [
+    json(),
+  ],
 }
 
 if (compileEnv === 'es')  {

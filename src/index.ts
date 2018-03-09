@@ -1,3 +1,4 @@
+import { version } from '../package.json';
 import Deferred from './defer';
 import { getParameterByName, log } from './utils';
 
@@ -26,6 +27,10 @@ class PWSDK {
     }
 
     return true;
+  }
+
+  public static get version() {
+    return version;
   }
 
   /**
@@ -61,30 +66,20 @@ class PWSDK {
   public getContext() {
     const deferred = new Deferred<any>();
     this._enqueueDeferred('getContext', deferred);
-    this._postMessage({
-      type: 'getContext',
-    });
+    this._postMessage('getContext');
     return deferred.promise;
   }
 
   public setAppUI(data: {}) {
-    this._postMessage({
-      type: 'setUI',
-      data,
-    });
+    this._postMessage('setUI', { data });
   }
 
   public showModal(params = {}) {
-    this._postMessage({
-      type: 'showModal',
-      params,
-    });
+    this._postMessage('showModal', { params });
   }
 
   public closeModal() {
-    this._postMessage({
-      type: 'closeModal',
-    });
+    this._postMessage('closeModal');
   }
 
   /**
@@ -95,8 +90,7 @@ class PWSDK {
    * @param data
    */
   public proxyMessage(target: string, data = {}) {
-    this._postMessage({
-      type: 'proxyMessage',
+    this._postMessage('proxyMessage', {
       target,
       data,
     });
@@ -118,10 +112,16 @@ class PWSDK {
     }
   }
 
-  private _postMessage(message: {[name: string]: any}) {
+  private _postMessage(type: string, message: {[name: string]: any} = {}) {
     this.win.top.postMessage({
-      instanceId: this.instanceId,
+      // actual messages
       ...message,
+      // as a credential to the parent frame, so parent frame can recoganize the origin
+      instanceId: this.instanceId,
+      // tell parent frame current sdk version
+      version,
+      // type of message
+      type,
     }, this.parentOrigin);
   }
 
