@@ -31,7 +31,7 @@ export default class EntityModel implements IEntityModel {
     editableFields: string[],
     onSave: (model: EntityModel) => Promise<IContextData>,
   ) {
-    const propertyDefinitions: { [name: string]: IPropertyDefinition } = {};
+    const propertyDefinitions = this._getEntityDataDefinition(entityData, editableFields);
 
     // override the type getter
     // we don't want type to be enumerable
@@ -48,7 +48,6 @@ export default class EntityModel implements IEntityModel {
       value: onSave,
     };
 
-    Object.assign(propertyDefinitions, this._getEntityDataDefinition(entityData, editableFields));
     Object.defineProperties(this, propertyDefinitions);
   }
 
