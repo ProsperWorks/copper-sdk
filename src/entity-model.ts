@@ -29,6 +29,39 @@ export default class EntityModel implements IEntityModel {
     editableFields: string[],
     onSave: (model: EntityModel) => Promise<IContextData>,
   ) {
+    this._init(type, entityData, editableFields, onSave);
+  }
+
+  public get type() {
+    return 'type';
+  }
+
+  public async save(): Promise<IContextData> {
+    return await this._onSave(this);
+  }
+
+  public toJSON() {
+    return JSON.stringify(this.toObject());
+  }
+
+  public toObject() {
+    const obj: any = {};
+    Object.keys(this).forEach((key) => {
+      obj[key] = (this as IEntityModel)[key];
+    });
+    return obj;
+  }
+
+  private async _onSave(model: EntityModel) {
+    return {} as IContextData;
+  }
+
+  private _init(
+    type: string,
+    entityData: { [name: string]: any },
+    editableFields: string[],
+    onSave: (model: EntityModel) => Promise<IContextData>,
+  ) {
     const propertyDefinitions: { [name: string]: IPropertyDefinition } = {};
 
     // override the type getter
@@ -67,29 +100,5 @@ export default class EntityModel implements IEntityModel {
     });
 
     Object.defineProperties(this, propertyDefinitions);
-  }
-
-  public get type() {
-    return 'type';
-  }
-
-  public async save(): Promise<IContextData> {
-    return await this._onSave(this);
-  }
-
-  public toJSON() {
-    return JSON.stringify(this.toObject());
-  }
-
-  public toObject() {
-    const obj: any = {};
-    Object.keys(this).forEach((key) => {
-      obj[key] = (this as IEntityModel)[key];
-    });
-    return obj;
-  }
-
-  private async _onSave(model: EntityModel) {
-    return {} as IContextData;
   }
 }
