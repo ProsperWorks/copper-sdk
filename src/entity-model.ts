@@ -11,7 +11,6 @@ interface IPropertyDefinition {
 // TODO
 // create interface per entity and write down all fields
 export interface IEntityModel {
-  type: string;
   [propName: string]: any;
 
   save(): Promise<IContextData>;
@@ -51,9 +50,7 @@ export default class EntityModel implements IEntityModel {
     Object.defineProperties(this, propertyDefinitions);
   }
 
-  public get type() {
-    return 'type';
-  }
+  [propName: string]: any;
 
   public async save(): Promise<IContextData> {
     return await this._onSave(this);
@@ -66,13 +63,9 @@ export default class EntityModel implements IEntityModel {
   public toObject() {
     const obj: any = {};
     Object.keys(this).forEach((key) => {
-      obj[key] = (this as IEntityModel)[key];
+      obj[key] = this[key];
     });
     return obj;
-  }
-
-  private async _onSave(model: EntityModel) {
-    return {} as IContextData;
   }
 
   private _getEntityDataDefinition(entityData: { [name: string]: any }, editableFields: string[]) {
