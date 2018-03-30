@@ -14,7 +14,7 @@ export function getParameterByName(name: string, url = ''): string {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-export function log(...msg): void {
+export function log(...msg: any[]): void {
   console.log(...msg); // tslint:disable-line
 }
 

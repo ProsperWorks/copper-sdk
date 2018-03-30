@@ -18,6 +18,8 @@
     "build:es": "cross-env COMPILE_ENV=es rollup -c -o es/pwsdk.js",
     "build:commonjs": "cross-env COMPILE_ENV=cjs rollup -c -o lib/pwsdk.js",
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "dev:commonjs": "cross-env COMPILE_ENV=cjs rollup -c -w -o lib/pwsdk.js",
+    "dev:es": "cross-env COMPILE_ENV=es rollup -c -w -o es/pwsdk.js",
     "test": "karma start --single-run",
     "test:dev": "karma start --auto-watch",
     "lint": "tslint src/**/*.ts test/**/*.ts",

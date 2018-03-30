@@ -1,14 +1,30 @@
 import { version } from '../package.json';
 import Deferred from './defer';
-import EntityModel from './entity-model';
-import {
-  createArrayWhenEmpty,
-  getParameterByName,
-  log,
-} from './utils';
+import EntityModel, { IContextData } from './entity-model';
+import { createArrayWhenEmpty, getParameterByName, log } from './utils';
 
-class PWSDK {
+export interface IMessageData {
+  type: string;
+  data?: any;
+}
 
+export interface IContextMessageData extends IMessageData {
+  data: {
+    entityType: string;
+    entityData: object;
+    editableFields: string[];
+  };
+}
+
+export interface IPostMessageData {
+  type: string;
+  instanceId: string;
+  version: string;
+  params?: {[name: string]: string};
+  [propName: string]: any;
+}
+
+export default class PWSDK {
   public static init() {
     const parentOrigin = getParameterByName('origin');
     const instanceId = getParameterByName('instanceId');
@@ -41,12 +57,12 @@ class PWSDK {
   /**
    * store deferred queues by name
    */
-  private deferredQueues: {[name: string]: Array<Deferred<any>>} = {};
+  private deferredQueues: { [name: string]: Array<Deferred<IMessageData>> } = {};
 
   /**
    * store event callbacks by event name
    */
-  private events: {[name: string]: Array<() => any>} = {};
+  private events: { [name: string]: Array<() => any> } = {};
 
   /**
    * Creates an instance of PWSDK.
@@ -56,7 +72,8 @@ class PWSDK {
   constructor(
     private parentOrigin: string,
     private instanceId: string,
-    private _win: any = window) {
+    private _win: any = window,
+  ) {
     if (!this.parentOrigin || !this.instanceId) {
       throw new TypeError('parentOrigin or instanceId is empty');
     }
@@ -69,17 +86,22 @@ class PWSDK {
   }
 
   public getContext() {
-    const deferred = new Deferred<any>();
+    const deferred = new Deferred<IContextData>();
     this._enqueueDeferred('getContext', deferred);
     this._postMessage('getContext');
-    return deferred.promise
-      .then(({type, data: {entityType, entityData, editableFields} }) => {
-        const context = new EntityModel(type, entityData, editableFields, this._saveContext.bind(this));
-        return {
-          type: entityType,
-          context,
-        };
-      });
+    return deferred.promise.then(this._createContextModel.bind(this));
+  }
+
+  public saveContext(context: EntityModel) {
+    const deferred = new Deferred<IContextData>();
+    this._enqueueDeferred('saveContext', deferred);
+    this._postMessage('saveContext', {
+      data: {
+        entityType: context.type,
+        entityData: context.toObject(),
+      },
+    });
+    return deferred.promise.then(this._createContextModel.bind(this));
   }
 
   public setAppUI(data: {}) {
@@ -121,35 +143,42 @@ class PWSDK {
     }
   }
 
-  private _postMessage(type: string, message: {[name: string]: any} = {}) {
-    this.win.top.postMessage({
-      // actual messages
-      ...message,
-      // as a credential to the parent frame, so parent frame can recoganize the origin
-      instanceId: this.instanceId,
-      // tell parent frame current sdk version
-      version,
-      // type of message
-      type,
-    }, this.parentOrigin);
+  private _postMessage(type: string, message: { [name: string]: any } = {}) {
+    this.win.top.postMessage(
+      {
+        // actual messages
+        ...message,
+        // as a credential to the parent frame, so parent frame can recoganize the origin
+        instanceId: this.instanceId,
+        // tell parent frame current sdk version
+        version,
+        // type of message
+        type,
+      },
+      this.parentOrigin,
+    );
   }
 
   private _listenMessage() {
-    this.win.addEventListener('message', (event: MessageEvent) => {
-      if (!this._isOriginValid(event)) {
-        return;
-      }
+    this.win.addEventListener(
+      'message',
+      (event: MessageEvent) => {
+        if (!this._isOriginValid(event)) {
+          return;
+        }
 
-      // if type is a deferred type, we resolve it
-      // otherwise we do something else
-      this._resolveDeferred(event.data.type, event.data);
+        // if type is a deferred type, we resolve it
+        // otherwise we do something else
+        this._resolveDeferred(event.data.type, event.data as IMessageData);
 
-      // if event type exists, we pass the event to SDK
-      // so sdk user can subscribe those events
-      if (event.data.type) {
-        this.trigger(event.data.type, event.data);
-      }
-    }, false);
+        // if event type exists, we pass the event to SDK
+        // so sdk user can subscribe those events
+        if (event.data.type) {
+          this.trigger(event.data.type, event.data);
+        }
+      },
+      false,
+    );
   }
 
   private _isOriginValid(event: MessageEvent): boolean {
@@ -157,12 +186,12 @@ class PWSDK {
     return event.origin === this.parentOrigin;
   }
 
-  private _enqueueDeferred(queueName: string, deferred: Deferred<any>) {
+  private _enqueueDeferred(queueName: string, deferred: Deferred<IMessageData>) {
     createArrayWhenEmpty(this.deferredQueues, queueName);
     this.deferredQueues[queueName].push(deferred);
   }
 
-  private _resolveDeferred(queueName: string, data: any) {
+  private _resolveDeferred(queueName: string, data: IMessageData) {
     if (!this.deferredQueues[queueName]) {
       return;
     }
@@ -172,17 +201,19 @@ class PWSDK {
     }
   }
 
-  private _saveContext(context: EntityModel) {
-    const deferred = new Deferred<any>();
-    this._enqueueDeferred('saveContext', deferred);
-    this._postMessage('saveContext', {
-      data: {
-        entityType: context.type,
-        entityData: JSON.stringify(context),
-      },
-    });
-    return deferred.promise;
+  private _createContextModel({
+    type,
+    data: { entityType, entityData, editableFields },
+  }: IContextMessageData): IContextData {
+    const context = new EntityModel(
+      entityType,
+      entityData,
+      editableFields,
+      this.saveContext.bind(this),
+    );
+    return {
+      type: entityType,
+      context,
+    };
   }
 }
-
-export default PWSDK;

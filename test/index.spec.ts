@@ -1,10 +1,9 @@
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { version } from '../package.json';
-import PWSDK from '../src/index';
+import PWSDK, { IPostMessageData } from '../src/index';
 
 describe('PWSDK', function () {
-
   context('when init', function () {
     it('should throw error if invalid arguments', function () {
       expect(() => {
@@ -39,8 +38,8 @@ describe('PWSDK', function () {
   });
 
   context('when using sdk public methods', function () {
-    let sdk;
-    let win;
+    let sdk: PWSDK;
+    let win: any;
 
     const origin = 'https://prosperworks.com';
     const instanceId = '1';
@@ -55,28 +54,26 @@ describe('PWSDK', function () {
       sdk = new PWSDK(origin, instanceId, win);
     });
 
-    after(function () {
-      sdk = null;
-      win = null;
-    });
-
     context('#getContext', function () {
       it('should be able to get context from parent', async function () {
         win.top.postMessage.callsFake(function () {
-          window.dispatchEvent(new MessageEvent('message', {
-            origin,
-            data: {
-              type: 'getContext',
-              context: {
-                id: '1',
-                name: 'Alice',
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'getContext',
+                data: {
+                  entityType: 'person',
+                  entityData: { id: '1', name: 'Alice' },
+                  editableFields: ['name'],
+                },
               },
-            },
-          }));
+            }),
+          );
         });
         const data = await sdk.getContext();
-        expect(data.type).to.equal('getContext');
-        expect(data.context).to.eql({
+        expect(data.type).to.equal('person');
+        expect(data.context.toObject()).to.eql({
           id: '1',
           name: 'Alice',
         });
@@ -86,45 +83,51 @@ describe('PWSDK', function () {
     context('#setAppUI', function () {
       it('should be able to receive ui settings', function () {
         sdk.setAppUI({ count: 0 });
-        win.top.postMessage.calledWith(sinon.match((value) => {
-          return expect(value).to.eql({
-            type: 'setUI',
-            instanceId,
-            version,
-            data: {
-              count: 0,
-            },
-          });
-        }));
+        win.top.postMessage.calledWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'setUI',
+              instanceId,
+              version,
+              data: {
+                count: 0,
+              },
+            });
+          }),
+        );
       });
     });
 
     context('#showModal', function () {
       it('should be able to show modal', function () {
         sdk.showModal({ name: 'Alice' });
-        win.top.postMessage.calledWith(sinon.match((value) => {
-          return expect(value).to.eql({
-            type: 'showModal',
-            instanceId,
-            version,
-            params: {
-              name: 'Alice',
-            },
-          });
-        }));
+        win.top.postMessage.calledWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'showModal',
+              instanceId,
+              version,
+              params: {
+                name: 'Alice',
+              },
+            });
+          }),
+        );
       });
     });
 
     context('#closeModal', function () {
       it('should be able to close modal', function () {
         sdk.closeModal();
-        win.top.postMessage.calledWith(sinon.match((value) => {
-          return expect(value).to.eql({
-            type: 'closeModal',
-            instanceId,
-            version,
-          });
-        }));
+        win.top.postMessage.calledWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'closeModal',
+              instanceId,
+              version,
+            });
+          }),
+        );
       });
     });
 
@@ -133,17 +136,19 @@ describe('PWSDK', function () {
         sdk.proxyMessage('target', {
           yo: 42,
         });
-        win.top.postMessage.calledWith(sinon.match((value) => {
-          return expect(value).to.eql({
-            type: 'proxyMessage',
-            instanceId,
-            version,
-            target: 'target',
-            data: {
-              yo: 42,
-            },
-          });
-        }));
+        win.top.postMessage.calledWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'proxyMessage',
+              instanceId,
+              version,
+              target: 'target',
+              data: {
+                yo: 42,
+              },
+            });
+          }),
+        );
       });
     });
 
@@ -173,28 +178,32 @@ describe('PWSDK', function () {
     context('message handler', function () {
       it('should not respond to message from unknown origin', function () {
         const spy = sinon.spy(sdk, 'trigger');
-        window.dispatchEvent(new MessageEvent('message', {
-          origin: 'https://otherorigin.com',
-          data: {
-            type: 'myType',
-            context: {
-              id: '1',
-              name: 'Alice',
+        window.dispatchEvent(
+          new MessageEvent('message', {
+            origin: 'https://otherorigin.com',
+            data: {
+              type: 'myType',
+              context: {
+                id: '1',
+                name: 'Alice',
+              },
             },
-          },
-        }));
+          }),
+        );
         assert(spy.notCalled);
         spy.restore();
       });
 
       it('should not trigger if message does not have type', function () {
         const spy = sinon.spy(sdk, 'trigger');
-        window.dispatchEvent(new MessageEvent('message', {
-          origin,
-          data: {
-            foo: 'bar',
-          },
-        }));
+        window.dispatchEvent(
+          new MessageEvent('message', {
+            origin,
+            data: {
+              foo: 'bar',
+            },
+          }),
+        );
         assert(spy.notCalled);
         spy.restore();
       });
@@ -202,34 +211,34 @@ describe('PWSDK', function () {
 
     context('deferredQueue', function () {
       it('should resolve based on fifo', async function () {
-        const contexts = [
-          { id: '1', name: 'Alice' },
-          { id: '2', name: 'Bob' },
+        const data = [
+          { entityType: 'foo', entityData: { id: '1', name: 'Alice' }, editableFields: ['name'] },
+          { entityType: 'bar', entityData: { id: '2', name: 'Bob' }, editableFields: ['name'] },
         ];
         let count = 0;
         win.top.postMessage.callsFake(function () {
-          window.dispatchEvent(new MessageEvent('message', {
-            origin,
-            data: {
-              type: 'getContext',
-              context: contexts[count++],
-            },
-          }));
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'getContext',
+                data: data[count++],
+              },
+            }),
+          );
         });
 
-        expect(sdk.deferredQueues.getContext).to.be.undefined;
+        // allow us to access private method
+        expect((sdk as any).deferredQueues.getContext).to.be.undefined;
 
-        const [data1, data2] = await Promise.all([
-          sdk.getContext(),
-          sdk.getContext(),
-        ]);
+        const [data1, data2] = await Promise.all([sdk.getContext(), sdk.getContext()]);
 
-        expect(data1.context).to.eql(contexts[0]);
-        expect(data2.context).to.eql(contexts[1]);
-        expect(sdk.deferredQueues.getContext).to.be.an('array')
+        expect(data1.context.toObject()).to.eql(data[0].entityData);
+        expect(data2.context.toObject()).to.eql(data[1].entityData);
+        expect((sdk as any).deferredQueues.getContext)
+          .to.be.an('array')
           .that.has.length(0);
       });
     });
   });
-
 });
