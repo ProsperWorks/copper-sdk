@@ -9,6 +9,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "strictNullChecks": true,
     "moduleResolution": "node"
   },
