@@ -29,7 +29,25 @@ export default class EntityModel implements IEntityModel {
     editableFields: string[],
     onSave: (model: EntityModel) => Promise<IContextData>,
   ) {
-    this._init(type, entityData, editableFields, onSave);
+    const propertyDefinitions: { [name: string]: IPropertyDefinition } = {};
+
+    // override the type getter
+    // we don't want type to be enumerable
+    // since we want to be aligned with developer api
+    propertyDefinitions.type = {
+      enumerable: false,
+      writable: false,
+      value: type,
+    };
+
+    // override _onSave function
+    propertyDefinitions._onSave = {
+      enumerable: false,
+      value: onSave,
+    };
+
+    Object.assign(propertyDefinitions, this._getEntityDataDefinition(entityData, editableFields));
+    Object.defineProperties(this, propertyDefinitions);
   }
 
   public get type() {
@@ -56,29 +74,8 @@ export default class EntityModel implements IEntityModel {
     return {} as IContextData;
   }
 
-  private _init(
-    type: string,
-    entityData: { [name: string]: any },
-    editableFields: string[],
-    onSave: (model: EntityModel) => Promise<IContextData>,
-  ) {
+  private _getEntityDataDefinition(entityData: { [name: string]: any }, editableFields: string[]) {
     const propertyDefinitions: { [name: string]: IPropertyDefinition } = {};
-
-    // override the type getter
-    // we don't want type to be enumerable
-    // since we want to be aligned with developer api
-    propertyDefinitions.type = {
-      enumerable: false,
-      writable: false,
-      value: type,
-    };
-
-    // override _onSave function
-    propertyDefinitions._onSave = {
-      enumerable: false,
-      value: onSave,
-    };
-
     Object.keys(entityData).forEach((key) => {
       if (editableFields.indexOf(key) === -1) {
         propertyDefinitions[key] = {
@@ -98,7 +95,6 @@ export default class EntityModel implements IEntityModel {
         };
       }
     });
-
-    Object.defineProperties(this, propertyDefinitions);
+    return propertyDefinitions;
   }
 }
