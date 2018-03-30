@@ -1,5 +1,6 @@
 import { version } from '../package.json';
 import Deferred from './defer';
+import EntityModel from './entity-model';
 import {
   createArrayWhenEmpty,
   getParameterByName,
@@ -71,7 +72,14 @@ class PWSDK {
     const deferred = new Deferred<any>();
     this._enqueueDeferred('getContext', deferred);
     this._postMessage('getContext');
-    return deferred.promise;
+    return deferred.promise
+      .then(({type, data: {entityType, entityData, editableFields} }) => {
+        const context = new EntityModel(type, entityData, editableFields, this._saveContext.bind(this));
+        return {
+          type: entityType,
+          context,
+        };
+      });
   }
 
   public setAppUI(data: {}) {
@@ -162,6 +170,18 @@ class PWSDK {
     if (deferred) {
       deferred.resolve(data);
     }
+  }
+
+  private _saveContext(context: EntityModel) {
+    const deferred = new Deferred<any>();
+    this._enqueueDeferred('saveContext', deferred);
+    this._postMessage('saveContext', {
+      data: {
+        entityType: context.type,
+        entityData: JSON.stringify(context),
+      },
+    });
+    return deferred.promise;
   }
 }
 
