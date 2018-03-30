@@ -8,6 +8,8 @@ interface IPropertyDefinition {
   writable?: boolean;
 }
 
+// TODO
+// create interface per entity and write down all fields
 export interface IEntityModel {
   type: string;
   [propName: string]: any;
