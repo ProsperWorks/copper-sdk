@@ -3,22 +3,21 @@ import Deferred from './defer';
 import EntityModel, { IContextData } from './entity-model';
 import { createArrayWhenEmpty, getParameterByName, log } from './utils';
 
-export interface IApiOptions {
-  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  headers?: { [header: string]: string };
-  body?: string;
+interface IContextMessageData {
+  entityType: string;
+  entityData: object;
+  editableFields: string[];
 }
 
-export interface IMessageData {
+interface IMessageData {
   type: string;
   error?: string;
   data?: any;
 }
 
-export interface IContextMessageData {
-  entityType: string;
-  entityData: object;
-  editableFields: string[];
+export interface IApiOptions {
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  body?: string;
 }
 
 export interface IPostMessageData {
@@ -152,7 +151,22 @@ export default class PWSDK {
 
   public api(url: string, options?: IApiOptions) {
     if (!url) {
-      return Promise.reject('Url cannot be empty');
+      return Promise.reject({
+        id: 'sdk-api',
+        version: PWSDK.version,
+        detail: 'url cannot be empty',
+      });
+    }
+    if (options && options.body) {
+      try {
+        JSON.parse(options.body);
+      } catch (e) {
+        return Promise.reject({
+          id: 'sdk-api',
+          version: PWSDK.version,
+          detail: 'body must be a valid JSON string',
+        });
+      }
     }
     const deferred = new Deferred<any>();
     this._enqueueDeferred('api', deferred);
