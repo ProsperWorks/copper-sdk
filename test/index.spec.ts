@@ -131,20 +131,23 @@ describe('PWSDK', function () {
       });
     });
 
-    context('#proxyMessage', function () {
+    context('#publishMessage', function () {
       it('should be able to close modal', function () {
-        sdk.proxyMessage('target', {
+        sdk.publishMessage('closeModal', 'target', {
           yo: 42,
         });
         win.top.postMessage.calledWith(
           sinon.match((value: IPostMessageData) => {
             return expect(value).to.eql({
-              type: 'proxyMessage',
+              type: 'publishMessage',
               instanceId,
               version,
               target: 'target',
               data: {
-                yo: 42,
+                type: 'closeModal',
+                msg: {
+                  yo: 42,
+                },
               },
             });
           }),

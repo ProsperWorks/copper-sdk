@@ -20,7 +20,7 @@ export interface IPostMessageData {
   type: string;
   instanceId: string;
   version: string;
-  params?: {[name: string]: string};
+  params?: { [name: string]: string };
   [propName: string]: any;
 }
 
@@ -120,13 +120,15 @@ export default class PWSDK {
    * Allows developer to send message to another instance of its app
    * e.g. Sending data from modal to sidebar, so sidebar can display some data immediately
    *
-   * @param target another instance/location of the app
-   * @param data
+   * @param target another instance/location of the app. '*' means broadcast to all other locations.
    */
-  public proxyMessage(target: string, data = {}) {
-    this._postMessage('proxyMessage', {
+  public publishMessage(messageType: string, target: string, msg = {}) {
+    this._postMessage('publishMessage', {
       target,
-      data,
+      data: {
+        type: messageType,
+        msg,
+      },
     });
   }
 
@@ -174,7 +176,7 @@ export default class PWSDK {
         // if event type exists, we pass the event to SDK
         // so sdk user can subscribe those events
         if (event.data.type) {
-          this.trigger(event.data.type, event.data);
+          this.trigger(event.data.type, event.data.msg);
         }
       },
       false,
