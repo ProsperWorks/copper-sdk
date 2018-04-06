@@ -5,7 +5,7 @@ import { createArrayWhenEmpty, getParameterByName, log } from './utils';
 
 export interface IApiOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  headers?: {[header: string]: string };
+  headers?: { [header: string]: string };
   body?: string;
 }
 
@@ -15,12 +15,10 @@ export interface IMessageData {
   data?: any;
 }
 
-export interface IContextMessageData extends IMessageData {
-  data: {
-    entityType: string;
-    entityData: object;
-    editableFields: string[];
-  };
+export interface IContextMessageData {
+  entityType: string;
+  entityData: object;
+  editableFields: string[];
 }
 
 export interface IPostMessageData {
@@ -222,13 +220,14 @@ export default class PWSDK {
       if (data.error) {
         return deferred.reject(data.error);
       }
-      deferred.resolve(data);
+      deferred.resolve(data.data);
     }
   }
 
   private _createContextModel({
-    type,
-    data: { entityType, entityData, editableFields },
+    entityType,
+    entityData,
+    editableFields,
   }: IContextMessageData): IContextData {
     const context = new EntityModel(
       entityType,
