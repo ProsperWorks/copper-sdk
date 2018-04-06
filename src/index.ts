@@ -3,8 +3,15 @@ import Deferred from './defer';
 import EntityModel, { IContextData } from './entity-model';
 import { createArrayWhenEmpty, getParameterByName, log } from './utils';
 
+export interface IApiOptions {
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  headers?: {[header: string]: string };
+  body?: string;
+}
+
 export interface IMessageData {
   type: string;
+  error?: string;
   data?: any;
 }
 
@@ -145,6 +152,19 @@ export default class PWSDK {
     }
   }
 
+  public api(url: string, options?: IApiOptions) {
+    if (!url) {
+      return Promise.reject('Url cannot be empty');
+    }
+    const deferred = new Deferred<any>();
+    this._enqueueDeferred('api', deferred);
+    this._postMessage('api', {
+      url,
+      options,
+    });
+    return deferred.promise;
+  }
+
   private _postMessage(type: string, message: { [name: string]: any } = {}) {
     this.win.top.postMessage(
       {
@@ -199,6 +219,9 @@ export default class PWSDK {
     }
     const deferred = this.deferredQueues[queueName].shift();
     if (deferred) {
+      if (data.error) {
+        return deferred.reject(data.error);
+      }
       deferred.resolve(data);
     }
   }
