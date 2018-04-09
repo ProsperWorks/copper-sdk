@@ -1,3 +1,4 @@
+import { ENTITY_TYPE } from './constant';
 import { log } from './utils';
 
 interface IPropertyDefinition {
@@ -19,13 +20,13 @@ export interface IEntityModel {
 }
 
 export interface IContextData {
-  type: string;
+  type: ENTITY_TYPE;
   context: IEntityModel;
 }
 
 export default class EntityModel implements IEntityModel {
   constructor(
-    type: string,
+    type: ENTITY_TYPE,
     entityData: { [name: string]: any },
     editableFields: string[],
     onSave: (model: EntityModel) => Promise<IContextData>,

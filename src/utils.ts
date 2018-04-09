@@ -27,3 +27,9 @@ export function createArrayWhenEmpty<T>(obj: { [key: string]: T[] }, name: strin
     obj[name] = [];
   }
 }
+
+export function delayExecution(func: () => any, delay = 1000) {
+  setTimeout(() => {
+    func();
+  }, delay);
+}

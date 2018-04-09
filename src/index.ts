@@ -1,10 +1,16 @@
 import { version } from '../package.json';
+import {
+  createEntityDataGenerator,
+  logActivityDataGenerator,
+  relateEntityDataGenerator,
+} from './action-data-generator';
+import { ENTITY_TYPE, HTTP_METHOD } from './constant';
 import Deferred from './defer';
-import EntityModel, { IContextData } from './entity-model';
-import { createArrayWhenEmpty, getParameterByName, log } from './utils';
+import EntityModel, { IContextData, IEntityModel } from './entity-model';
+import { createArrayWhenEmpty, delayExecution, getParameterByName, log } from './utils';
 
 interface IContextMessageData {
-  entityType: string;
+  entityType: ENTITY_TYPE;
   entityData: object;
   editableFields: string[];
 }
@@ -15,8 +21,22 @@ interface IMessageData {
   data?: any;
 }
 
+export interface IActionApiData {
+  url: string;
+  method?: HTTP_METHOD;
+  data: any;
+  target: UITarget | null;
+  delay: number;
+}
+
+export enum UITarget {
+  ActivityLog = 'ActivityLog',
+  ListView = 'ListView',
+  Related = 'Related',
+}
+
 export interface IApiOptions {
-  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  method?: HTTP_METHOD;
   body?: string;
 }
 
@@ -67,6 +87,8 @@ export default class PWSDK {
    * store event callbacks by event name
    */
   private events: { [name: string]: Array<() => any> } = {};
+
+  private _context: IEntityModel | null;
 
   /**
    * Creates an instance of PWSDK.
@@ -136,6 +158,41 @@ export default class PWSDK {
     });
   }
 
+  public async logActivity(activityType: number, details: string, activityDate?: number) {
+    const context = await this._getCachedContext();
+    const data = logActivityDataGenerator(context, {
+      activityType,
+      details,
+      activityDate,
+    });
+    return this._action(data);
+  }
+
+  public async createEntity(entityType: ENTITY_TYPE, entityData: any) {
+    const context = await this._getCachedContext();
+    const data = createEntityDataGenerator(context, {
+      entityType,
+      data: entityData,
+    });
+    return this._action(data);
+  }
+
+  public async relateEntity(entityType: ENTITY_TYPE, entityId: number, relateData: any) {
+    const context = await this._getCachedContext();
+    const data = relateEntityDataGenerator(context, {
+      entityType,
+      entityId,
+      data: relateData,
+    });
+    return this._action(data);
+  }
+  /**
+   * refresh ui of the parent frame
+   */
+  public refreshUI(target: UITarget) {
+    this._postMessage('refreshUI', { target });
+  }
+
   public on(eventName: string, cb: () => any) {
     createArrayWhenEmpty(this.events, eventName);
     this.events[eventName].push(cb);
@@ -175,6 +232,15 @@ export default class PWSDK {
       options,
     });
     return deferred.promise;
+  }
+
+  private async _getCachedContext(): Promise<IEntityModel> {
+    if (this._context) {
+      return this._context;
+    }
+
+    const { context } = await this.getContext();
+    return context;
   }
 
   private _postMessage(type: string, message: { [name: string]: any } = {}) {
@@ -249,9 +315,20 @@ export default class PWSDK {
       editableFields,
       this.saveContext.bind(this),
     );
+    this._context = context;
     return {
       type: entityType,
       context,
     };
+  }
+
+  private async _action({ url, method, data, target, delay = 0 }: IActionApiData) {
+    const result = await this.api(url, { method, body: JSON.stringify(data) });
+    if (target) {
+      delayExecution(() => {
+        this.refreshUI(target);
+      }, delay);
+    }
+    return result;
   }
 }
