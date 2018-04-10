@@ -7,71 +7,31 @@ import {
 import { ENTITY_TYPE, HTTP_METHOD } from './constant';
 import Deferred from './defer';
 import EntityModel, { IContextData, IEntityModel } from './entity-model';
-import { createArrayWhenEmpty, delayExecution, getParameterByName, log } from './utils';
-
-interface IContextMessageData {
-  entityType: ENTITY_TYPE;
-  entityData: object;
-  editableFields: string[];
-}
-
-interface IMessageData {
-  type: string;
-  error?: string;
-  data?: any;
-}
-
-export interface IActionApiData {
-  url: string;
-  method?: HTTP_METHOD;
-  data: any;
-  target: UITarget | null;
-  delay: number;
-}
-
-export enum UITarget {
-  ActivityLog = 'ActivityLog',
-  ListView = 'ListView',
-  Related = 'Related',
-}
-
-export interface IApiOptions {
-  method?: HTTP_METHOD;
-  body?: string;
-}
-
-export interface IPostMessageData {
-  type: string;
-  instanceId: string;
-  version: string;
-  params?: { [name: string]: string };
-  [propName: string]: any;
-}
+import {
+  IActionApiData,
+  IApiOptions,
+  IContextMessageData,
+  IMessageData,
+  IRefreshTargetMessage,
+} from './interfaces';
+import {
+  checkEnvironment,
+  createArrayWhenEmpty,
+  delayExecution,
+  getParameterByName,
+  log,
+} from './utils';
 
 export default class PWSDK {
   public static init() {
     const parentOrigin = getParameterByName('origin');
     const instanceId = getParameterByName('instanceId');
 
-    if (!PWSDK.checkEnvironment()) {
+    if (!checkEnvironment()) {
       throw new Error('Environment checking does not pass.');
     }
 
     return new PWSDK(parentOrigin, instanceId);
-  }
-
-  public static checkEnvironment(): boolean {
-    // when the running environment is node.js, throwing error
-    if (typeof window === 'undefined') {
-      log('PWSDK can only run in browser environment');
-      return false;
-    }
-
-    if (window.top === window) {
-      log('PWSDK should be inside an iframe, otherwise it might not work as expected.');
-    }
-
-    return true;
   }
 
   public static get version() {
@@ -111,11 +71,12 @@ export default class PWSDK {
     return this._win;
   }
 
-  public getContext() {
-    const deferred = new Deferred<IContextData>();
-    this._enqueueDeferred('getContext', deferred);
-    this._postMessage('getContext');
-    return deferred.promise.then(this._createContextModel.bind(this));
+  public async getContext(): Promise<IContextData> {
+    const messageData = await this._createDeferredMethod('getContext', () => {
+      this._postMessage('getContext');
+    });
+
+    return this._createContextModel(messageData);
   }
 
   public saveContext(context: EntityModel) {
@@ -158,38 +119,48 @@ export default class PWSDK {
     });
   }
 
-  public async logActivity(activityType: number, details: string, activityDate?: number) {
+  public async logActivity(
+    activityType: number,
+    details: string,
+    activityDate?: number,
+    refreshDelay = 1000,
+  ) {
     const context = await this._getCachedContext();
     const data = logActivityDataGenerator(context, {
       activityType,
       details,
       activityDate,
     });
-    return this._action(data);
+    return this._action(data, refreshDelay);
   }
 
-  public async createEntity(entityType: ENTITY_TYPE, entityData: any) {
+  public async createEntity(entityType: ENTITY_TYPE, entityData: object, refreshDelay = 4000) {
     const context = await this._getCachedContext();
     const data = createEntityDataGenerator(context, {
       entityType,
       data: entityData,
     });
-    return this._action(data);
+    return this._action(data, refreshDelay);
   }
 
-  public async relateEntity(entityType: ENTITY_TYPE, entityId: number, relateData: any) {
+  public async relateEntity(
+    entityType: ENTITY_TYPE,
+    entityId: number,
+    relateData: { id: number; type: ENTITY_TYPE },
+    refreshDelay = 0,
+  ) {
     const context = await this._getCachedContext();
     const data = relateEntityDataGenerator(context, {
       entityType,
-      entityId,
+      entityId: parseInt(entityId as any, 10),
       data: relateData,
     });
-    return this._action(data);
+    return this._action(data, refreshDelay);
   }
   /**
    * refresh ui of the parent frame
    */
-  public refreshUI(target: UITarget) {
+  public refreshUI(target: IRefreshTargetMessage) {
     this._postMessage('refreshUI', { target });
   }
 
@@ -322,7 +293,7 @@ export default class PWSDK {
     };
   }
 
-  private async _action({ url, method, data, target, delay = 0 }: IActionApiData) {
+  private async _action({ url, method, data, target }: IActionApiData, delay: number) {
     const result = await this.api(url, { method, body: JSON.stringify(data) });
     if (target) {
       delayExecution(() => {
@@ -330,5 +301,12 @@ export default class PWSDK {
       }, delay);
     }
     return result;
+  }
+
+  private _createDeferredMethod(queueName: string, executor: () => any) {
+    const deferred = new Deferred<any>();
+    this._enqueueDeferred(queueName, deferred);
+    executor();
+    return deferred.promise;
   }
 }

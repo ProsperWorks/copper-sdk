@@ -1,6 +1,6 @@
-import { IActionApiData, UITarget } from '.';
 import { ENTITY_PATH_MAP, ENTITY_TYPE } from './constant';
 import { IEntityModel } from './entity-model';
+import { IActionApiData, UITarget } from './interfaces';
 import { delayExecution } from './utils';
 
 export function logActivityDataGenerator(
@@ -35,8 +35,9 @@ export function logActivityDataGenerator(
     url,
     method: 'POST',
     data,
-    target: UITarget.ActivityLog,
-    delay: 1000,
+    target: {
+      name: UITarget.ActivityLog,
+    },
   };
 }
 
@@ -51,13 +52,17 @@ export function createEntityDataGenerator(
   },
 ): IActionApiData {
   const url = `/v1/${ENTITY_PATH_MAP[entityType]}`;
-  const target = entityType === context.type ? UITarget.ListView : null;
+  const target =
+    entityType === context.type
+      ? {
+          name: UITarget.ListView,
+        }
+      : null;
   return {
     url,
     method: 'POST',
     data,
     target,
-    delay: 2000,
   };
 }
 
@@ -70,16 +75,23 @@ export function relateEntityDataGenerator(
   }: {
     entityType: ENTITY_TYPE;
     entityId: number;
-    data: any;
+    data: { id: number, type: ENTITY_TYPE };
   },
 ): IActionApiData {
   const url = `/v1/${ENTITY_PATH_MAP[entityType]}/${entityId}/related`;
-  const target = entityType === context.type ? UITarget.Related : null;
+  const isCurrentEntity = entityType === context.type && entityId === context.id;
+  const target = isCurrentEntity
+    ? {
+        name: UITarget.Related,
+        data,
+      }
+    : null;
   return {
     url,
     method: 'POST',
-    data,
+    data: {
+      resource: data,
+    },
     target,
-    delay: 2000,
   };
 }
