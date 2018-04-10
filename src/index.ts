@@ -79,16 +79,16 @@ export default class PWSDK {
     return this._createContextModel(messageData);
   }
 
-  public saveContext(context: EntityModel) {
-    const deferred = new Deferred<IContextData>();
-    this._enqueueDeferred('saveContext', deferred);
-    this._postMessage('saveContext', {
-      data: {
-        entityType: context.type,
-        entityData: context.toObject(),
-      },
+  public async saveContext(context: EntityModel): Promise<IContextData> {
+    const messageData = await this._createDeferredMethod('saveContext', () => {
+      this._postMessage('saveContext', {
+        data: {
+          entityType: context.type,
+          entityData: context.toObject(),
+        },
+      });
     });
-    return deferred.promise.then(this._createContextModel.bind(this));
+    return this._createContextModel(messageData);
   }
 
   public setAppUI(data: {}) {
@@ -157,9 +157,7 @@ export default class PWSDK {
     });
     return this._action(data, refreshDelay);
   }
-  /**
-   * refresh ui of the parent frame
-   */
+
   public refreshUI(target: IRefreshTargetMessage) {
     this._postMessage('refreshUI', { target });
   }
@@ -196,13 +194,12 @@ export default class PWSDK {
         });
       }
     }
-    const deferred = new Deferred<any>();
-    this._enqueueDeferred('api', deferred);
-    this._postMessage('api', {
-      url,
-      options,
+    return this._createDeferredMethod('api', () => {
+      this._postMessage('api', {
+        url,
+        options,
+      });
     });
-    return deferred.promise;
   }
 
   private async _getCachedContext(): Promise<IEntityModel> {
