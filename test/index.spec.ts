@@ -1,7 +1,8 @@
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { version } from '../package.json';
-import PWSDK, { IPostMessageData } from '../src/index';
+import PWSDK from '../src/index';
+import { IPostMessageData } from '../src/interfaces';
 
 describe('PWSDK', function () {
   context('when init', function () {
@@ -9,16 +10,6 @@ describe('PWSDK', function () {
       expect(() => {
         PWSDK.init();
       }).to.throw(TypeError, 'parentOrigin or instanceId is empty');
-    });
-  });
-
-  context('when checking environment', function () {
-    it('should show log depends on if in iframe or not', function () {
-      const isTop = window.top === window;
-      const spy = sinon.spy(console, 'log');
-      assert(PWSDK.checkEnvironment());
-      expect(spy.calledOnce).to.equal(isTop);
-      spy.restore();
     });
   });
 

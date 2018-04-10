@@ -1,6 +1,7 @@
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import {
+  checkEnvironment,
   createArrayWhenEmpty,
   getParameterByName,
   log,
@@ -25,6 +26,17 @@ describe('utils', function () {
       const spy = sinon.stub(console, 'log');
       log('Alice', 1);
       assert(spy.calledWithExactly('Alice', 1));
+      spy.restore();
+    });
+  });
+
+  context('#checkEnvironment', function () {
+    it('should show log depends on if in iframe or not', function () {
+      const isTop = window.top === window;
+      const spy = sinon.spy(console, 'log');
+      assert(checkEnvironment());
+      expect(spy.calledOnce).to.equal(isTop);
+      spy.restore();
     });
   });
 
