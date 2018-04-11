@@ -123,7 +123,7 @@ export default class PWSDK {
     activityType: number,
     details: string,
     activityDate?: number,
-    refreshDelay = 1000,
+    refreshDelay = 0,
   ) {
     const context = await this._getCachedContext();
     const data = logActivityDataGenerator(context, {
@@ -134,13 +134,21 @@ export default class PWSDK {
     return this._action(data, refreshDelay);
   }
 
-  public async createEntity(entityType: ENTITY_TYPE, entityData: object, refreshDelay = 4000) {
+  public async createEntity(entityType: ENTITY_TYPE, entityData: object, refreshDelay = 0) {
     const context = await this._getCachedContext();
-    const data = createEntityDataGenerator(context, {
+    const apiOptions = createEntityDataGenerator(context, {
       entityType,
       data: entityData,
     });
-    return this._action(data, refreshDelay);
+    const { url, method, data, target } = apiOptions;
+    const result = await this.api(url, { method, body: JSON.stringify(data) });
+    if (target && target.data) {
+      target.data.entityData = result;
+      delayExecution(() => {
+        this.refreshUI(target);
+      }, refreshDelay);
+    }
+    return result;
   }
 
   public async relateEntity(

@@ -20,7 +20,7 @@ export interface IMessageData {
 
 export interface IRefreshTargetMessage {
   name: UITarget;
-  data?: object;
+  data?: any;
 }
 
 export interface IActionApiData {

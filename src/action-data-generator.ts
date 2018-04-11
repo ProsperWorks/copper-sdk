@@ -56,6 +56,10 @@ export function createEntityDataGenerator(
     entityType === context.type
       ? {
           name: UITarget.ListView,
+          data: {
+            entityType,
+            entityData: data,
+          },
         }
       : null;
   return {
