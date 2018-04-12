@@ -39,8 +39,12 @@ describe('entity-model', function () {
     const model = new EntityModel('person', obj, ['age'], onSaveStub);
     onSaveStub.resolves({ type: model.type, context: model });
     model.age = 22;
-    const { type, context } = await model.save();
-    expect(type).to.equal('person');
-    expect(context.age).to.equal(22);
+    const result = await model.save();
+    expect(result).to.be.ok;
+    if (result) {
+      const { type, context } = result;
+      expect(type).to.equal('person');
+      expect(context.age).to.equal(22);
+    }
   });
 });

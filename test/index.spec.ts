@@ -1,7 +1,9 @@
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
+import EntityModel from 'src/entity-model';
 import { version } from '../package.json';
-import PWSDK, { IPostMessageData } from '../src/index';
+import PWSDK from '../src/index';
+import { IPostMessageData, UITarget } from '../src/interfaces';
 
 describe('PWSDK', function () {
   context('when init', function () {
@@ -9,16 +11,6 @@ describe('PWSDK', function () {
       expect(() => {
         PWSDK.init();
       }).to.throw(TypeError, 'parentOrigin or instanceId is empty');
-    });
-  });
-
-  context('when checking environment', function () {
-    it('should show log depends on if in iframe or not', function () {
-      const isTop = window.top === window;
-      const spy = sinon.spy(console, 'log');
-      assert(PWSDK.checkEnvironment());
-      expect(spy.calledOnce).to.equal(isTop);
-      spy.restore();
     });
   });
 
@@ -72,6 +64,34 @@ describe('PWSDK', function () {
           );
         });
         const data = await sdk.getContext();
+        expect(data.type).to.equal('person');
+        expect(data.context.toObject()).to.eql({
+          id: '1',
+          name: 'Alice',
+        });
+      });
+    });
+
+    context('#saveContext', function () {
+      it('should be able to save context', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'saveContext',
+                data: {
+                  entityType: 'person',
+                  entityData: { id: '1', name: 'Alice' },
+                  editableFields: ['name'],
+                },
+              },
+            }),
+          );
+        });
+
+        const model = new EntityModel('person', { id: 1, name: 'Bob' }, ['name']);
+        const data = await sdk.saveContext(model);
         expect(data.type).to.equal('person');
         expect(data.context.toObject()).to.eql({
           id: '1',
@@ -178,6 +198,200 @@ describe('PWSDK', function () {
       });
     });
 
+    context('#logActivity', function () {
+      it('should call api and refreshUI', async function () {
+        const clock = sinon.useFakeTimers();
+        sinon.stub(sdk, 'api').resolves({
+          id: 1,
+          details: 'Some Activity',
+          parent: {
+            id: 2,
+            type: 'person',
+          },
+        });
+        const spy = sinon.stub(sdk, 'refreshUI');
+        sinon.stub(sdk, 'getContext').resolves({
+          type: 'person',
+          context: new EntityModel('person', { id: 2, name: 'Bob' }, []),
+        });
+        const result = await sdk.logActivity(1, 'Some Activity');
+        clock.runAll();
+        expect(result).to.eql({
+          id: 1,
+          details: 'Some Activity',
+          parent: {
+            id: 2,
+            type: 'person',
+          },
+        });
+        assert(spy.called, 'refresh UI should be called');
+        clock.restore();
+      });
+
+      it('should call api and refreshUI with date and delay', async function () {
+        const clock = sinon.useFakeTimers();
+        const now = Math.floor(Date.now() / 1000);
+        sinon.stub(sdk, 'api').resolves({
+          id: 1,
+          details: 'Some Activity',
+          parent: {
+            id: 2,
+            type: 'person',
+          },
+        });
+        const spy = sinon.stub(sdk, 'refreshUI');
+        sinon.stub(sdk, 'getContext').resolves({
+          type: 'person',
+          context: new EntityModel('person', { id: 2, name: 'Bob' }, []),
+        });
+        const result = await sdk.logActivity(1, 'Some Activity', now, 2000);
+        assert.isFalse(spy.called, 'refresh UI is not called yet');
+        clock.tick(2000);
+        expect(result).to.eql({
+          id: 1,
+          details: 'Some Activity',
+          parent: {
+            id: 2,
+            type: 'person',
+          },
+        });
+        assert(spy.called, 'refresh UI should be called');
+        clock.restore();
+      });
+    });
+
+    context('#createEntity', function () {
+      it('should call api and refreshUI', async function () {
+        const clock = sinon.useFakeTimers();
+        sinon.stub(sdk, 'api').resolves({
+          id: 3,
+          name: 'Cathy',
+        });
+        const spy = sinon.stub(sdk, 'refreshUI');
+        sinon.stub(sdk, 'getContext').resolves({
+          type: 'person',
+          context: new EntityModel('person', {}, []),
+        });
+        const result = await sdk.createEntity('person', {
+          name: 'Cathy',
+        });
+        clock.runAll();
+        expect(result).to.eql({
+          id: 3,
+          name: 'Cathy',
+        });
+        assert(
+          spy.calledWith({
+            name: UITarget.ListView,
+            data: {
+              entityType: 'person',
+              entityData: {
+                id: 3,
+                name: 'Cathy',
+              },
+            },
+          }),
+          'refresh UI should be called',
+        );
+        clock.restore();
+      });
+
+      it('should call api and not refreshUI', async function () {
+        const clock = sinon.useFakeTimers();
+        sinon.stub(sdk, 'api').resolves({
+          id: 3,
+          name: 'Cathy',
+        });
+        const spy = sinon.stub(sdk, 'refreshUI');
+        sinon.stub(sdk, 'getContext').resolves({
+          type: 'person',
+          context: new EntityModel('lead', {}, []),
+        });
+        const result = await sdk.createEntity('person', {
+          name: 'Cathy',
+        });
+        clock.runAll();
+        expect(result).to.eql({
+          id: 3,
+          name: 'Cathy',
+        });
+        assert(spy.notCalled);
+        clock.restore();
+      });
+    });
+
+    context('#relateEntity', function () {
+      it('should call api and refreshUI', async function () {
+        const clock = sinon.useFakeTimers();
+        sinon.stub(sdk, 'api').resolves({
+          added: true,
+          resource: {
+            id: 2,
+            type: 'opportunity',
+          },
+        });
+        const spy = sinon.stub(sdk, 'refreshUI');
+        sinon.stub(sdk, 'getContext').resolves({
+          type: 'person',
+          context: new EntityModel('person', { id: 1 }, []),
+        });
+        const result = await sdk.relateEntity('person', 1, {
+          id: 2,
+          type: 'opportunity',
+        });
+        clock.runAll();
+        expect(result).to.eql({
+          added: true,
+          resource: {
+            id: 2,
+            type: 'opportunity',
+          },
+        });
+        assert(
+          spy.calledWith({
+            name: UITarget.Related,
+            data: {
+              id: 2,
+              type: 'opportunity',
+            },
+          }),
+          'refresh UI should be called',
+        );
+        clock.restore();
+      });
+
+      it('should call api and not refreshUI', async function () {
+        const clock = sinon.useFakeTimers();
+        sinon.stub(sdk, 'api').resolves({
+          added: true,
+          resource: {
+            id: 2,
+            type: 'opportunity',
+          },
+        });
+        const spy = sinon.stub(sdk, 'refreshUI');
+        sinon.stub(sdk, 'getContext').resolves({
+          type: 'person',
+          context: new EntityModel('person', { id: 2 }, []),
+        });
+
+        const result = await sdk.relateEntity('person', 1, {
+          id: 2,
+          type: 'opportunity',
+        });
+        clock.runAll();
+        expect(result).to.eql({
+          added: true,
+          resource: {
+            id: 2,
+            type: 'opportunity',
+          },
+        });
+        assert(spy.notCalled);
+        clock.restore();
+      });
+    });
+
     context('message handler', function () {
       it('should not respond to message from unknown origin', function () {
         const spy = sinon.spy(sdk, 'trigger');
@@ -209,6 +423,72 @@ describe('PWSDK', function () {
         );
         assert(spy.notCalled);
         spy.restore();
+      });
+    });
+
+    context('#refreshUI', function () {
+      it('should call _postMessage ', function () {
+        const target = { name: UITarget.ActivityLog, data: { foo: 'bar' } };
+        sdk.refreshUI(target);
+        win.top.postMessage.calledWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'refreshUI',
+              instanceId,
+              version,
+              target: { name: UITarget.ActivityLog, data: { foo: 'bar' } },
+            });
+          }),
+        );
+      });
+    });
+
+    context('#api', function () {
+      it('should fail when url is empty', async function () {
+        try {
+          await sdk.api('');
+        } catch (e) {
+          expect(e).to.eql({
+            id: 'sdk-api',
+            version,
+            detail: 'url cannot be empty',
+          });
+        }
+      });
+
+      it('should fail when options.body is not valid json', async function () {
+        try {
+          await sdk.api('http://localhost', {
+            body: '{foo}',
+          });
+        } catch (e) {
+          expect(e).to.eql({
+            id: 'sdk-api',
+            version,
+            detail: 'body must be a valid JSON string',
+          });
+        }
+      });
+
+      it('should send api message', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'api',
+                data: {
+                  foo: 'bar',
+                },
+              },
+            }),
+          );
+        });
+
+        const data = await sdk.api('http://localhost', { method: 'GET' });
+        expect(data).to.eql({
+          foo: 'bar',
+        });
       });
     });
 
