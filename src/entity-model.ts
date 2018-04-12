@@ -14,7 +14,7 @@ interface IPropertyDefinition {
 export interface IEntityModel {
   [propName: string]: any;
 
-  save(): Promise<IContextData>;
+  save(): Promise<IContextData | null>;
   toJSON(): string;
   toObject(): {};
 }
@@ -29,7 +29,7 @@ export default class EntityModel implements IEntityModel {
     type: ENTITY_TYPE,
     entityData: { [name: string]: any },
     editableFields: string[],
-    onSave: (model: EntityModel) => Promise<IContextData>,
+    onSave?: (model: IEntityModel) => Promise<IContextData | null>,
   ) {
     const propertyDefinitions = this._getEntityDataDefinition(entityData, editableFields);
 
@@ -53,8 +53,11 @@ export default class EntityModel implements IEntityModel {
 
   [propName: string]: any;
 
-  public async save(): Promise<IContextData> {
-    return await this._onSave(this);
+  public async save(): Promise<IContextData | null> {
+    if (this._onSave) {
+      return await this._onSave(this);
+    }
+    return null;
   }
 
   public toJSON() {

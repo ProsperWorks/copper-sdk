@@ -91,15 +91,15 @@ export default class PWSDK {
     return this._createContextModel(messageData);
   }
 
-  public setAppUI(data: {}) {
+  public setAppUI(data: {}): void {
     this._postMessage('setUI', { data });
   }
 
-  public showModal(params = {}) {
+  public showModal(params = {}): void {
     this._postMessage('showModal', { params });
   }
 
-  public closeModal() {
+  public closeModal(): void {
     this._postMessage('closeModal');
   }
 
@@ -109,7 +109,7 @@ export default class PWSDK {
    *
    * @param target another instance/location of the app. '*' means broadcast to all other locations.
    */
-  public publishMessage(messageType: string, target: string, msg = {}) {
+  public publishMessage(messageType: string, target: string, msg = {}): void {
     this._postMessage('publishMessage', {
       target,
       data: {
@@ -124,7 +124,7 @@ export default class PWSDK {
     details: string,
     activityDate?: number,
     refreshDelay = 0,
-  ) {
+  ): Promise<any> {
     const context = await this._getCachedContext();
     const data = logActivityDataGenerator(context, {
       activityType,
@@ -134,7 +134,11 @@ export default class PWSDK {
     return this._action(data, refreshDelay);
   }
 
-  public async createEntity(entityType: ENTITY_TYPE, entityData: object, refreshDelay = 0) {
+  public async createEntity(
+    entityType: ENTITY_TYPE,
+    entityData: object,
+    refreshDelay = 0,
+  ): Promise<any> {
     const context = await this._getCachedContext();
     const apiOptions = createEntityDataGenerator(context, {
       entityType,
@@ -156,7 +160,7 @@ export default class PWSDK {
     entityId: number,
     relateData: { id: number; type: ENTITY_TYPE },
     refreshDelay = 0,
-  ) {
+  ): Promise<any> {
     const context = await this._getCachedContext();
     const data = relateEntityDataGenerator(context, {
       entityType,
@@ -166,16 +170,16 @@ export default class PWSDK {
     return this._action(data, refreshDelay);
   }
 
-  public refreshUI(target: IRefreshTargetMessage) {
+  public refreshUI(target: IRefreshTargetMessage): void {
     this._postMessage('refreshUI', { target });
   }
 
-  public on(eventName: string, cb: () => any) {
+  public on(eventName: string, cb: () => any): void {
     createArrayWhenEmpty(this.events, eventName);
     this.events[eventName].push(cb);
   }
 
-  public trigger(eventName: string, data: {}) {
+  public trigger(eventName: string, data: {}): void {
     if (this.events[eventName]) {
       this.events[eventName].forEach((cb) => {
         cb.call(this, data);
@@ -183,7 +187,7 @@ export default class PWSDK {
     }
   }
 
-  public api(url: string, options?: IApiOptions) {
+  public api(url: string, options?: IApiOptions): Promise<any> {
     if (!url) {
       return Promise.reject({
         id: 'sdk-api',
@@ -219,7 +223,7 @@ export default class PWSDK {
     return context;
   }
 
-  private _postMessage(type: string, message: { [name: string]: any } = {}) {
+  private _postMessage(type: string, message: { [name: string]: any } = {}): void {
     this.win.top.postMessage(
       {
         // actual messages
@@ -235,7 +239,7 @@ export default class PWSDK {
     );
   }
 
-  private _listenMessage() {
+  private _listenMessage(): void {
     this.win.addEventListener(
       'message',
       (event: MessageEvent) => {
@@ -262,12 +266,12 @@ export default class PWSDK {
     return event.origin === this.parentOrigin;
   }
 
-  private _enqueueDeferred(queueName: string, deferred: Deferred<IMessageData>) {
+  private _enqueueDeferred(queueName: string, deferred: Deferred<IMessageData>): void {
     createArrayWhenEmpty(this.deferredQueues, queueName);
     this.deferredQueues[queueName].push(deferred);
   }
 
-  private _resolveDeferred(queueName: string, data: IMessageData) {
+  private _resolveDeferred(queueName: string, data: IMessageData): void {
     if (!this.deferredQueues[queueName]) {
       return;
     }
@@ -298,7 +302,10 @@ export default class PWSDK {
     };
   }
 
-  private async _action({ url, method, data, target }: IActionApiData, delay: number) {
+  private async _action(
+    { url, method, data, target }: IActionApiData,
+    delay: number,
+  ): Promise<any> {
     const result = await this.api(url, { method, body: JSON.stringify(data) });
     if (target) {
       delayExecution(() => {
@@ -308,7 +315,7 @@ export default class PWSDK {
     return result;
   }
 
-  private _createDeferredMethod(queueName: string, executor: () => any) {
+  private _createDeferredMethod(queueName: string, executor: () => any): Promise<any> {
     const deferred = new Deferred<any>();
     this._enqueueDeferred(queueName, deferred);
     executor();

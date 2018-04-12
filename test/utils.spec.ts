@@ -41,7 +41,7 @@ describe('utils', function () {
   });
 
   context('#createArrayWhenEmpty', function () {
-    it('should create new array when empty', function () {
+    it('should create new array when not empty', function () {
       const obj = { foo: ['bar'] };
       createArrayWhenEmpty(obj, 'foo');
       expect(obj.foo).to.eql(['bar']);
