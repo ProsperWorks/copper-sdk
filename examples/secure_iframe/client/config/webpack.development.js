@@ -1,8 +1,11 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const bodyParser = require('body-parser')
-const request = require('sync-request')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: '../.env' });
+}
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const bodyParser = require('body-parser');
+const request = require('sync-request');
 
 module.exports = {
   mode: 'development',
@@ -41,18 +44,23 @@ module.exports = {
     open: true,
     hot: true,
     https: true,
-	    setup: function(app) {
-            app.use(bodyParser.json());
-            app.use(bodyParser.urlencoded({
-                extended: true
-            }));
-
-            app.post(/^\//, function(req, res) {
-                var serviceCallResponse = request('POST', 'http://localhost:8088' + req.originalUrl, {
-                    json:req.body
-                });
-                res.send(serviceCallResponse.getBody('utf8'));
-            });
-        },
+    setup: function(app) {
+      app.use(bodyParser.json());
+      app.use(
+        bodyParser.urlencoded({
+          extended: true,
+        }),
+      );
+      app.post(/^\//, function(req, res) {
+        var serviceCallResponse = request(
+          'POST',
+          `http://localhost:${process.env.SERVER_PORT}` + req.originalUrl,
+          {
+            json: req.body,
+          },
+        );
+        res.send(serviceCallResponse.getBody('utf8'));
+      });
+    },
   },
-}
+};
