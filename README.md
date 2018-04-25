@@ -6,6 +6,10 @@ ProsperWorks App SDK
 [![Test Coverage](https://api.codeclimate.com/v1/badges/da14ccff1ebc4d8121f4/test_coverage)](https://codeclimate.com/github/ProsperWorks/pw-app-sdk/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/da14ccff1ebc4d8121f4/maintainability)](https://codeclimate.com/github/ProsperWorks/pw-app-sdk/maintainability)
 
+The javascript SDK provides client-side functionalities for adding embedded app to the prosperworks web client.
+
+Embedded app is an iframe embedded in the prosperworks web page. The display location of the iframe is configured in the embedded app setting page.
+
 ## Usage
 ### Use with your webpack/rollup/browserify etc.
 ```bash
