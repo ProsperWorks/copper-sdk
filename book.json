@@ -4,7 +4,7 @@
   "structure": {
     "summary": "SUMMARY.md"
   },
-  "plugins": ["edit-link", "github"],
+  "plugins": ["edit-link", "github", "expandable-chapters"],
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/ProsperWorks/pw-app-sdk/tree/master",
@@ -12,6 +12,9 @@
     },
     "github": {
       "url": "https://github.com/ProsperWorks/pw-app-sdk/"
+    },
+    "pluginsConfig": {
+      "expandable-chapters":{}
     }
   }
 }
