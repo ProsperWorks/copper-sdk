@@ -13,7 +13,6 @@
   * [setUI](docs/REFERENCE.md#setui)
   * [publishMessage](docs/REFERENCE.md#publishmessage)
   * [on](docs/REFERENCE.md#on)
-  * [trigger](docs/REFERENCE.md#trigger)
   * [api](docs/REFERENCE.md#api)
   * [refreshUI](docs/REFERENCE.md#refreshui)
   * [logActivity](docs/REFERENCE.md#logactivity)

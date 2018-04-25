@@ -94,18 +94,6 @@ sdk.on('myMessageType', (msg) => {
 })
 ```
 
-#### trigger
-The method trigger(type, data) will trigger the listener which subscribed(use sdk.on(type)) the message type. (Only receiver on the same location of the app will receive the message)
-###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-type | String | yes | Message type to subscribe
-
-###### Example
-```javascript
-sdk.trigger('myMessageType', { foo: 'bar'})
-```
-
 #### api
 The method api(url, options) will proxy the api call prosperworks api server api.prosperworks.com.
 
@@ -128,6 +116,8 @@ All the developer api url are supported. The method and data format of each api 
 
 #### refreshUI
 The method refreshUI(target) will refresh the target UI section. It is primarily used after the above api(url, options) call to update the UI to reflect the data changed in server.
+
+##### Parameter
 Name | Type | Required | Description
 --- | --- | --- | ---
 target | Object | yes | The format of the parameter is { name: targetName}, where targetName can be 'ActivityLog', 'ListView' and 'Related'.
