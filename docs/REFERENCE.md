@@ -171,7 +171,7 @@ const entityData = {
     }
   ]
 };
-sdk.logActivity(entityType, entityData);
+sdk.createEntity(entityType, entityData);
 ```
 
 #### relateEntity
