@@ -93,8 +93,7 @@ app.post('/*', async function(req, res) {
       //Invalid JWT, don't allow further access
       res.send('error');
     } else {
-      //Valid JWT, continue to origanlUrl.
-      res.redirect(req.originalUrl);
+      //Valid JWT, render page
     }
   });
 });

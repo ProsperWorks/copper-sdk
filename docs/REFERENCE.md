@@ -13,9 +13,9 @@ getContext()
 ```
 
 ###### Returns
-Type | Description
---- | ---
-Object | current context object
+| Type   | Description            |
+| ------ | ---------------------- |
+| Object | current context object |
 
 #### saveContext
 The method save() will save the value to the server and update the prosperworks UI.
@@ -33,9 +33,9 @@ set as the url of the embedded app appended with "?location=modal". For example,
 if the url of the embdded app is "https://www.example.com", the modal url is "https://www.example.com?location=modal".
 
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-data | Object | no | data will be passed to the modal as parameters
+| Name | Type   | Required | Description                                    |
+| ---- | ------ | -------- | ---------------------------------------------- |
+| data | Object | no       | data will be passed to the modal as parameters |
 
 ###### Example
 ```javascript
@@ -52,9 +52,9 @@ sdk.closeModal({ foo: 'bar'})
 #### setUI
 The method setUI will change the UI of the parent prosperworks web page.
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-data | object | yes | data use json format. Currently three key in the json is supported: "counter", "height", "disableAddButton".
+| Name | Type   | Required | Description                                                                                                  |
+| ---- | ------ | -------- | ------------------------------------------------------------------------------------------------------------ |
+| data | object | yes      | data use json format. Currently three key in the json is supported: "counter", "height", "disableAddButton". |
 
 ###### Example
 ```javascript
@@ -68,11 +68,11 @@ sdk.setUI({
 #### publishMessage
 The method publishMessage(type,target, data) publishes message to other locations of the same embedded app.
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-type | String | yes | Type of message. Can be any string
-target | String | yes | Locations of the message receiver. Currently supported locations are "sidebar", "activity_log" and "modal". "*" means all locations except the sender.
-data | json | yes | message content to be sent
+| Name   | Type   | Required | Description                                                                                                                                            |
+| ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| type   | String | yes      | Type of message. Can be any string                                                                                                                     |
+| target | String | yes      | Locations of the message receiver. Currently supported locations are "sidebar", "activity_log" and "modal". "*" means all locations except the sender. |
+| data   | json   | yes      | message content to be sent                                                                                                                             |
 
 ###### Example
 ```javascript
@@ -82,10 +82,10 @@ sdk.publishMessage('myMessageType', 'sidebar', {foo: 'bar'})
 #### on
 The method on(type, cb) subscribe to the message type with call back cb.
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-type | String | yes | Message type to subscribe
-cb | function | yes | Callback function to handle the message
+| Name | Type     | Required | Description                             |
+| ---- | -------- | -------- | --------------------------------------- |
+| type | String   | yes      | Message type to subscribe               |
+| cb   | function | yes      | Callback function to handle the message |
 
 ###### Example
 ```javascript
@@ -98,10 +98,10 @@ sdk.on('myMessageType', (msg) => {
 The method api(url, options) will proxy the api call prosperworks api server api.prosperworks.com.
 
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-url | String | yes | url of the api. E.g. '/v1/people/1'
-options | object | yes | options for the api call. Two keys are supported 'method' and 'body', where value of method can be 'GET', 'POST', 'PUT', 'PATCH' and 'DELETE'. Value of body is the data sent to the api end point.
+| Name    | Type   | Required | Description                                                                                                                                                                                         |
+| ------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| url     | String | yes      | url of the api. E.g. '/v1/people/1'                                                                                                                                                                 |
+| options | object | yes      | options for the api call. Two keys are supported 'method' and 'body', where value of method can be 'GET', 'POST', 'PUT', 'PATCH' and 'DELETE'. Value of body is the data sent to the api end point. |
 
 ###### Example
 ```javascript
@@ -118,22 +118,23 @@ All the developer api url are supported. The method and data format of each api 
 The method refreshUI(target) will refresh the target UI section. It is primarily used after the above api(url, options) call to update the UI to reflect the data changed in server.
 
 ##### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-target | Object | yes | The format of the parameter is { name: targetName}, where targetName can be 'ActivityLog', 'ListView' and 'Related'.
+| Name   | Type   | Required | Description                                                                                                                                                                                                        |
+| ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| target | Object | yes      | The format of the parameter is { name: targetName, data: data}, where targetName can be 'ActivityLog',  and 'Related'. For 'ActivityLog' data is not required. For 'Related', data format is { type: entityType }. |
 
 ###### Example
 ```javascript
 sdk.refreshUI({ name: 'ActivityLog'})
+sdk.refreshUI({ name: 'Related', data: { type: 'lead'}})
 ```
 
 #### logActivity
 The method logActivity(type, details) creates activity log in the prosperworks.
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-type | String | yes | activity log type.
-details | Object | yes | Activity log detail data.
+| Name    | Type   | Required | Description               |
+| ------- | ------ | -------- | ------------------------- |
+| type    | String | yes      | activity log type.        |
+| details | Object | yes      | Activity log detail data. |
 
 Please check the prosperworks developer api documentation for activity type and details.
 
@@ -147,9 +148,9 @@ sdk.logActivity(activityType, details);
 #### createEntity
 The method createEntity(entityType, entityData) creates entity in the prosperworks.
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-entityType | String | yes | Entity type. Supported values: 'lead', 'person', 'company',
+| | Name             | Type     | Required | Description                                                 |                                                 |
+| -------| ---------- | --------- | ------------- | ------------------------------------------------------------------------------------------ |------------------------- |
+| | entityType | String | yes           | Entity type. Supported values: 'lead', 'person', 'company', | |
 'opportunity', 'project', 'task'
 entitData | Object | yes | Entity data.
 
