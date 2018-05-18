@@ -107,7 +107,7 @@ The method api(url, options) will proxy the api call prosperworks api server api
 ```javascript
 sdk.api('/v1/leads/', {
   method: 'POST',
-  data: {
+  body: {
     name: 'lead name'
   }
 })
@@ -148,11 +148,11 @@ sdk.logActivity(activityType, details);
 #### createEntity
 The method createEntity(entityType, entityData) creates entity in the prosperworks.
 ###### Parameter
-| | Name             | Type     | Required | Description                                                 |                                                 |
-| -------| ---------- | --------- | ------------- | ------------------------------------------------------------------------------------------ |------------------------- |
-| | entityType | String | yes           | Entity type. Supported values: 'lead', 'person', 'company', | |
-'opportunity', 'project', 'task'
-entitData | Object | yes | Entity data.
+
+| Name       | Type   | Required | Description                                                                                  |
+| ---------- | ------ | -------- | -------------------------------------------------------------------------------------------- |
+| entityType | String | yes      | Entity type. Supported values: 'lead', 'person', 'company', 'opportunity', 'project', 'task' |
+| entitData  | Object | yes      | Entity data.                                                                                 |
 
 Please check the prosperworks developer api documentation for entity details.
 
@@ -178,12 +178,11 @@ sdk.createEntity(entityType, entityData);
 #### relateEntity
 The method relateEntity(entityType, entityId, target) relates two entities in the prosperworks.
 ###### Parameter
-Name | Type | Required | Description
---- | --- | --- | ---
-entityType | String | yes | Entity type. Supported values: 'lead', 'person', 'company',
-'opportunity', 'project', 'task'
-entityId | Integer | yes | Id of the source entity to related.
-target | Object | yes | Target entity to be related to. Format of target is {id: id, type: entityType}
+| Name       | Type    | Required | Description                                                                                  |
+| ---------- | ------- | -------- | -------------------------------------------------------------------------------------------- |
+| entityType | String  | yes      | Entity type. Supported values: 'lead', 'person', 'company', 'opportunity', 'project', 'task' |
+| entityId   | Integer | yes      | Id of the source entity to related.                                                          |
+| target     | Object  | yes      | Target entity to be related to. Format of target is {id: id, type: entityType}               |
 
 Please check the prosperworks developer api documentation for entity details.
 
