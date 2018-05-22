@@ -492,6 +492,23 @@ describe('PWSDK', function () {
       });
     });
 
+    context('#navigateToEntityDetail', function () {
+      it('should call _postMessage ', function () {
+        sdk.navigateToEntityDetail('person', 1);
+        win.top.postMessage.calledWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'navigateToEntityDetail',
+              instanceId,
+              version,
+              entityType: 'person',
+              entityId: 1,
+            });
+          }),
+        );
+      });
+    });
+
     context('deferredQueue', function () {
       it('should resolve based on fifo', async function () {
         const data = [

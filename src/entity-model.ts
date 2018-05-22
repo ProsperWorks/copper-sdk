@@ -28,7 +28,7 @@ export default class EntityModel implements IEntityModel {
   constructor(
     type: ENTITY_TYPE,
     entityData: { [name: string]: any },
-    editableFields: string[],
+    editableFields: string[] = [],
     onSave?: (model: IEntityModel) => Promise<IContextData | null>,
   ) {
     const propertyDefinitions = this._getEntityDataDefinition(entityData, editableFields);
@@ -72,7 +72,7 @@ export default class EntityModel implements IEntityModel {
     return obj;
   }
 
-  private _getEntityDataDefinition(entityData: { [name: string]: any }, editableFields: string[]) {
+  private _getEntityDataDefinition(entityData: { [name: string]: any }, editableFields: string[] = []) {
     const propertyDefinitions: { [name: string]: IPropertyDefinition } = {};
     Object.keys(entityData).forEach((key) => {
       if (editableFields.indexOf(key) === -1) {

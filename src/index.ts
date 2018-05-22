@@ -214,6 +214,10 @@ export default class PWSDK {
     });
   }
 
+  public navigateToEntityDetail(entityType: string, entityId: number): void {
+    this._postMessage('navigateToEntityDetail', { entityType, entityId });
+  }
+
   private async _getCachedContext(): Promise<IEntityModel> {
     if (this._context) {
       return this._context;
