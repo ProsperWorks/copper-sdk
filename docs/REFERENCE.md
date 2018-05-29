@@ -52,16 +52,18 @@ sdk.closeModal({ foo: 'bar'})
 #### setUI
 The method setUI will change the UI of the parent prosperworks web page.
 ###### Parameter
-| Name | Type   | Required | Description                                                                                                  |
-| ---- | ------ | -------- | ------------------------------------------------------------------------------------------------------------ |
-| data | object | yes      | data use json format. Currently three key in the json is supported: "counter", "height", "disableAddButton". |
+| Name | Type   | Required | Description                                                                                                                                                 |
+| ---- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data | object | yes      | data use json format. Currently three key in the json is supported: "counter", "height", "width", "disableAddButton", "showActionBar", "isActionBarActive". |
 
 ###### Example
 ```javascript
 sdk.setUI({
   counter: 5,   //change the counter in parent frame above the iframe
   height: 500,  //change the iframe height
-  disableAddButton: true  //disable the add button in parent frame above the iframe
+  disableAddButton: true,  //disable the add button in parent frame above the iframe
+  showActionBar: true,  //show embeddded app iframe for action bar
+  isActionBarActive: true,  //highlight the action bar icon
 })
 ```
 
