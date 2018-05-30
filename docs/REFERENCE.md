@@ -49,8 +49,8 @@ The method closeModal will close current active modal.
 sdk.closeModal({ foo: 'bar'})
 ```
 
-#### setUI
-The method setUI will change the UI of the parent prosperworks web page.
+#### setAppUI
+The method setAppUI will change the UI of the parent prosperworks web page.
 ###### Parameter
 | Name | Type   | Required | Description                                                                                                                                                 |
 | ---- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -58,7 +58,7 @@ The method setUI will change the UI of the parent prosperworks web page.
 
 ###### Example
 ```javascript
-sdk.setUI({
+sdk.setAppUI({
   counter: 5,   //change the counter in parent frame above the iframe
   height: 500,  //change the iframe height
   disableAddButton: true,  //disable the add button in parent frame above the iframe

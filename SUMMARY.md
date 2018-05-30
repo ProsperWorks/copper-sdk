@@ -10,7 +10,7 @@
   * [saveContext](docs/REFERENCE.md#savecontext)
   * [showModal](docs/REFERENCE.md#showmodal)
   * [closeModal](docs/REFERENCE.md#closemodal)
-  * [setUI](docs/REFERENCE.md#setui)
+  * [setAppUI](docs/REFERENCE.md#setappui)
   * [publishMessage](docs/REFERENCE.md#publishmessage)
   * [on](docs/REFERENCE.md#on)
   * [api](docs/REFERENCE.md#api)
