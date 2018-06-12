@@ -493,19 +493,49 @@ describe('PWSDK', function () {
     });
 
     context('#navigateToEntityDetail', function () {
-      it('should call _postMessage ', function () {
-        sdk.navigateToEntityDetail('person', 1);
-        win.top.postMessage.calledWith(
-          sinon.match((value: IPostMessageData) => {
-            return expect(value).to.eql({
-              type: 'navigateToEntityDetail',
-              instanceId,
-              version,
-              entityType: 'person',
-              entityId: 1,
-            });
-          }),
-        );
+      it('should navigate to entity correctly ', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'navigateToEntityDetail',
+                data: true,
+              },
+            }),
+          );
+        });
+
+        const data = await sdk.navigateToEntityDetail('person', 1);
+        expect(data).to.equal(true);
+      });
+
+      it('should fail if entity type is not valid', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'navigateToEntityDetail',
+                error: {
+                  id: 'pw-navigateToEntityDetail',
+                  version,
+                  detail: 'Error Message',
+                },
+              },
+            }),
+          );
+        });
+
+        try {
+          await sdk.navigateToEntityDetail('wrong', 1);
+        } catch (e) {
+          expect(e).to.eql({
+            id: 'pw-navigateToEntityDetail',
+            version,
+            detail: 'Error Message',
+          });
+        }
       });
     });
 

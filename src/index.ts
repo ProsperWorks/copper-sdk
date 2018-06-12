@@ -214,8 +214,10 @@ export default class PWSDK {
     });
   }
 
-  public navigateToEntityDetail(entityType: string, entityId: number): void {
-    this._postMessage('navigateToEntityDetail', { entityType, entityId });
+  public navigateToEntityDetail(entityType: string, entityId: number): Promise<any> {
+    return this._createDeferredMethod('navigateToEntityDetail', () => {
+      this._postMessage('navigateToEntityDetail', { entityType, entityId });
+    });
   }
 
   private async _getCachedContext(): Promise<IEntityModel> {
@@ -258,7 +260,7 @@ export default class PWSDK {
         // if event type exists, we pass the event to SDK
         // so sdk user can subscribe those events
         if (event.data.type) {
-          this.trigger(event.data.type, event.data.msg);
+          this.trigger(event.data.type, event.data.msg || event.data.data);
         }
       },
       false,
