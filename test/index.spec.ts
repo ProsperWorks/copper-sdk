@@ -43,7 +43,7 @@ describe('PWSDK', function () {
           postMessage: sinon.stub(),
         },
       };
-      sdk = new PWSDK(origin, instanceId, win);
+      sdk = new PWSDK(origin, instanceId, { isGlobal: false }, win);
     });
 
     context('#getContext', function () {

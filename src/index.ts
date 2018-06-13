@@ -13,25 +13,28 @@ import {
   IContextMessageData,
   IMessageData,
   IRefreshTargetMessage,
+  ISdkInitOptions,
 } from './interfaces';
 import {
   checkEnvironment,
   createArrayWhenEmpty,
   delayExecution,
   getParameterByName,
-  log,
 } from './utils';
 
 export default class PWSDK {
   public static init() {
     const parentOrigin = getParameterByName('origin');
     const instanceId = getParameterByName('instanceId');
+    const options: ISdkInitOptions = {
+      isGlobal: getParameterByName('isGlobal') === '1',
+    };
 
     if (!checkEnvironment()) {
       throw new Error('Environment checking does not pass.');
     }
 
-    return new PWSDK(parentOrigin, instanceId);
+    return new PWSDK(parentOrigin, instanceId, options);
   }
 
   public static get version() {
@@ -58,6 +61,7 @@ export default class PWSDK {
   constructor(
     private parentOrigin: string,
     private instanceId: string,
+    private options: ISdkInitOptions,
     private _win: any = window,
   ) {
     if (!this.parentOrigin || !this.instanceId) {
@@ -221,7 +225,8 @@ export default class PWSDK {
   }
 
   private async _getCachedContext(): Promise<IEntityModel> {
-    if (this._context) {
+    // we will never use cached context if it's a global app
+    if (this._context && !this.options.isGlobal) {
       return this._context;
     }
 
