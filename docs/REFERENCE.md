@@ -207,7 +207,22 @@ const target = {
 sdk.relatedEntity(entityType, entityId, target); //relate opportunity 10 to lead 1
 ```
 
+#### navigateToEntityDetail
+Allow embedded app to navigate to a specific entity page
+###### Parameter
+| Name       | Type    | Required | Description                                                                                  |
+| ---------- | ------- | -------- | -------------------------------------------------------------------------------------------- |
+| entityType | String  | yes      | Entity type. Supported values: 'lead', 'person', 'company', 'opportunity', 'project', 'task' |
+| entityId   | Integer | yes      | Id of the source entity to related.                                                          |
 
+Please check the prosperworks developer api documentation for entity details.
+
+###### Example
+```javascript
+const entityType = 'lead';
+const entityId = 1;
+sdk.navigateToEntityDetail(entityType, entityId); //navigate to lead with id 1
+```
 
 
 

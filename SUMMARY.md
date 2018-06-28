@@ -18,4 +18,5 @@
   * [logActivity](docs/REFERENCE.md#logactivity)
   * [createEntity](docs/REFERENCE.md#createentity)
   * [relateEntity](docs/REFERENCE.md#relateentity)
+  * [navigateToEntityDetail](docs/REFERENCE.md#navigatetoentitydetail)
 * [Configuration](docs/CONFIGURATION.md)
