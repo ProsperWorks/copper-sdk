@@ -46,7 +46,7 @@ sdk.showModal({ foo: 'bar'})
 The method closeModal will close current active modal.
 ###### Example
 ```javascript
-sdk.closeModal({ foo: 'bar'})
+sdk.closeModal()
 ```
 
 #### setAppUI
@@ -54,12 +54,13 @@ The method setAppUI will change the UI of the parent prosperworks web page.
 ###### Parameter
 | Name | Type   | Required | Description                                                                                                                                                 |
 | ---- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| data | object | yes      | data use json format. Currently three key in the json is supported: "counter", "height", "width", "disableAddButton", "showActionBar", "isActionBarActive". |
+| data | object | yes      | data use json format. Currently three key in the json is supported:<br> "counter", "height", "width", "disableAddButton", "showActionBar", "isActionBarActive". |
 
 ###### Example
 ```javascript
 sdk.setAppUI({
   counter: 5,   //change the counter in parent frame above the iframe
+  width: 500,  //change the iframe width (currently only app in action bar allow this)
   height: 500,  //change the iframe height
   disableAddButton: true,  //disable the add button in parent frame above the iframe
   showActionBar: true,  //show embeddded app iframe for action bar
@@ -73,7 +74,7 @@ The method publishMessage(type,target, data) publishes message to other location
 | Name   | Type   | Required | Description                                                                                                                                            |
 | ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | type   | String | yes      | Type of message. Can be any string                                                                                                                     |
-| target | String | yes      | Locations of the message receiver. Currently supported locations are "sidebar", "activity_log" and "modal". "*" means all locations except the sender. |
+| target | String | yes      | Locations of the message receiver. Currently supported locations includes:<br> "sidebar", "activity_panel", "action_bar", "profile", "modal".<br> "*" means all locations except the sender. |
 | data   | json   | yes      | message content to be sent                                                                                                                             |
 
 ###### Example
@@ -89,6 +90,13 @@ The method on(type, cb) subscribe to the message type with call back cb.
 | type | String   | yes      | Message type to subscribe               |
 | cb   | function | yes      | Callback function to handle the message |
 
+###### Events
+| Event Name         | When is it triggered                                |
+| ------------------ | --------------------------------------------------- |
+| addButtonClicked   | When app is in sidebar and + button is clicked      |
+| phoneNumberClicked | When voip configuration is on, and phone is clicked |
+| contextUpdated     | When prosperworks app routing changed               |
+
 ###### Example
 ```javascript
 sdk.on('myMessageType', (msg) => {
@@ -103,7 +111,7 @@ The method api(url, options) will proxy the api call prosperworks api server api
 | Name    | Type   | Required | Description                                                                                                                                                                                         |
 | ------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | url     | String | yes      | url of the api. E.g. '/v1/people/1'                                                                                                                                                                 |
-| options | object | yes      | options for the api call. Two keys are supported 'method' and 'body', where value of method can be 'GET', 'POST', 'PUT', 'PATCH' and 'DELETE'. Value of body is the data sent to the api end point. |
+| options | object | yes      | options for the api call. Two keys are supported 'method' and 'body', where value of method can be <br> 'GET', 'POST', 'PUT', 'PATCH' and 'DELETE'. Value of body is the data sent to the api end point. |
 
 ###### Example
 ```javascript
