@@ -570,5 +570,13 @@ describe('PWSDK', function () {
           .that.has.length(0);
       });
     });
+
+    context('#_subscribeContextUpdated', function () {
+      it('should clear the context', function () {
+        (sdk as any)._context = {};
+        sdk.trigger('contextUpdated', {});
+        assert.isNull((sdk as any)._context);
+      });
+    });
   });
 });

@@ -69,6 +69,9 @@ export default class PWSDK {
     }
 
     this._listenMessage();
+
+    // listen to contextUpdated event
+    this._subscribeContextUpdated();
   }
 
   public get win(): Window {
@@ -225,8 +228,7 @@ export default class PWSDK {
   }
 
   private async _getCachedContext(): Promise<IEntityModel> {
-    // we will never use cached context if it's a global app
-    if (this._context && !this.options.isGlobal) {
+    if (this._context) {
       return this._context;
     }
 
@@ -331,5 +333,12 @@ export default class PWSDK {
     this._enqueueDeferred(queueName, deferred);
     executor();
     return deferred.promise;
+  }
+
+  private _subscribeContextUpdated() {
+    this.on('contextUpdated', () => {
+      // remove _context caching
+      this._context = null;
+    });
   }
 }
