@@ -33,7 +33,7 @@ sdk.getContext()
 `pw-app-sdk` is served with https://www.jsdelivr.com/package/npm/pw-app-sdk
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pw-app-sdk@0.2.5/dist/pwsdk.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pw-app-sdk@latest/dist/pwsdk.min.js"></script>
 <script type="text/javascript">
 var sdk = window.PWSDK.init();
 sdk.getContext()
