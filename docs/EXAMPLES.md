@@ -71,17 +71,9 @@ json web token(JWT). The JWT is encrypted with copper private key. To verfiy the
 you need to fetch the copper public key first.
 ###### Fetch copper public key
 ```javascript
-  const pwAccessToken = 'xxx';
-  const pwUserEmail = 'xxxxx';
   const { data } = await axios({
     method: 'get',
     url: 'https://api.copper.com/developer_api/v1/embedded_apps/public_key',
-    Accept: 'application/json',
-    headers: {
-      'X-PW-AccessToken': pwAccessToken,
-      'X-PW-Application': 'developer_api',
-      'X-PW-UserEmail': pwUserEmail,
-    },
   });
 ```
 Next, verify the JWT with the public key in the POST handler.

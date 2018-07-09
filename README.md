@@ -81,4 +81,4 @@ yarn lint
 You could do `yarn link` in this repo, and go to your other repo and do
 `yarn link copper-sdk`.
 
-Alternatively, you could also do `npm link path/to/pw-app/sdk` in your repo.
+Alternatively, you could also do `npm link path/to/copper-sdk` in your repo.

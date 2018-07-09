@@ -518,7 +518,7 @@ describe('Copper', function () {
               data: {
                 type: 'navigateToEntityDetail',
                 error: {
-                  id: 'pw-navigateToEntityDetail',
+                  id: 'copper-navigateToEntityDetail',
                   version,
                   detail: 'Error Message',
                 },
@@ -531,7 +531,7 @@ describe('Copper', function () {
           await sdk.navigateToEntityDetail('wrong', 1);
         } catch (e) {
           expect(e).to.eql({
-            id: 'pw-navigateToEntityDetail',
+            id: 'copper-navigateToEntityDetail',
             version,
             detail: 'Error Message',
           });
