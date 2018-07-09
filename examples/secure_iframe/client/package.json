@@ -1,7 +1,7 @@
 {
-  "name": "pw-app-sdk-secure-example",
+  "name": "copper-sdk-secure-example",
   "version": "1.0.0",
-  "description": "A example app for secure pw-app-sdk",
+  "description": "A example app for secure copper-sdk",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.development.js",
@@ -25,7 +25,7 @@
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
-    "pw-app-sdk": "latest",
+    "copper-sdk": "latest",
     "sync-request": "^6.0.0"
   },
   "proxy": "https://localhost:8088"

@@ -1,7 +1,7 @@
 {
-  "name": "pw-app-sdk-simple-example",
+  "name": "copper-sdk-simple-example",
   "version": "1.0.0",
-  "description": "A basic example app for pw-app-sdk",
+  "description": "A basic example app for copper-sdk",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.development.js",
@@ -26,6 +26,6 @@
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
-    "pw-app-sdk": "latest"
+    "copper-sdk": "latest"
   }
 }

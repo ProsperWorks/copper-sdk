@@ -1,6 +1,6 @@
 import './app.css'
-import PWSDK from 'pw-app-sdk'
-const sdk = PWSDK.init()
+import Copper from 'copper-sdk'
+const sdk = Copper.init()
 
 async function handleGetContext() {
   const { context } = await sdk.getContext()

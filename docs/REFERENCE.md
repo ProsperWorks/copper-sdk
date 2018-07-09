@@ -1,13 +1,13 @@
 # References
 #### Initialization
-The method PWSDK.init() is used to initialize and setup the SDK. All other SDK methods
+The method Copper.init() is used to initialize and setup the SDK. All other SDK methods
 must be called after this one.
 ```javascript
-PWSDK.init()
+Copper.init()
 ```
 
 #### getContext
-The method getContext() return the context of the current prosperworks page.
+The method getContext() return the context of the current copper page.
 ```javascript
 getContext()
 ```
@@ -18,7 +18,7 @@ getContext()
 | Object | current context object |
 
 #### saveContext
-The method save() will save the value to the server and update the prosperworks UI.
+The method save() will save the value to the server and update the copper UI.
 
 ###### Example
 ```javascript
@@ -28,7 +28,7 @@ context.save()
 ```
 
 #### showModal
-The method showModal will open modal in prosperworks web page. The url for the modal is
+The method showModal will open modal in copper web page. The url for the modal is
 set as the url of the embedded app appended with "?location=modal". For example,
 if the url of the embdded app is "https://www.example.com", the modal url is "https://www.example.com?location=modal".
 
@@ -50,7 +50,7 @@ sdk.closeModal()
 ```
 
 #### setAppUI
-The method setAppUI will change the UI of the parent prosperworks web page.
+The method setAppUI will change the UI of the parent copper web page.
 ###### Parameter
 | Name | Type   | Required | Description                                                                                                                                                 |
 | ---- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -95,7 +95,7 @@ The method on(type, cb) subscribe to the message type with call back cb.
 | ------------------ | --------------------------------------------------- |
 | addButtonClicked   | When app is in sidebar and + button is clicked      |
 | phoneNumberClicked | When voip configuration is on, and phone is clicked |
-| contextUpdated     | When prosperworks app routing changed               |
+| contextUpdated     | When copper app routing changed               |
 
 ###### Example
 ```javascript
@@ -105,7 +105,7 @@ sdk.on('myMessageType', (msg) => {
 ```
 
 #### api
-The method api(url, options) will proxy the api call prosperworks api server api.prosperworks.com.
+The method api(url, options) will proxy the api call copper api server api.copper.com.
 
 ###### Parameter
 | Name    | Type   | Required | Description                                                                                                                                                                                         |
@@ -139,14 +139,14 @@ sdk.refreshUI({ name: 'Related', data: { type: 'lead'}})
 ```
 
 #### logActivity
-The method logActivity(type, details) creates activity log in the prosperworks.
+The method logActivity(type, details) creates activity log in the copper.
 ###### Parameter
 | Name    | Type   | Required | Description               |
 | ------- | ------ | -------- | ------------------------- |
 | type    | String | yes      | activity log type.        |
 | details | Object | yes      | Activity log detail data. |
 
-Please check the prosperworks developer api documentation for activity type and details.
+Please check the copper developer api documentation for activity type and details.
 
 ###### Example
 ```javascript
@@ -156,7 +156,7 @@ sdk.logActivity(activityType, details);
 ```
 
 #### createEntity
-The method createEntity(entityType, entityData) creates entity in the prosperworks.
+The method createEntity(entityType, entityData) creates entity in the copper.
 ###### Parameter
 
 | Name       | Type   | Required | Description                                                                                  |
@@ -164,7 +164,7 @@ The method createEntity(entityType, entityData) creates entity in the prosperwor
 | entityType | String | yes      | Entity type. Supported values: 'lead', 'person', 'company', 'opportunity', 'project', 'task' |
 | entitData  | Object | yes      | Entity data.                                                                                 |
 
-Please check the prosperworks developer api documentation for entity details.
+Please check the copper developer api documentation for entity details.
 
 ###### Example
 ```javascript
@@ -186,7 +186,7 @@ sdk.createEntity(entityType, entityData);
 ```
 
 #### relateEntity
-The method relateEntity(entityType, entityId, target) relates two entities in the prosperworks.
+The method relateEntity(entityType, entityId, target) relates two entities in the copper.
 ###### Parameter
 | Name       | Type    | Required | Description                                                                                  |
 | ---------- | ------- | -------- | -------------------------------------------------------------------------------------------- |
@@ -194,7 +194,7 @@ The method relateEntity(entityType, entityId, target) relates two entities in th
 | entityId   | Integer | yes      | Id of the source entity to related.                                                          |
 | target     | Object  | yes      | Target entity to be related to. Format of target is {id: id, type: entityType}               |
 
-Please check the prosperworks developer api documentation for entity details.
+Please check the copper developer api documentation for entity details.
 
 ###### Example
 ```javascript
@@ -215,7 +215,7 @@ Allow embedded app to navigate to a specific entity page
 | entityType | String  | yes      | Entity type. Supported values: 'lead', 'person', 'company', 'opportunity', 'project', 'task' |
 | entityId   | Integer | yes      | Id of the source entity to related.                                                          |
 
-Please check the prosperworks developer api documentation for entity details.
+Please check the copper developer api documentation for entity details.
 
 ###### Example
 ```javascript

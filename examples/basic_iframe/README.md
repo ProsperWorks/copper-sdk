@@ -1,4 +1,4 @@
-A sample app for pw-app-sdk
+A sample app for copper-sdk
 ===========================
 
 ## Development
@@ -9,7 +9,7 @@ npm start
 ```
 *Notice*
 
-Currently, the app will not load when it's loaded in top frame. It must be inside prosperworks integration environment.
+Currently, the app will not load when it's loaded in top frame. It must be inside copper integration environment.
 Please add an integration app in your company so you can test it.(The url should be https://localhost:8080 for the app)
 
 

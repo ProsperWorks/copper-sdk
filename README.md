@@ -1,27 +1,27 @@
-ProsperWorks App SDK
+Copper App SDK
 ====================
 
-[![Travis branch](https://img.shields.io/travis/ProsperWorks/pw-app-sdk/master.svg?style=flat-square)](https://travis-ci.org/ProsperWorks/pw-app-sdk)
-[![npm](https://img.shields.io/npm/v/pw-app-sdk.svg?style=flat-square)](https://www.npmjs.com/package/pw-app-sdk)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/da14ccff1ebc4d8121f4/test_coverage)](https://codeclimate.com/github/ProsperWorks/pw-app-sdk/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/da14ccff1ebc4d8121f4/maintainability)](https://codeclimate.com/github/ProsperWorks/pw-app-sdk/maintainability)
+[![Travis branch](https://img.shields.io/travis/Copper/copper-sdk/master.svg?style=flat-square)](https://travis-ci.org/Copper/copper-sdk)
+[![npm](https://img.shields.io/npm/v/copper-sdk.svg?style=flat-square)](https://www.npmjs.com/package/copper-sdk)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/test_coverage)](https://codeclimate.com/github/ProsperWorks/copper-sdk/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/maintainability)](https://codeclimate.com/github/ProsperWorks/copper-sdk/maintainability)
 
-The javascript SDK provides client-side functionalities for adding embedded app to the prosperworks web client.
+The javascript SDK provides client-side functionalities for adding embedded app to the copper web client.
 
-Embedded app is an iframe embedded in the prosperworks web page. The display location of the iframe is configured in the embedded app setting page.
+Embedded app is an iframe embedded in the copper web page. The display location of the iframe is configured in the embedded app setting page.
 
 ## Usage
 ### Use with your webpack/rollup/browserify etc.
 ```bash
-yarn add pw-app-sdk
+yarn add copper-sdk
 # or
-npm install pw-app-sdk --save
+npm install copper-sdk --save
 ```
 
 Then you could just do
 ```javascript
-import PWSDK from 'pw-app-sdk';
-const sdk = PWSDK.init();
+import Copper from 'copper-sdk';
+const sdk = Copper.init();
 
 sdk.getContext()
   .then(({ context }) => {
@@ -30,12 +30,12 @@ sdk.getContext()
 ```
 
 ### Use with CDN
-`pw-app-sdk` is served with https://www.jsdelivr.com/package/npm/pw-app-sdk
+`copper-sdk` is served with https://www.jsdelivr.com/package/npm/copper-sdk
 
 ```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pw-app-sdk@latest/dist/pwsdk.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/copper-sdk@latest/dist/copper-sdk.min.js"></script>
 <script type="text/javascript">
-var sdk = window.PWSDK.init();
+var sdk = window.Copper.init();
 sdk.getContext()
   .then(function (data) {
     var type = data.type; // person,lead,...
@@ -47,7 +47,7 @@ sdk.getContext()
 
 ### SDK Docs
 
-https://prosperworks.github.io/pw-app-sdk
+https://prosperworks.github.io/copper-sdk
 
 ## Development
 ### Prerequisites
@@ -79,6 +79,6 @@ yarn lint
 ## FAQ
 ### How do I use my local SDK instead of the npm one?
 You could do `yarn link` in this repo, and go to your other repo and do
-`yarn link pw-app-sdk`.
+`yarn link copper-sdk`.
 
 Alternatively, you could also do `npm link path/to/pw-app/sdk` in your repo.

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.SERVER_PORT || 8088;
-const pwServer = process.env.PW_API_SERVER || 'https://api.prosperworks.com';
+const pwServer = process.env.PW_API_SERVER || 'https://api.copper.com';
 const pwAccessToken = process.env.PW_ACCESS_TOKEN;
 const pwUserEmail = process.env.PW_USER_EMAIL;
 const pwPublicKeyUrl = `${pwServer}/developer_api/v1/embedded_apps/public_key`;

@@ -1,9 +1,9 @@
 {
-  "name": "pw-app-sdk",
+  "name": "copper-sdk",
   "version": "0.3.4",
-  "description": "ProsperWorks App SDK",
-  "main": "lib/pwsdk.js",
-  "module": "es/pwsdk.js",
+  "description": "Copper App SDK",
+  "main": "lib/copper-sdk.js",
+  "module": "es/copper-sdk.js",
   "types": "lib/index.d.ts",
   "files": [
     "dist",
@@ -13,13 +13,13 @@
   ],
   "scripts": {
     "clean": "rimraf lib es dist",
-    "build:umd": "cross-env COMPILE_ENV=umd NODE_ENV=development rollup -c -o dist/pwsdk.js",
-    "build:umd:min": "cross-env COMPILE_ENV=umd NODE_ENV=production rollup -c -o dist/pwsdk.min.js",
-    "build:es": "cross-env COMPILE_ENV=es rollup -c -o es/pwsdk.js",
-    "build:commonjs": "cross-env COMPILE_ENV=cjs rollup -c -o lib/pwsdk.js",
+    "build:umd": "cross-env COMPILE_ENV=umd NODE_ENV=development rollup -c -o dist/copper-sdk.js",
+    "build:umd:min": "cross-env COMPILE_ENV=umd NODE_ENV=production rollup -c -o dist/copper-sdk.min.js",
+    "build:es": "cross-env COMPILE_ENV=es rollup -c -o es/copper-sdk.js",
+    "build:commonjs": "cross-env COMPILE_ENV=cjs rollup -c -o lib/copper-sdk.js",
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
-    "dev:commonjs": "cross-env COMPILE_ENV=cjs rollup -c -w -o lib/pwsdk.js",
-    "dev:es": "cross-env COMPILE_ENV=es rollup -c -w -o es/pwsdk.js",
+    "dev:commonjs": "cross-env COMPILE_ENV=cjs rollup -c -w -o lib/copper-sdk.js",
+    "dev:es": "cross-env COMPILE_ENV=es rollup -c -w -o es/copper-sdk.js",
     "test": "karma start --single-run",
     "test:dev": "karma start --auto-watch",
     "lint": "tslint src/**/*.ts test/**/*.ts",
@@ -28,14 +28,14 @@
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build",
     "docs:watch": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:ProsperWorks/pw-app-sdk.git gh-pages --force"
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:ProsperWorks/copper-sdk.git gh-pages --force"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProsperWorks/pw-app-sdk.git"
+    "url": "git+https://github.com/ProsperWorks/copper-sdk.git"
   },
   "keywords": [
-    "ProsperWorks",
+    "Copper",
     "SDK",
     "app",
     "framework",
@@ -44,9 +44,9 @@
   "author": "Guangda Zhang <zhangxiaoyu9350@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ProsperWorks/pw-app-sdk/issues"
+    "url": "https://github.com/ProsperWorks/copper-sdk/issues"
   },
-  "homepage": "https://github.com/ProsperWorks/pw-app-sdk#readme",
+  "homepage": "https://github.com/ProsperWorks/copper-sdk#readme",
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/mocha": "^2.2.48",

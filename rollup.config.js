@@ -32,7 +32,7 @@ if (compileEnv === 'umd') {
 
   config.output = {
     format: 'umd',
-    name: 'PWSDK',
+    name: 'Copper',
   }
 }
 
