@@ -18,7 +18,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.SERVER_PORT || 8088;
 const copperServer = process.env.COPPER_API_SERVER || 'https://api.copper.com';
-const copperAccessToken = process.env.COPPER_ACCESS_TOKEN;
 const copperPublicKeyUrl = `${copperServer}/developer_api/v1/embedded_apps/public_key`;
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
