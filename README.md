@@ -3,8 +3,8 @@ Copper App SDK
 
 [![Travis branch](https://img.shields.io/travis/Copper/copper-sdk/master.svg?style=flat-square)](https://travis-ci.org/Copper/copper-sdk)
 [![npm](https://img.shields.io/npm/v/copper-sdk.svg?style=flat-square)](https://www.npmjs.com/package/copper-sdk)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/da14ccff1ebc4d8121f4/test_coverage)](https://codeclimate.com/github/Copper/copper-sdk/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/da14ccff1ebc4d8121f4/maintainability)](https://codeclimate.com/github/Copper/copper-sdk/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/test_coverage)](https://codeclimate.com/github/ProsperWorks/copper-sdk/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/maintainability)](https://codeclimate.com/github/ProsperWorks/copper-sdk/maintainability)
 
 The javascript SDK provides client-side functionalities for adding embedded app to the copper web client.
 
