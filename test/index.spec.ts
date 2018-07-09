@@ -2,21 +2,21 @@ import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import EntityModel from 'src/entity-model';
 import { version } from '../package.json';
-import PWSDK from '../src/index';
+import Copper from '../src/index';
 import { IPostMessageData, UITarget } from '../src/interfaces';
 
-describe('PWSDK', function () {
+describe('Copper', function () {
   context('when init', function () {
     it('should throw error if invalid arguments', function () {
       expect(() => {
-        PWSDK.init();
+        Copper.init();
       }).to.throw(TypeError, 'parentOrigin or instanceId is empty');
     });
   });
 
   context('when checking version', function () {
     it('should be the same as the version from package.json', function () {
-      expect(PWSDK.version).to.equal(version);
+      expect(Copper.version).to.equal(version);
     });
   });
 
@@ -24,16 +24,16 @@ describe('PWSDK', function () {
     it('should throw if not enough parameter', function () {
       expect(() => {
         // need to cast it to any so typescript won't throw error
-        const sdk = new (PWSDK as any)(); // tslint:disable-line
+        const sdk = new (Copper as any)(); // tslint:disable-line
       }).to.throw(TypeError, 'parentOrigin or instanceId is empty');
     });
   });
 
   context('when using sdk public methods', function () {
-    let sdk: PWSDK;
+    let sdk: Copper;
     let win: any;
 
-    const origin = 'https://prosperworks.com';
+    const origin = 'https://copper.com';
     const instanceId = '1';
 
     beforeEach(function () {
@@ -43,7 +43,7 @@ describe('PWSDK', function () {
           postMessage: sinon.stub(),
         },
       };
-      sdk = new PWSDK(origin, instanceId, { isGlobal: false }, win);
+      sdk = new Copper(origin, instanceId, { isGlobal: false }, win);
     });
 
     context('#getContext', function () {

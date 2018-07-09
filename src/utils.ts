@@ -21,12 +21,12 @@ export function log(...msg: any[]): void {
 export function checkEnvironment(): boolean {
   // when the running environment is node.js, throwing error
   if (typeof window === 'undefined') {
-    log('PWSDK can only run in browser environment');
+    log('Copper can only run in browser environment');
     return false;
   }
 
   if (window.top === window) {
-    log('PWSDK should be inside an iframe, otherwise it might not work as expected.');
+    log('Copper should be inside an iframe, otherwise it might not work as expected.');
   }
 
   return true;

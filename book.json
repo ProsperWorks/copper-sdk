@@ -1,17 +1,17 @@
 {
   "gitbook": "3.2.3",
-  "title": "ProsperWorks App Javascript SDK",
+  "title": "Copper App Javascript SDK",
   "structure": {
     "summary": "SUMMARY.md"
   },
   "plugins": ["edit-link", "github", "expandable-chapters"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/ProsperWorks/pw-app-sdk/tree/master",
+      "base": "https://github.com/ProsperWorks/copper-sdk/tree/master",
       "label": "Edit This Page"
     },
     "github": {
-      "url": "https://github.com/ProsperWorks/pw-app-sdk/"
+      "url": "https://github.com/ProsperWorks/copper-sdk/"
     },
     "pluginsConfig": {
       "expandable-chapters":{}

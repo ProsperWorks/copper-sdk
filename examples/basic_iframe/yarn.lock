@@ -4942,9 +4942,9 @@ punycode@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
 
-pw-app-sdk@latest:
+copper-sdk@latest:
   version "0.3.0"
-  resolved "https://registry.yarnpkg.com/pw-app-sdk/-/pw-app-sdk-0.3.0.tgz#ca53b3fbe62c751453baf4b34f331aa0b77900df"
+  resolved "https://registry.yarnpkg.com/copper-sdk/-/copper-sdk-0.3.0.tgz#ca53b3fbe62c751453baf4b34f331aa0b77900df"
 
 q@^1.1.2:
   version "1.5.1"

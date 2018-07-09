@@ -22,7 +22,7 @@ import {
   getParameterByName,
 } from './utils';
 
-export default class PWSDK {
+export default class Copper {
   public static init() {
     const parentOrigin = getParameterByName('origin');
     const instanceId = getParameterByName('instanceId');
@@ -34,7 +34,7 @@ export default class PWSDK {
       throw new Error('Environment checking does not pass.');
     }
 
-    return new PWSDK(parentOrigin, instanceId, options);
+    return new Copper(parentOrigin, instanceId, options);
   }
 
   public static get version() {
@@ -54,9 +54,9 @@ export default class PWSDK {
   private _context: IEntityModel | null;
 
   /**
-   * Creates an instance of PWSDK.
+   * Creates an instance of Copper.
    * @param {*} [_win=window] has to be any type to support testing
-   * @memberof PWSDK
+   * @memberof Copper
    */
   constructor(
     private parentOrigin: string,
@@ -198,7 +198,7 @@ export default class PWSDK {
     if (!url) {
       return Promise.reject({
         id: 'sdk-api',
-        version: PWSDK.version,
+        version: Copper.version,
         detail: 'url cannot be empty',
       });
     }
@@ -208,7 +208,7 @@ export default class PWSDK {
       } catch (e) {
         return Promise.reject({
           id: 'sdk-api',
-          version: PWSDK.version,
+          version: Copper.version,
           detail: 'body must be a valid JSON string',
         });
       }

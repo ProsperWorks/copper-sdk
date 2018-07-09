@@ -11,7 +11,7 @@ describe('utils', function () {
 
   context('#getParameterByName', function () {
     it('should get parameters correctly', function () {
-      const foo = getParameterByName('foo', 'https://prosperworks.com?foo=Alice');
+      const foo = getParameterByName('foo', 'https://copper.com?foo=Alice');
       expect(foo).to.equal('Alice');
     });
 

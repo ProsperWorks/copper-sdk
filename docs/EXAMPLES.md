@@ -13,7 +13,7 @@ npm start
 After start the webpacker, use your browser to point to https://localhost:8080 and trust the
 ssl certificate.
 
-In your prosperworks web admin page, click the "Integration" in "Customize Prosperworks"
+In your copper web admin page, click the "Integration" in "Customize copper"
 section. Choose "Embedded Integration" tab and click "Add Integration" button. Give a name
 to the basic app and use "https://localhost:8080" as URL. In "Add to" section, choose
 at least one entity. Navigate to the entity page such as "Lead" and go to the detail view
@@ -26,8 +26,8 @@ these files and add more files.
 ##### Steps to use the sdk
 ###### Initialize the sdk
 ```javascript
-import PWSDK from 'pw-app-sdk'
-const sdk = PWSDK.init()
+import Copper from 'copper-sdk'
+const sdk = Copper.init()
 ```
 
 ###### Use the sdk
@@ -38,8 +38,8 @@ const context = await sdk.getContext()
 
 ## Secure Example
 The secure example code is in examples/secure_iframe. For secure embeddded application,
-prosperworks web application will send a POST request with JWT first to the iframe url. The
-embedded app should first get the public key from prosperworks and use the public key
+copper web application will send a POST request with JWT first to the iframe url. The
+embedded app should first get the public key from copper and use the public key
 to verify the json web token.
 
 #### Quick Start
@@ -58,7 +58,7 @@ yarn server
 yarn client
 ```
 
-In your prosperworks web admin page, click the "Integration" in "Customize Prosperworks"
+In your copper web admin page, click the "Integration" in "Customize copper"
 section. Choose "Embedded Integration" tab and click "Add Integration" button. Give a name
 to the basic app and use "https://localhost:8080" as URL. In "Add to" section, choose
 at least one entity. Navigate to the entity page such as "Lead". In the
@@ -67,15 +67,15 @@ Go to the entity detail view page, you should see the embedded app in right side
 
 #### Development
 When the embedded app is configured as secure, it will receive a post request first with the
-json web token(JWT). The JWT is encrypted with prosperworks private key. To verfiy the JWT,
-you need to fetch the prosperworks public key first.
-###### Fetch prosperworks public key
+json web token(JWT). The JWT is encrypted with copper private key. To verfiy the JWT,
+you need to fetch the copper public key first.
+###### Fetch copper public key
 ```javascript
   const pwAccessToken = 'xxx';
   const pwUserEmail = 'xxxxx';
   const { data } = await axios({
     method: 'get',
-    url: 'https://api.prosperworks.com/developer_api/v1/embedded_apps/public_key',
+    url: 'https://api.copper.com/developer_api/v1/embedded_apps/public_key',
     Accept: 'application/json',
     headers: {
       'X-PW-AccessToken': pwAccessToken,

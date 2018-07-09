@@ -36,7 +36,7 @@ https://your-url.com/sidebar?origin=...&instanceId=...
 ```
 
 #### refreshOnContextUpdate
-By default, when switching to a new route in prosperworks app, we will send a event to your app. So you can do
+By default, when switching to a new route in copper app, we will send a event to your app. So you can do
 ```javascript
 sdk.on('contextUpdated', function () {
   // here's your code to handle it
@@ -47,7 +47,7 @@ However, if you do not want to handle the event, you want to refresh your app in
 config `refreshOnContextUpdate: true`, so we will refresh for you every time when the app changes route/context.
 
 #### voip
-By turning `voip: true`, all the phone number in prosperworks becomes clickable. When user click it, you will be able to subscribe a event called `phoneNumberClicked`.
+By turning `voip: true`, all the phone number in copper becomes clickable. When user click it, you will be able to subscribe a event called `phoneNumberClicked`.
 e.g.
 ```javascript
 sdk.on('phoneNumberClicked', function ({ number }) {
@@ -61,5 +61,5 @@ However, the browser might still block you from seeing it.
 You probably need to click the small icon in right most of your browser's address bar and click allow run unsafe script.
 
 #### verifyServer
-This is allowing you to verify your parent frame is actually prosperworks. Please see more deatils in
+This is allowing you to verify your parent frame is actually copper. Please see more deatils in
 [Secure Example](./EXAMPLES.html#secure-example)

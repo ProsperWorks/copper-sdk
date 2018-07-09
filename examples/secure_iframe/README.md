@@ -1,6 +1,6 @@
-# ProsperWorks sample secure app.
+# Copper sample secure app.
 The sample secure app include both backend server and
-client. When the app is configured as secure. Prosperworks will send a post request to the app with json web token. Backend server will verify the token.
+client. When the app is configured as secure. Copper will send a post request to the app with json web token. Backend server will verify the token.
 ## Development
 Start server and client at same time:
 ```bash
@@ -19,4 +19,4 @@ cd client
 yarn start
 ```
 
-In prosperworks admin page, create embedded app with url: http://localhost:8080 and set verifyServer:true in configure.
+In copper admin page, create embedded app with url: http://localhost:8080 and set verifyServer:true in configure.
