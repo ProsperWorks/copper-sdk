@@ -47,7 +47,7 @@ sdk.getContext()
 
 ### SDK Docs
 
-https://prosperworks.github.io/copper-sdk
+https://docs.copper.com/copper-sdk
 
 ## Development
 ### Prerequisites
