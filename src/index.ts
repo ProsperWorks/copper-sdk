@@ -146,7 +146,13 @@ export default class Copper {
     entityData: object,
     refreshDelay = 0,
   ): Promise<any> {
-    const context = await this._getCachedContext();
+    let context: IEntityModel;
+    try {
+      context = await this._getCachedContext();
+    } catch (e) {
+      // we allow create entity be called without actual context
+      context = {} as IEntityModel;
+    }
     const apiOptions = createEntityDataGenerator(context, {
       entityType,
       data: entityData,
