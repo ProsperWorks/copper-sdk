@@ -1,53 +1,51 @@
 # Configuration
 
-We allow user to specify where to show their embedded app.
-This includes:
-1. Entity Type
-2. Location
-3. Advanced Config
+How to configure the embedded app: 
+1. Add to
+2. Locations
+3. Optional Advanced Configuration
 
 ![Embedded App Setting](./images/embedded-app-setting.png)
 
-## Entity Type
-We support 5 entity types:
-1. Lead
-2. Person
-3. Company
-4. Opportunity
-5. Project
+## Add to
+Copper supports 5 entities where users can add an embedded app:
+1. Leads
+2. People
+3. Companies
+4. Opportunities
+5. Projects
 
-## Location
-We support 4 locations for now:
+## Locations
+Copper supports 5 locations where users can view the embedded app:
 1. Sidebar
 2. Activity Panel
 3. Action Bar
 4. Profile
+5. Left Navigation
 
-## Config
+## Optional Advanced Configuration
 #### html5Mode
-Normally when we load an embedded app the url would be like:
+The URL of a typical embedded app would be:
 ```
 https://your-url.com/?location=sidebar&origin=...&instanceId=...
 ```
 
-If you specified `html5Mode: true`, it will become
+If a user specifies `html5Mode: true`, the URL will now become:
 ```
 https://your-url.com/sidebar?origin=...&instanceId=...
 ```
 
 #### refreshOnContextUpdate
-By default, when switching to a new route in copper app, we will send a event to your app. So you can do
+By default, when switching to a new route in the Copper app, an event is sent to the embedded app. Users will now have the capability of using the following: 
 ```javascript
 sdk.on('contextUpdated', function () {
-  // here's your code to handle it
+  // here's your code to handle the event
 })
 ```
-
-However, if you do not want to handle the event, you want to refresh your app instead. You can specify this
-config `refreshOnContextUpdate: true`, so we will refresh for you every time when the app changes route/context.
+Instead of handling the event, users also have an option to refresh the app by setting Optional Advanced Configuration as `refreshOnContextUpdate: true`. This will allow Copper to refresh every time the app changes route/context.
 
 #### voip
-By turning `voip: true`, all the phone number in copper becomes clickable. When user click it, you will be able to subscribe a event called `phoneNumberClicked`.
+By setting Optional Advanced Configuration: `voip: true`, all the phone numbers in Copper now becomes clickable. When users click on the phone number, they will be able to subscribe an event called `phoneNumberClicked`.
 e.g.
 ```javascript
 sdk.on('phoneNumberClicked', function ({ number }) {
@@ -56,10 +54,12 @@ sdk.on('phoneNumberClicked', function ({ number }) {
 ```
 
 #### allowHttp
-By default we do not allow http url to be used in embedded app. If you do need it, e.g. for you local development, you could turn `allowHttp: true`, so we will support it.
-However, the browser might still block you from seeing it.
-You probably need to click the small icon in right most of your browser's address bar and click allow run unsafe script.
+By default, Copper does not allow http url to be used in an embedded app. However, setting Optional Advanced Configuration `allowHttp: true` will allow users to embed http url into the embedded app. 
+
+If the browser still blocks the user from seeing the http url, following the steps below would unblock the user: 
+1. Click on the small icon in the user's browser's address bar on the right
+2. Click on "allow run unsafe script"
 
 #### verifyServer
-This is allowing you to verify your parent frame is actually copper. Please see more deatils in
+This allows users to verify that their parent frame is actually Copper. Please see more details in
 [Secure Example](./EXAMPLES.html#secure-example)
