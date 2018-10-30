@@ -6,19 +6,19 @@ Copper App SDK
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/test_coverage)](https://codeclimate.com/github/ProsperWorks/copper-sdk/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/maintainability)](https://codeclimate.com/github/ProsperWorks/copper-sdk/maintainability)
 
-The javascript SDK provides client-side functionalities for adding embedded app to the copper web client.
+The javascript SDK provides client-side functionalities for adding embedded app to the Copper web client.
 
-Embedded app is an iframe embedded in the copper web page. The display location of the iframe is configured in the embedded app setting page.
+The Embedded app is an iframe embedded in the Copper web page. The display location of the iframe is configured in the embedded app's settings page.
 
 ## Usage
-### Use with your webpack/rollup/browserify etc.
+Execute the following with your webpack/rollup/browserify etc.
 ```bash
 yarn add copper-sdk
 # or
 npm install copper-sdk --save
 ```
 
-Then you could just do
+Followed by:
 ```javascript
 import Copper from 'copper-sdk';
 const sdk = Copper.init();
@@ -51,7 +51,7 @@ https://docs.copper.com/copper-sdk
 
 ## Development
 ### Prerequisites
-Before development, make sure you installed all packages. We are using yarn for this project.
+Confirm all packages have been installed before development. Yarn will be used for this particular project.
 
 ```bash
 yarn
@@ -78,7 +78,6 @@ yarn lint
 
 ## FAQ
 ### How do I use my local SDK instead of the npm one?
-You could do `yarn link` in this repo, and go to your other repo and do
-`yarn link copper-sdk`.
+Execute `yarn link` inside this repository, then navigate over to the other repository and execute `yarn link copper-sdk`.
 
-Alternatively, you could also do `npm link path/to/copper-sdk` in your repo.
+An alternative way would be to execute `npm link path/to/copper-sdk` in the repository.
