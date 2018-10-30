@@ -1,13 +1,15 @@
 # Quick Start
 
-## Use with your webpack/rollup/browserify etc.
+## Using webpack/rollup/browserify etc.
+
+Execute the following:
 ```bash
 yarn add copper-sdk
 # or
 npm install copper-sdk --save
 ```
 
-Then you could just do
+Followed by:
 ```javascript
 import Copper from 'copper-sdk';
 const sdk = Copper.init();
@@ -18,7 +20,7 @@ sdk.getContext()
   });
 ```
 
-## Use with CDN
+## Using CDN
 `copper-sdk` is served with https://www.jsdelivr.com/package/npm/copper-sdk
 
 ```html

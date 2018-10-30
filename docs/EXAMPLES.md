@@ -1,75 +1,84 @@
 # Examples
 ## Basic Example
-The simple example code is in examples/basic_iframe. It is a simple javascript web application.
-Backend server is not required for the basic example. Webpacker server is used for
-development.
+The javascript web application code for this example can be found in examples/basic_iframe.
+The backend server is not required for this particular example. The webpacker server is used for development.
+
 #### Quick Start
-##### Start webpacker dev server
+##### Starting the webpacker dev server
 ```bash
 yarn start
 # or
 npm start
 ```
-After start the webpacker, use your browser to point to https://localhost:8080 and trust the
-ssl certificate.
+After the webpacker has started, use your browser to point to https://localhost:8080 and trust the ssl certificate.
 
-In your copper web admin page, click the "Integration" in "Customize copper"
-section. Choose "Embedded Integration" tab and click "Add Integration" button. Give a name
-to the basic app and use "https://localhost:8080" as URL. In "Add to" section, choose
-at least one entity. Navigate to the entity page such as "Lead" and go to the detail view
-page, you should see the embedded app in right side panel.
+##### Adding an embedded app (Copper web app)
+From Copper's web admin page, navigate to "Settings" > "Integrations", scroll to the bottom of the page, where the user will see a "Create an embedded app" card. Select the "Create an embedded app" card and fill in the card with the following information, then click "save". 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name: insert the name of this particular embedded app
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL: "https://localhost:8080"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to: select Leads
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Locations: select Sidebar 
+
+In order to view the embedded app created above, navigate to a lead record's related tab. 
 
 #### Development
-The basic example source code includes index.html and app.js in src folder. You can change
-these files and add more files.
+The source code for this basic example consists of index.html and app.js in the src folder, where users can change and add more files to the project. 
 
-##### Steps to use the sdk
-###### Initialize the sdk
+##### Steps on using the sdk
+###### Initializing the sdk
 ```javascript
 import Copper from 'copper-sdk'
 const sdk = Copper.init()
 ```
 
-###### Use the sdk
-Get context api example:
+###### Using the sdk
+Example of getContext() API:
 ```javascript
 const context = await sdk.getContext()
 ```
 
 ## Secure Example
-The secure example code is in examples/secure_iframe. For secure embeddded application,
-copper web application will send a POST request with JWT first to the iframe url. The
-embedded app should first get the public key from copper and use the public key
-to verify the json web token.
+This example touches more upon security. The code can be found in examples/secure_iframe. This embedded app will send a POST request with json web token(JWT) first to the iframe url. The embedded app should first get the public key from Copper and use the public key to verify the json web token.
 
 #### Quick Start
-The secure example use express based server side and webpacker client side.
-##### Start server and client
+The secure example uses an express based server side and webpacker client side.
+##### Starting the server and client
 ```bash
 yarn dev
 ```
-You can also start server and client seperately.
-###### start server
+Optionally, the server and client can be started separately:
+###### Starting the server
 ```bash
 yarn server
 ```
-###### Start client webpacker dev server
+###### Starting the client webpacker dev server
 ```bas
 yarn client
 ```
 
-In your copper web admin page, click the "Integration" in "Customize copper"
-section. Choose "Embedded Integration" tab and click "Add Integration" button. Give a name
-to the basic app and use "https://localhost:8080" as URL. In "Add to" section, choose
-at least one entity. Navigate to the entity page such as "Lead". In the
-"Config Section", add {"verifyServer": true}.
-Go to the entity detail view page, you should see the embedded app in right side panel.
+##### Adding an embedded app (Copper web app)
+From Copper's web admin page, navigate to "Settings" > "Integrations", scroll to the bottom of the page, where the user will see a "Create an embedded app" card. Select the "Create an embedded app" card and fill in the card with the following information, then click "save". 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name: insert the name of this particular embedded app
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL: "https://localhost:8080"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add to: select Leads
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Locations: select Sidebar 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optional Advanced Configuration: {"verifyServer": true}
+
+In order to view the embedded app created above, navigate to a lead record's related tab. 
+
 
 #### Development
-When the embedded app is configured as secure, it will receive a post request first with the
-json web token(JWT). The JWT is encrypted with copper private key. To verfiy the JWT,
-you need to fetch the copper public key first.
-###### Fetch copper public key
+When the embedded app is configured as secure, it will receive a post request first with the JWT. The JWT is encrypted with Copper's private key. Copper's public key has to be fetched first in order to verfiy the JWT. 
+###### Fetching Copper's public key
 ```javascript
   const { data } = await axios({
     method: 'get',
