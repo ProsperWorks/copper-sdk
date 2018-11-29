@@ -51,12 +51,12 @@ The method setAppUI() will change the UI of the parent Copper's web page.
 ###### Parameter
 | Name | Type   | Required | Description                                                                                                                                                 |
 | ---- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Data | Object | Yes      | Data uses json format. Currently six keys in the json are supported:<br> "counter", "height", "width", "disableAddButton", "showActionBar", "isActionBarActive". |
+| Data | Object | Yes      | Data uses json format. Currently six keys in the json are supported:<br> "count", "height", "width", "disableAddButton", "showActionBar", "isActionBarActive". |
 
 ###### Example
 ```javascript
 sdk.setAppUI({
-  counter: 5,   //change the counter in the parent frame above the iframe
+  count: 5,   //change the value of counter in app header
   width: 500,  //change the iframe width (currently only the app in the action bar allows this)
   height: 500,  //change the iframe height
   disableAddButton: true,  //disable the add button in the parent frame above the iframe
