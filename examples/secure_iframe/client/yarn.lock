@@ -1546,6 +1546,10 @@ cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
+copper-sdk@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/copper-sdk/-/copper-sdk-0.5.0.tgz#0d1d27ea22e2ab56270ce240479d7f1bcc912187"
+
 copy-concurrently@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/copy-concurrently/-/copy-concurrently-1.0.5.tgz#92297398cae34937fcafd6ec8139c18051f0b5e0"
@@ -5008,10 +5012,6 @@ punycode@^1.2.4, punycode@^1.4.1:
 punycode@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
-
-copper-sdk@latest:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/copper-sdk/-/copper-sdk-0.3.0.tgz#ca53b3fbe62c751453baf4b34f331aa0b77900df"
 
 q@^1.1.2:
   version "1.5.1"
