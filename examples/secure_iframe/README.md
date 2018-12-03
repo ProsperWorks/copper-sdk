@@ -2,21 +2,14 @@
 The sample secure app include both backend server and
 client. When the app is configured as secure. Copper will send a post request to the app with json web token. Backend server will verify the token.
 ## Development
-Start server and client at same time:
+Start development with watching changes:
 ```bash
 yarn dev
 ```
-You can also start server and client separately:
 
 Start server:
 ```bash
-yarn server
-```
-
-Start client
-```bash
-cd client
 yarn start
 ```
 
-In copper admin page, create embedded app with url: http://localhost:8080 and set verifyServer:true in configure.
+In copper admin page, create embedded app with url: https://localhost:8088 and set `verifyServer:true` in configure.
