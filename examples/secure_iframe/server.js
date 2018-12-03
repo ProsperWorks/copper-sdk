@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.SERVER_PORT || 8088;
-const copperServer = process.env.COPPER_API_SERVER || 'https://api.copper.com';
+const copperServer = process.env.COPPER_API_SERVER || 'https://api.prosperworks.com';
 const copperPublicKeyUrl = `${copperServer}/developer_api/v1/embedded_apps/public_key`;
 
 app.use(express.static(path.resolve(__dirname, 'public')));
