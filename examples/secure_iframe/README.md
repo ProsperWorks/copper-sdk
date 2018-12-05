@@ -2,6 +2,13 @@
 The sample secure app include both backend server and
 client. When the app is configured as secure. Copper will send a post request to the app with json web token. Backend server will verify the token.
 ## Development
+Install dependencies:
+```bash
+yarn
+# or 
+npm install
+```
+
 Start development with watching changes:
 ```bash
 yarn dev
