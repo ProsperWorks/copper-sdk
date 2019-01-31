@@ -233,6 +233,12 @@ export default class Copper {
     });
   }
 
+  public async getListViewSelectedRecords({ pageSize = 100, pageNumber = 0 } = {}): Promise<any> {
+    return this._createDeferredMethod('listViewSelectedRecords', () => {
+      this._postMessage('listViewSelectedRecords', { pageSize, pageNumber });
+    });
+  }
+
   private async _getCachedContext(): Promise<IEntityModel> {
     if (this._context) {
       return this._context;
