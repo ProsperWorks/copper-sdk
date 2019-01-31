@@ -539,6 +539,25 @@ describe('Copper', function () {
       });
     });
 
+    context('#getListViewSelectedRecords', function () {
+      it('should fetch list view selected records ', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'listViewSelectedRecords',
+                data: true,
+              },
+            }),
+          );
+        });
+
+        const data = await sdk.getListViewSelectedRecords();
+        expect(data).to.equal(true);
+      });
+    });
+
     context('deferredQueue', function () {
       it('should resolve based on fifo', async function () {
         const data = [
