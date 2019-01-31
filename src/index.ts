@@ -79,21 +79,16 @@ export default class Copper {
   }
 
   public async getContext(): Promise<IContextData> {
-    const messageData = await this._createDeferredMethod('getContext', () => {
-      this._postMessage('getContext');
-    });
-
+    const messageData = await this._deferredPost('getContext');
     return this._createContextModel(messageData);
   }
 
   public async saveContext(context: EntityModel): Promise<IContextData> {
-    const messageData = await this._createDeferredMethod('saveContext', () => {
-      this._postMessage('saveContext', {
-        data: {
-          entityType: context.type,
-          entityData: context.toObject(),
-        },
-      });
+    const messageData = await this._deferredPost('saveContext', {
+      data: {
+        entityType: context.type,
+        entityData: context.toObject(),
+      },
     });
     return this._createContextModel(messageData);
   }
@@ -219,18 +214,18 @@ export default class Copper {
         });
       }
     }
-    return this._createDeferredMethod('api', () => {
-      this._postMessage('api', {
-        url,
-        options,
-      });
+    return this._deferredPost('api', {
+      url,
+      options,
     });
   }
 
   public navigateToEntityDetail(entityType: string, entityId: number): Promise<any> {
-    return this._createDeferredMethod('navigateToEntityDetail', () => {
-      this._postMessage('navigateToEntityDetail', { entityType, entityId });
-    });
+    return this._deferredPost('navigateToEntityDetail', { entityType, entityId });
+  }
+
+  public getListViewSelectedRecords({ pageSize = 100, pageNumber = 0 } = {}): Promise<any> {
+    return this._deferredPost('listViewSelectedRecords', { pageSize, pageNumber });
   }
 
   private async _getCachedContext(): Promise<IEntityModel> {
@@ -339,6 +334,16 @@ export default class Copper {
     this._enqueueDeferred(queueName, deferred);
     executor();
     return deferred.promise;
+  }
+
+  private _deferredPost(name: string, data?: any): Promise<any> {
+    return this._createDeferredMethod(name, () => {
+      if (data) {
+        this._postMessage(name, data);
+      } else {
+        this._postMessage(name);
+      }
+    });
   }
 
   private _subscribeContextUpdated() {
