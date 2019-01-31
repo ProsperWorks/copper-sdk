@@ -1,5 +1,3 @@
-import './app.css'
-import Copper from 'copper-sdk'
 const sdk = Copper.init()
 
 async function handleGetContext() {

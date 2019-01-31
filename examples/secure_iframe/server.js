@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
+require('dotenv').config();
 
 const https = require('https');
 const express = require('express');
@@ -10,6 +8,11 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 
+const privateKey  = fs.readFileSync(path.resolve(__dirname, 'ssl/server.key'), 'utf8');
+const certificate = fs.readFileSync(path.resolve(__dirname, 'ssl/server.crt'), 'utf8');
+
+const credentials = {key: privateKey, cert: certificate};
+
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
@@ -17,14 +20,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.SERVER_PORT || 8088;
-const copperServer = process.env.COPPER_API_SERVER || 'https://api.copper.com';
+const copperServer = process.env.COPPER_API_SERVER || 'https://api.prosperworks.com';
 const copperPublicKeyUrl = `${copperServer}/developer_api/v1/embedded_apps/public_key`;
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
+
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, './client/dist/index.html'));
+  res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
 app.post('/*', async function(req, res) {
@@ -43,10 +45,13 @@ app.post('/*', async function(req, res) {
   });
 });
 
-app.listen(port, (err) => {
+function serverCallback(err) {
   if (err) {
     return console.log('something bad happened', err);
   }
 
-  console.log(`Server is listening at: http://localhost:${port}`);
-});
+  console.log(`Server is listening at: https://localhost:${port}`);
+}
+
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(port, serverCallback);
