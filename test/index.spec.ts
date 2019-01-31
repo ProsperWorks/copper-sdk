@@ -539,21 +539,21 @@ describe('Copper', function () {
       });
     });
 
-    context('#getListViewSelectedRecords', function () {
+    context('#getSelectedRecords', function () {
       it('should fetch list view selected records ', async function () {
         win.top.postMessage.callsFake(function () {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'listViewSelectedRecords',
+                type: 'getSelectedRecords',
                 data: true,
               },
             }),
           );
         });
 
-        const data = await sdk.getListViewSelectedRecords();
+        const data = await sdk.getSelectedRecords();
         expect(data).to.equal(true);
       });
     });

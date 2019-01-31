@@ -224,8 +224,8 @@ export default class Copper {
     return this._deferredPost('navigateToEntityDetail', { entityType, entityId });
   }
 
-  public getListViewSelectedRecords({ pageSize = 100, pageNumber = 0 } = {}): Promise<any> {
-    return this._deferredPost('listViewSelectedRecords', { pageSize, pageNumber });
+  public getSelectedRecords({ pageSize = 100, pageNumber = 0 } = {}): Promise<any> {
+    return this._deferredPost('getSelectedRecords', { pageSize, pageNumber });
   }
 
   private async _getCachedContext(): Promise<IEntityModel> {
