@@ -83,6 +83,10 @@ export default class Copper {
     return this._createContextModel(messageData);
   }
 
+  public async getUserInfo(): Promise<any> {
+    return this._deferredPost('getUserInfo');
+  }
+
   public async saveContext(context: EntityModel): Promise<IContextData> {
     const messageData = await this._deferredPost('saveContext', {
       data: {
