@@ -72,6 +72,28 @@ describe('Copper', function () {
       });
     });
 
+    context('#getUserInfo', function () {
+      it('should be able to get user info', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'getUserInfo',
+                data: {
+                  account: { id: 1 },
+                  user: { id: 1 },
+                },
+              },
+            }),
+          );
+        });
+        const data = await sdk.getUserInfo();
+        expect(data.account.id).to.equal(1);
+        expect(data.user.id).to.equal(1);
+      });
+    });
+
     context('#saveContext', function () {
       it('should be able to save context', async function () {
         win.top.postMessage.callsFake(function () {
