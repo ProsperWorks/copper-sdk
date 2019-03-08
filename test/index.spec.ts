@@ -580,6 +580,31 @@ describe('Copper', function () {
       });
     });
 
+    context('#getConfig', function () {
+      it('should app config ', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'getConfig',
+                data: {
+                  appConfig: { foo: 1 },
+                  config: { bar: 1 },
+                },
+              },
+            }),
+          );
+        });
+
+        const data = await sdk.getConfig();
+        expect(data).to.eql({
+          appConfig: { foo: 1 },
+          config: { bar: 1 },
+        });
+      });
+    });
+
     context('deferredQueue', function () {
       it('should resolve based on fifo', async function () {
         const data = [

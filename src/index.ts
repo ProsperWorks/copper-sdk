@@ -232,6 +232,10 @@ export default class Copper {
     return this._deferredPost('getSelectedRecords', { pageSize, pageNumber });
   }
 
+  public getConfig(): Promise<{ appConfig: any, config: any }> {
+    return this._deferredPost('getConfig');
+  }
+
   private async _getCachedContext(): Promise<IEntityModel> {
     if (this._context) {
       return this._context;
