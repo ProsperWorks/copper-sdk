@@ -93,6 +93,7 @@ The method on(type, cb) subscribes to the message type with call back cb.
 | addButtonClicked   | When app is in the sidebar and + button is clicked      |
 | phoneNumberClicked | When voip configuration is on, and phone is clicked |
 | contextUpdated     | When the Copper app routing has changed               |
+| recordSelected     | When any item is selected in list view               |
 
 ###### Example
 ```javascript
@@ -221,9 +222,25 @@ const entityId = 1;
 sdk.navigateToEntityDetail(entityType, entityId); //navigate to task with id 1
 ```
 
+#### getSelectedRecords()
+Get selected records by pageNumber and pageSzie
+###### Parameter
+| Name       | Type    | Required | Description                                                                                  |
+| ---------- | ------- | -------- | -------------------------------------------------------------------------------------------- |
+| pageNumber | Integer | No       | page number                                                                                  |
+| pageSize   | Integer | No       | page size                                                                                    |
 
-
-
-
-
-
+###### Example
+```javascript
+sdk.getSelectedRecords({ pageNumber: 0, pageSize: 100});
+// returns
+[
+  {
+    "id": 165837,
+    "first_name": "Jason",
+    "last_name": "Mraz",
+    "middle_name": null,
+    ...
+  }
+]
+```

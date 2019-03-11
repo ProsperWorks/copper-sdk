@@ -19,4 +19,5 @@
   * [createEntity](docs/REFERENCE.md#createentity)
   * [relateEntity](docs/REFERENCE.md#relateentity)
   * [navigateToEntityDetail](docs/REFERENCE.md#navigatetoentitydetail)
+  * [getSelectedRecords](docs/REFERENCE.md#getselectedrecords)
 * [Configuration](docs/CONFIGURATION.md)
