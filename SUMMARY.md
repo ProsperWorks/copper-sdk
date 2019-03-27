@@ -20,4 +20,6 @@
   * [relateEntity](docs/REFERENCE.md#relateentity)
   * [navigateToEntityDetail](docs/REFERENCE.md#navigatetoentitydetail)
   * [getSelectedRecords](docs/REFERENCE.md#getselectedrecords)
+  * [getUserInfo](docs/REFERENCE.md#getuserinfo)
+  * [getConfig](docs/REFERENCE.md#getconfig)
 * [Configuration](docs/CONFIGURATION.md)

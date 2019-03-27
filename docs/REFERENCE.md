@@ -21,7 +21,7 @@ The method save() will save the value to the server and update the Copper UI.
 
 ###### Example
 ```javascript
-const context = sdk.getContext();
+const context = await sdk.getContext();
 context.name = "Joe"
 context.save()
 ```
@@ -232,7 +232,7 @@ Get selected records by pageNumber and pageSzie
 
 ###### Example
 ```javascript
-sdk.getSelectedRecords({ pageNumber: 0, pageSize: 100});
+await sdk.getSelectedRecords({ pageNumber: 0, pageSize: 100});
 // returns
 [
   {
@@ -243,4 +243,41 @@ sdk.getSelectedRecords({ pageNumber: 0, pageSize: 100});
     ...
   }
 ]
+```
+
+#### getUserInfo()
+Get current current user info
+
+###### Example
+```javascript
+await sdk.getUserInfo();
+// returns
+{
+  "account": {
+    "id": 1,
+    "name": "Google"
+  },
+  "user": {
+    "email": "larry@google.com"
+    "id": 1,
+    "name": "Larry Page"
+  }
+}
+```
+
+#### getConfig()
+Get current app and installation config
+
+###### Example
+```javascript
+await sdk.getConfig();
+// returns
+{
+  "appConfig": {
+    "height": 600
+  },
+  "config": { // this is installation config
+    "token": "my_token"
+  }
+}
 ```
