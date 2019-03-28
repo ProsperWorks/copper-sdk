@@ -94,6 +94,26 @@ describe('Copper', function () {
       });
     });
 
+    context('#getRouteInfo', function () {
+      it('should be able to get route info', async function () {
+        win.top.postMessage.callsFake(function () {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: 'getRouteInfo',
+                data: {
+                  url: '/happy-route',
+                },
+              },
+            }),
+          );
+        });
+        const data = await sdk.getRouteInfo();
+        expect(data.url).to.equal('/happy-route');
+      });
+    });
+
     context('#saveContext', function () {
       it('should be able to save context', async function () {
         win.top.postMessage.callsFake(function () {
