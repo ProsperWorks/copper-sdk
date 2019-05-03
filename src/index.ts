@@ -4,7 +4,7 @@ import {
   logActivityDataGenerator,
   relateEntityDataGenerator,
 } from './action-data-generator';
-import { ENTITY_TYPE, HTTP_METHOD } from './constant';
+import { ENTITY_TYPE } from './constant';
 import Deferred from './defer';
 import EntityModel, { IContextData, IEntityModel } from './entity-model';
 import {
@@ -72,6 +72,9 @@ export default class Copper {
 
     // listen to contextUpdated event
     this._subscribeContextUpdated();
+
+    // notify parent frame init
+    this._postMessage('init');
   }
 
   public get win(): Window {
