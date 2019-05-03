@@ -46,6 +46,20 @@ describe('Copper', function () {
       sdk = new Copper(origin, instanceId, { isGlobal: false }, win);
     });
 
+    context('#init', function () {
+      it('should send a init event to parent', function () {
+        win.top.postMessage.calledOnceWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'init',
+              instanceId,
+              version,
+            });
+          }),
+        );
+      });
+    });
+
     context('#getContext', function () {
       it('should be able to get context from parent', async function () {
         win.top.postMessage.callsFake(function () {
@@ -145,7 +159,7 @@ describe('Copper', function () {
     context('#setAppUI', function () {
       it('should be able to receive ui settings', function () {
         sdk.setAppUI({ count: 0 });
-        win.top.postMessage.calledWith(
+        win.top.postMessage.calledOnceWith(
           sinon.match((value: IPostMessageData) => {
             return expect(value).to.eql({
               type: 'setUI',
@@ -163,7 +177,7 @@ describe('Copper', function () {
     context('#showModal', function () {
       it('should be able to show modal', function () {
         sdk.showModal({ name: 'Alice' });
-        win.top.postMessage.calledWith(
+        win.top.postMessage.calledOnceWith(
           sinon.match((value: IPostMessageData) => {
             return expect(value).to.eql({
               type: 'showModal',
@@ -181,7 +195,7 @@ describe('Copper', function () {
     context('#closeModal', function () {
       it('should be able to close modal', function () {
         sdk.closeModal();
-        win.top.postMessage.calledWith(
+        win.top.postMessage.calledOnceWith(
           sinon.match((value: IPostMessageData) => {
             return expect(value).to.eql({
               type: 'closeModal',
@@ -198,7 +212,7 @@ describe('Copper', function () {
         sdk.publishMessage('closeModal', 'target', {
           yo: 42,
         });
-        win.top.postMessage.calledWith(
+        win.top.postMessage.calledOnceWith(
           sinon.match((value: IPostMessageData) => {
             return expect(value).to.eql({
               type: 'publishMessage',
@@ -472,7 +486,7 @@ describe('Copper', function () {
       it('should call _postMessage ', function () {
         const target = { name: UITarget.ActivityLog, data: { foo: 'bar' } };
         sdk.refreshUI(target);
-        win.top.postMessage.calledWith(
+        win.top.postMessage.calledOnceWith(
           sinon.match((value: IPostMessageData) => {
             return expect(value).to.eql({
               type: 'refreshUI',
