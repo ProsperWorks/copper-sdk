@@ -34,6 +34,15 @@ The method showModal() will open the modal in Copper's web page. The url for the
 | ---- | ------ | -------- | ---------------------------------------------- |
 | Data | Object | No       | Data will be passed to the modal as parameters |
 
+###### Special Parameter
+`showModal({ width: 300, height: 400, displayHeader: true })`
+
+| Name          | Type    | Required | Description                                    |
+| ------------- | ------- | -------- | ------------------------ |
+| width         | Integer | No       | Width of the modal       |
+| height        | Integer | No       | Height of the modal      |
+| displayHeader | Bool    | No       | If display header or not |
+
 ###### Example
 ```javascript
 sdk.showModal({ foo: 'bar'})
@@ -57,11 +66,12 @@ The method setAppUI() will change the UI of the parent Copper's web page.
 ```javascript
 sdk.setAppUI({
   count: 5,   //change the value of counter in app header
-  width: 500,  //change the iframe width (currently only the app in the action bar allows this)
+  width: 500,  //change the iframe width (currently supported by modals/action bar)
   height: 500,  //change the iframe height
   disableAddButton: true,  //disable the add button in the parent frame above the iframe
   showActionBar: true,  //show embeddded app iframe for the action bar
   isActionBarActive: true,  //highlight the action bar icon
+  allowModals: false, // when true, will set allow-modals in the iframe
 })
 ```
 
