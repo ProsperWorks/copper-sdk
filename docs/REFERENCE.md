@@ -125,9 +125,9 @@ The method api(url, options) will proxy the api call from the Copper api server 
 ```javascript
 sdk.api('/v1/leads/', {
   method: 'POST',
-  body: {
+  body: JSON.stringify({
     name: 'lead name'
-  }
+  })
 })
 ```
 All of the developer api url is supported. The method and data format for each api end point can be found in the Copper's api documentation.
