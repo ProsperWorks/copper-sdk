@@ -60,8 +60,10 @@ yarn
 ### Developing SDK
 ```bash
 ## watch changes
+yarn dev
+
+## or run separately
 yarn dev:es
-# or
 yarn dev:commonjs
 
 ## build
