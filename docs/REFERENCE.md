@@ -256,7 +256,13 @@ await sdk.getSelectedRecords({ pageNumber: 0, pageSize: 100});
 ```
 
 #### getUserInfo()
-Get current current user info
+Get current current user info.
+
+The response will include a list of roles that the User has access to. Copper currently supports three roles:
+
+* `user`: The User can use the system normally.
+* `admin`: The User can perform administrative actions.
+* `account_owner`: The User is the owner of the Account.
 
 ###### Example
 ```javascript
@@ -270,7 +276,8 @@ await sdk.getUserInfo();
   "user": {
     "email": "larry@google.com"
     "id": 1,
-    "name": "Larry Page"
+    "name": "Larry Page",
+    "roles": ["user", "admin"]
   }
 }
 ```
