@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Parent</title>
+  </head>
+  <body>
+    <h2>Parent</h2>
+
+    <script>
+      window.addEventListener('message', function (event) {
+        switch (event.data.type) {
+          case 'getContext':
+            break;
+          default:
+            break;
+        }
+      })
+    </script>
+
+    <iframe src="http://locahost:3040" frameborder="0"></iframe>
+  </body>
+</html>
