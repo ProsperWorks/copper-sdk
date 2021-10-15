@@ -7,7 +7,7 @@
   "plugins": ["edit-link", "github", "expandable-chapters"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/ProsperWorks/copper-sdk/tree/master",
+      "base": "https://github.com/ProsperWorks/copper-sdk/tree/main",
       "label": "Edit This Page"
     },
     "github": {
