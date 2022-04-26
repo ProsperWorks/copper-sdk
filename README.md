@@ -51,6 +51,9 @@ https://docs.copper.com/copper-sdk
 
 ## Development
 ### Prerequisites
+
+We recommend Node 10.x.x LTS version (10.24.1 currently). 
+
 Confirm all packages have been installed before development. Yarn will be used for this particular project.
 
 ```bash
