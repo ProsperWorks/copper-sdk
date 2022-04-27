@@ -1,0 +1,606 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Configuration · Copper App Javascript SDK</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="REFERENCE.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="QUICKSTART.html">
+            
+                <a href="QUICKSTART.html">
+            
+                    
+                    QuickStart
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="EXAMPLES.html">
+            
+                <a href="EXAMPLES.html">
+            
+                    
+                    Examples
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="EXAMPLES.html">
+            
+                <a href="EXAMPLES.html#basic-example">
+            
+                    
+                    Basic Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="EXAMPLES.html">
+            
+                <a href="EXAMPLES.html#secure-example">
+            
+                    
+                    Secure Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html">
+            
+                    
+                    Reference
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#initialization">
+            
+                    
+                    Initialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getcontext">
+            
+                    
+                    getContext
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#savecontext">
+            
+                    
+                    saveContext
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#showmodal">
+            
+                    
+                    showModal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#closemodal">
+            
+                    
+                    closeModal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#setappui">
+            
+                    
+                    setAppUI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#publishmessage">
+            
+                    
+                    publishMessage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#on">
+            
+                    
+                    on
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#api">
+            
+                    
+                    api
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#refreshui">
+            
+                    
+                    refreshUI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#logactivity">
+            
+                    
+                    logActivity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#createentity">
+            
+                    
+                    createEntity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#relateentity">
+            
+                    
+                    relateEntity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#navigatetoentitydetail">
+            
+                    
+                    navigateToEntityDetail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getselectedrecords">
+            
+                    
+                    getSelectedRecords
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getuserinfo">
+            
+                    
+                    getUserInfo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getconfig">
+            
+                    
+                    getConfig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5" data-path="CONFIGURATION.html">
+            
+                <a href="CONFIGURATION.html">
+            
+                    
+                    Configuration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Configuration</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="configuration">Configuration</h1>
+<p>How to configure the embedded app: </p>
+<ol>
+<li>Add to</li>
+<li>Locations</li>
+<li>Optional Advanced Configuration</li>
+</ol>
+<p><img src="images/embedded-app-setting.png" alt="Embedded App Setting"></p>
+<h2 id="add-to">Add to</h2>
+<p>Copper supports 5 entities where users can add an embedded app:</p>
+<ol>
+<li>Leads</li>
+<li>People</li>
+<li>Companies</li>
+<li>Opportunities</li>
+<li>Projects</li>
+</ol>
+<h2 id="locations">Locations</h2>
+<p>Copper supports 5 locations where users can view the embedded app:</p>
+<ol>
+<li>Sidebar</li>
+<li>Activity Panel</li>
+<li>Action Bar</li>
+<li>Profile</li>
+<li>Left Navigation</li>
+</ol>
+<h2 id="optional-advanced-configuration">Optional Advanced Configuration</h2>
+<h4 id="html5mode">html5Mode</h4>
+<p>The URL of a typical embedded app would be:</p>
+<pre><code>https://your-url.com/?location=sidebar&amp;origin=...&amp;instanceId=...
+</code></pre><p>If a user specifies <code>html5Mode: true</code>, the URL will now become:</p>
+<pre><code>https://your-url.com/sidebar?origin=...&amp;instanceId=...
+</code></pre><h4 id="refreshoncontextupdate">refreshOnContextUpdate</h4>
+<p>By default, when switching to a new route in the Copper app, an event is sent to the embedded app. Users will now have the capability of using the following: </p>
+<pre><code class="lang-javascript">sdk.on(<span class="hljs-string">&apos;contextUpdated&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// here&apos;s your code to handle the event</span>
+})
+</code></pre>
+<p>Instead of handling the event, users also have an option to refresh the app by setting Optional Advanced Configuration as <code>refreshOnContextUpdate: true</code>. This will allow Copper to refresh every time the app changes route/context.</p>
+<h4 id="voip">voip</h4>
+<p>By setting Optional Advanced Configuration: <code>voip: true</code>, all the phone numbers in Copper now becomes clickable. When users click on the phone number, they will be able to subscribe an event called <code>phoneNumberClicked</code>.
+e.g.</p>
+<pre><code class="lang-javascript">sdk.on(<span class="hljs-string">&apos;phoneNumberClicked&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ number }</span>) </span>{
+  <span class="hljs-comment">// do something with number</span>
+})
+</code></pre>
+<h4 id="allowhttp">allowHttp</h4>
+<p>By default, Copper does not allow http url to be used in an embedded app. However, setting Optional Advanced Configuration <code>allowHttp: true</code> will allow users to embed http url into the embedded app. </p>
+<p>If the browser still blocks the user from seeing the http url, following the steps below would unblock the user: </p>
+<ol>
+<li>Click on the small icon in the user&apos;s browser&apos;s address bar on the right</li>
+<li>Click on &quot;allow run unsafe script&quot;</li>
+</ol>
+<h4 id="verifyserver">verifyServer</h4>
+<p>This allows users to verify that their parent frame is actually Copper. Please see more details in
+<a href="EXAMPLES.html#secure-example">Secure Example</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="REFERENCE.html#getconfig" class="navigation navigation-prev navigation-unique" aria-label="Previous page: getConfig">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Configuration","level":"1.5","depth":1,"previous":{"title":"getConfig","level":"1.4.17","depth":2,"anchor":"#getconfig","path":"docs/REFERENCE.md","ref":"docs/REFERENCE.md#getconfig","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","github","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"pluginsConfig":{"expandable-chapters":{}},"github":{"url":"https://github.com/ProsperWorks/copper-sdk/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ProsperWorks/copper-sdk/tree/main"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Copper App Javascript SDK","gitbook":"3.2.3"},"file":{"path":"docs/CONFIGURATION.md","mtime":"2022-04-25T17:07:38.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-27T14:41:59.490Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

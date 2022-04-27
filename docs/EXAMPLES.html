@@ -1,0 +1,629 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Examples · Copper App Javascript SDK</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="EXAMPLES.html" />
+    
+    
+    <link rel="prev" href="QUICKSTART.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="QUICKSTART.html">
+            
+                <a href="QUICKSTART.html">
+            
+                    
+                    QuickStart
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="EXAMPLES.html">
+            
+                <a href="EXAMPLES.html">
+            
+                    
+                    Examples
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="EXAMPLES.html">
+            
+                <a href="EXAMPLES.html#basic-example">
+            
+                    
+                    Basic Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="EXAMPLES.html">
+            
+                <a href="EXAMPLES.html#secure-example">
+            
+                    
+                    Secure Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html">
+            
+                    
+                    Reference
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#initialization">
+            
+                    
+                    Initialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getcontext">
+            
+                    
+                    getContext
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#savecontext">
+            
+                    
+                    saveContext
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#showmodal">
+            
+                    
+                    showModal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#closemodal">
+            
+                    
+                    closeModal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#setappui">
+            
+                    
+                    setAppUI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#publishmessage">
+            
+                    
+                    publishMessage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#on">
+            
+                    
+                    on
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#api">
+            
+                    
+                    api
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#refreshui">
+            
+                    
+                    refreshUI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#logactivity">
+            
+                    
+                    logActivity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#createentity">
+            
+                    
+                    createEntity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#relateentity">
+            
+                    
+                    relateEntity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#navigatetoentitydetail">
+            
+                    
+                    navigateToEntityDetail
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getselectedrecords">
+            
+                    
+                    getSelectedRecords
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getuserinfo">
+            
+                    
+                    getUserInfo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="REFERENCE.html">
+            
+                <a href="REFERENCE.html#getconfig">
+            
+                    
+                    getConfig
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="CONFIGURATION.html">
+            
+                <a href="CONFIGURATION.html">
+            
+                    
+                    Configuration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Examples</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="examples">Examples</h1>
+<h2 id="basic-example">Basic Example</h2>
+<p>The javascript web application code for this example can be found in examples/basic_iframe.
+The backend server is not required for this particular example. The webpacker server is used for development.</p>
+<h4 id="quick-start">Quick Start</h4>
+<h5 id="starting-the-webpacker-dev-server">Starting the webpacker dev server</h5>
+<pre><code class="lang-bash">yarn start
+<span class="hljs-comment"># or</span>
+npm start
+</code></pre>
+<p>After the webpacker has started, use your browser to point to <a href="https://localhost:8080" target="_blank">https://localhost:8080</a> and trust the ssl certificate.</p>
+<h5 id="adding-an-embedded-app-copper-web-app">Adding an embedded app (Copper web app)</h5>
+<p>From Copper&apos;s web admin page, navigate to &quot;Settings&quot; &gt; &quot;Integrations&quot;, scroll to the bottom of the page, where the user will see a &quot;Create an embedded app&quot; card. Select the &quot;Create an embedded app&quot; card and fill in the card with the following information, then click &quot;save&quot;. </p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Name: insert the name of this particular embedded app</p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;URL: &quot;<a href="https://localhost:8080" target="_blank">https://localhost:8080</a>&quot;</p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Add to: select Leads</p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Locations: select Sidebar </p>
+<p>In order to view the embedded app created above, navigate to a lead record&apos;s related tab. </p>
+<h4 id="development">Development</h4>
+<p>The source code for this basic example consists of index.html and app.js in the src folder, where users can change and add more files to the project. </p>
+<h5 id="steps-on-using-the-sdk">Steps on using the sdk</h5>
+<h6 id="initializing-the-sdk">Initializing the sdk</h6>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> Copper <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;copper-sdk&apos;</span>
+<span class="hljs-keyword">const</span> sdk = Copper.init()
+</code></pre>
+<h6 id="using-the-sdk">Using the sdk</h6>
+<p>Example of getContext() API:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> context = <span class="hljs-keyword">await</span> sdk.getContext()
+</code></pre>
+<h2 id="secure-example">Secure Example</h2>
+<p>This example touches more upon security. The code can be found in examples/secure_iframe. This embedded app will send a POST request with json web token(JWT) first to the iframe url. The embedded app should first get the public key from Copper and use the public key to verify the json web token.</p>
+<h4 id="quick-start">Quick Start</h4>
+<p>The secure example uses an express based server side and webpacker client side.</p>
+<h5 id="starting-the-server-and-client">Starting the server and client</h5>
+<pre><code class="lang-bash">yarn dev
+</code></pre>
+<p>Optionally, the server and client can be started separately:</p>
+<h6 id="starting-the-server">Starting the server</h6>
+<pre><code class="lang-bash">yarn server
+</code></pre>
+<h6 id="starting-the-client-webpacker-dev-server">Starting the client webpacker dev server</h6>
+<pre><code class="lang-bas">yarn client
+</code></pre>
+<h5 id="adding-an-embedded-app-copper-web-app">Adding an embedded app (Copper web app)</h5>
+<p>From Copper&apos;s web admin page, navigate to &quot;Settings&quot; &gt; &quot;Integrations&quot;, scroll to the bottom of the page, where the user will see a &quot;Create an embedded app&quot; card. Select the &quot;Create an embedded app&quot; card and fill in the card with the following information, then click &quot;save&quot;. </p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Name: insert the name of this particular embedded app</p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;URL: &quot;<a href="https://localhost:8080" target="_blank">https://localhost:8080</a>&quot;</p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Add to: select Leads</p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Locations: select Sidebar </p>
+<p>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;Optional Advanced Configuration: {&quot;verifyServer&quot;: true}</p>
+<p>In order to view the embedded app created above, navigate to a lead record&apos;s related tab. </p>
+<h4 id="development">Development</h4>
+<p>When the embedded app is configured as secure, it will receive a post request first with the JWT. The JWT is encrypted with Copper&apos;s private key. Copper&apos;s public key has to be fetched first in order to verfiy the JWT. </p>
+<h6 id="fetching-coppers-public-key">Fetching Copper&apos;s public key</h6>
+<pre><code class="lang-javascript">  <span class="hljs-keyword">const</span> { data } = <span class="hljs-keyword">await</span> axios({
+    method: <span class="hljs-string">&apos;get&apos;</span>,
+    url: <span class="hljs-string">&apos;https://api.copper.com/developer_api/v1/embedded_apps/public_key&apos;</span>,
+  });
+</code></pre>
+<p>Next, verify the JWT with the public key in the POST handler.</p>
+<pre><code class="lang-javascript">app.post(<span class="hljs-string">&apos;/*&apos;</span>, <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+  <span class="hljs-keyword">const</span> token = req.body.jwt;
+  jwt.verify(token, publickKey, { algorithm: [<span class="hljs-string">&apos;RS256&apos;</span>] }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, payload</span>) </span>{
+    <span class="hljs-keyword">if</span> (err) {
+      <span class="hljs-comment">//Invalid JWT, don&apos;t allow further access</span>
+      res.send(<span class="hljs-string">&apos;error&apos;</span>);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">//Valid JWT, render page</span>
+    }
+  });
+});
+</code></pre>
+<p>Your server side should only allow access if the JWT token is valid.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="QUICKSTART.html" class="navigation navigation-prev " aria-label="Previous page: QuickStart">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="EXAMPLES.html#basic-example" class="navigation navigation-next " aria-label="Next page: Basic Example">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Examples","level":"1.3","depth":1,"next":{"title":"Basic Example","level":"1.3.1","depth":2,"anchor":"#basic-example","path":"docs/EXAMPLES.md","ref":"docs/EXAMPLES.md#basic-example","articles":[]},"previous":{"title":"QuickStart","level":"1.2","depth":1,"path":"docs/QUICKSTART.md","ref":"docs/QUICKSTART.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","github","expandable-chapters"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"pluginsConfig":{"expandable-chapters":{}},"github":{"url":"https://github.com/ProsperWorks/copper-sdk/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/ProsperWorks/copper-sdk/tree/main"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Copper App Javascript SDK","gitbook":"3.2.3"},"file":{"path":"docs/EXAMPLES.md","mtime":"2022-04-25T17:07:38.244Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-04-27T14:41:59.490Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
