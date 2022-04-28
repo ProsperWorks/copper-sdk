@@ -83,3 +83,5 @@ yarn lint
 Execute `yarn link` inside this repository, then navigate over to the other repository and execute `yarn link copper-sdk`.
 
 An alternative way would be to execute `npm link path/to/copper-sdk` in the repository.
+
+#Test please
