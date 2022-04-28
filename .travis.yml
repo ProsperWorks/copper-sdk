@@ -3,7 +3,7 @@ env:
     - CC_TEST_REPORTER_ID=b806f9042a6eb7c506428d6a15895087725c36fceeca9e46642a414f3e48fec1
 language: node_js
 node_js:
-  - "8"
+  - "10"
 dist: trusty # needs Ubuntu Trusty
 # Note: if you switch to sudo: false, you'll need to launch chrome with --no-sandbox.
 # See https://github.com/travis-ci/travis-ci/issues/8836
