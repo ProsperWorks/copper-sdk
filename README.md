@@ -77,9 +77,12 @@ yarn test:dev
 ## lint
 yarn lint
 ```
-
 ## FAQ
 ### How do I use my local SDK instead of the npm one?
 Execute `yarn link` inside this repository, then navigate over to the other repository and execute `yarn link copper-sdk`.
 
 An alternative way would be to execute `npm link path/to/copper-sdk` in the repository.
+
+
+
+
