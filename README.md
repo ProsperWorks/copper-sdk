@@ -71,6 +71,7 @@ yarn build
 
 ## test
 yarn test
+
 # or watch changes
 yarn test:dev
 
