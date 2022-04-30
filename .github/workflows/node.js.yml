@@ -34,7 +34,5 @@ jobs:
       uses: mskelton/setup-yarn@v1.2.1
       with:
         cache: yarn
-        
-    - run: npm ci
-    - run: npm run build --if-present
+   
     - run: yarn test
