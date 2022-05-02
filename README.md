@@ -1,7 +1,6 @@
 Copper App SDK
 ====================
 
-[![Travis branch](https://img.shields.io/travis/ProsperWorks/copper-sdk/main.svg?style=flat-square)](https://travis-ci.org/ProsperWorks/copper-sdk)
 [![npm](https://img.shields.io/npm/v/copper-sdk.svg?style=flat-square)](https://www.npmjs.com/package/copper-sdk)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/test_coverage)](https://codeclimate.com/github/ProsperWorks/copper-sdk/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/d8ef6bf3d4669616c465/maintainability)](https://codeclimate.com/github/ProsperWorks/copper-sdk/maintainability)
@@ -51,6 +50,9 @@ https://docs.copper.com/copper-sdk
 
 ## Development
 ### Prerequisites
+
+We recommend Node 10.x.x LTS version (10.24.1 currently). 
+
 Confirm all packages have been installed before development. Yarn will be used for this particular project.
 
 ```bash
