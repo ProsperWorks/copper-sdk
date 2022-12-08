@@ -16,7 +16,7 @@
     "concurrently": "^3.5.1",
     "dotenv": "^5.0.1",
     "ejs": "^2.5.7",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.2.1"
   },
   "devDependencies": {
