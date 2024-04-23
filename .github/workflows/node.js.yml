@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [10.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,13 +26,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    
+
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@v0.0.0
-        
+
     - name: Setup Yarn
       uses: mskelton/setup-yarn@v1.2.1
       with:
         cache: yarn
-   
+
     - run: yarn test
