@@ -52,6 +52,7 @@ describe('Copper', function () {
           sinon.match((value: IPostMessageData) => {
             return expect(value).to.eql({
               type: 'init',
+              id: -1,
               instanceId,
               version,
             });
@@ -62,12 +63,13 @@ describe('Copper', function () {
 
     context('#getContext', function () {
       it('should be able to get context from parent', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'getContext',
+                type: message.type,
+                id: message.id,
                 data: {
                   entityType: 'person',
                   entityData: { id: '1', name: 'Alice' },
@@ -88,12 +90,13 @@ describe('Copper', function () {
 
     context('#getUserInfo', function () {
       it('should be able to get user info', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'getUserInfo',
+                type: message.type,
+                id: message.id,
                 data: {
                   account: { id: 1 },
                   user: { id: 1 },
@@ -110,12 +113,13 @@ describe('Copper', function () {
 
     context('#getRouteInfo', function () {
       it('should be able to get route info', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'getRouteInfo',
+                type: message.type,
+                id: message.id,
                 data: {
                   url: '/happy-route',
                 },
@@ -130,12 +134,13 @@ describe('Copper', function () {
 
     context('#saveContext', function () {
       it('should be able to save context', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'saveContext',
+                type: message.type,
+                id: message.id,
                 data: {
                   entityType: 'person',
                   entityData: { id: '1', name: 'Alice' },
@@ -527,12 +532,13 @@ describe('Copper', function () {
       });
 
       it('should send api message', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'api',
+                type: message.type,
+                id: message.id,
                 data: {
                   foo: 'bar',
                 },
@@ -550,12 +556,13 @@ describe('Copper', function () {
 
     context('#navigateToEntityDetail', function () {
       it('should navigate to entity correctly ', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'navigateToEntityDetail',
+                type: message.type,
+                id: message.id,
                 data: true,
               },
             }),
@@ -567,12 +574,13 @@ describe('Copper', function () {
       });
 
       it('should fail if entity type is not valid', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'navigateToEntityDetail',
+                type: message.type,
+                id: message.id,
                 error: {
                   id: 'copper-navigateToEntityDetail',
                   version,
@@ -597,12 +605,13 @@ describe('Copper', function () {
 
     context('#getSelectedRecords', function () {
       it('should fetch list view selected records ', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'getSelectedRecords',
+                type: message.type,
+                id: message.id,
                 data: true,
               },
             }),
@@ -616,12 +625,13 @@ describe('Copper', function () {
 
     context('#getConfig', function () {
       it('should app config ', async function () {
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'getConfig',
+                type: message.type,
+                id: message.id,
                 data: {
                   appConfig: { foo: 1 },
                   config: { bar: 1 },
@@ -640,18 +650,19 @@ describe('Copper', function () {
     });
 
     context('deferredQueue', function () {
-      it('should resolve based on fifo', async function () {
+      it('should respect fifo for backwards compatibility', async function () {
         const data = [
           { entityType: 'foo', entityData: { id: '1', name: 'Alice' }, editableFields: ['name'] },
           { entityType: 'bar', entityData: { id: '2', name: 'Bob' }, editableFields: ['name'] },
         ];
         let count = 0;
-        win.top.postMessage.callsFake(function () {
+        win.top.postMessage.callsFake(function (message: any) {
           window.dispatchEvent(
             new MessageEvent('message', {
               origin,
               data: {
-                type: 'getContext',
+                type: message.type,
+                id: message.id,
                 data: data[count++],
               },
             }),
@@ -668,6 +679,60 @@ describe('Copper', function () {
         expect((sdk as any).deferredQueues.getContext)
           .to.be.an('array')
           .that.has.length(0);
+      });
+
+      it('should support parallel deferments arriving out of order', async function () {
+        let callCount = 0;
+        win.top.postMessage.callsFake(function (message: any) {
+          let len;
+          let data: {
+            entityType: string;
+            entityData: {
+                id: string;
+                name: string;
+            };
+            editableFields: string[];
+          };
+
+          switch (callCount) {
+            case 0:
+              len = 100;
+              data = {
+                entityType: 'slow',
+                entityData: { id: '1', name: 'Tortoise' },
+                editableFields: ['name'],
+              };
+              break;
+
+            case 1:
+              len = 10;
+              data = {
+                entityType: 'fast',
+                entityData: { id: '2', name: 'Hare' },
+                editableFields: ['name'],
+              };
+              break;
+          }
+          callCount += 1;
+
+          setTimeout(() => {
+            window.dispatchEvent(
+              new MessageEvent('message', {
+                origin,
+                data: {
+                  type: message.type,
+                  id: message.id,
+                  data,
+                },
+              }),
+            );
+          }, len);
+        });
+
+        const [dataSlow, dataFast] = await Promise.all([sdk.getContext(), sdk.getContext()]);
+
+        expect(dataSlow.type).to.equal('slow');
+        expect(dataFast.type).to.equal('fast');
       });
     });
 

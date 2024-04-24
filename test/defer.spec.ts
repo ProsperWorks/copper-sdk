@@ -25,4 +25,22 @@ describe('defer', function () {
     });
     deferred.reject({ error: 'Bob' });
   });
+
+  it('should contain auto-incremented id', function () {
+    Deferred.resetNextId();
+
+    const deferred1 = new Deferred<string>();
+    expect(deferred1.id).to.equal(0);
+
+    const deferred2 = new Deferred<string>();
+    expect(deferred2.id).to.equal(1);
+
+    const x = 5;
+    let deferredX;
+    for (let i = 0; i < x; i++) {
+      deferredX = new Deferred<string>();
+    }
+
+    expect(deferredX?.id).to.equal(1 + x);
+  });
 });

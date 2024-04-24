@@ -252,7 +252,7 @@ export default class Copper {
     return context;
   }
 
-  private _postMessage(type: string, message: { [name: string]: any } = {}): void {
+  private _postMessage(type: string, message: { [name: string]: any } = {}, id: number = -1): void {
     this.win.top?.postMessage(
       {
         // actual messages
@@ -263,6 +263,8 @@ export default class Copper {
         version,
         // type of message
         type,
+        // optional id for message
+        id,
       },
       this.parentOrigin,
     );
@@ -278,7 +280,7 @@ export default class Copper {
 
         // if type is a deferred type, we resolve it
         // otherwise we do something else
-        this._resolveDeferred(event.data.type, event.data as IMessageData);
+        this._resolveDeferred(event.data.type, event.data.id, event.data as IMessageData);
 
         // if event type exists, we pass the event to SDK
         // so sdk user can subscribe those events
@@ -300,12 +302,19 @@ export default class Copper {
     this.deferredQueues[queueName].push(deferred);
   }
 
-  private _resolveDeferred(queueName: string, data: IMessageData): void {
-    if (!this.deferredQueues[queueName]) {
+  private _resolveDeferred(queueName: string, messageId: number, data: IMessageData): void {
+    const queue = this.deferredQueues[queueName];
+    if (!queue) {
       return;
     }
-    const deferred = this.deferredQueues[queueName].shift();
+
+    const foundIdx = queue.findIndex((d) => {
+      return d.id === messageId;
+    });
+
+    const deferred = queue[foundIdx];
     if (deferred) {
+      queue.splice(foundIdx, 1);
       if (data.error) {
         return deferred.reject(data.error);
       }
@@ -344,19 +353,22 @@ export default class Copper {
     return result;
   }
 
-  private _createDeferredMethod(queueName: string, executor: () => any): Promise<any> {
+  private _createDeferredMethod(
+    queueName: string,
+    executor: (deferred: Deferred<any>) => any,
+  ): Promise<any> {
     const deferred = new Deferred<any>();
     this._enqueueDeferred(queueName, deferred);
-    executor();
+    executor(deferred);
     return deferred.promise;
   }
 
   private _deferredPost(name: string, data?: any): Promise<any> {
-    return this._createDeferredMethod(name, () => {
+    return this._createDeferredMethod(name, (deferred) => {
       if (data) {
-        this._postMessage(name, data);
+        this._postMessage(name, data, deferred.id);
       } else {
-        this._postMessage(name);
+        this._postMessage(name, {}, deferred.id);
       }
     });
   }
