@@ -253,7 +253,7 @@ export default class Copper {
   }
 
   private _postMessage(type: string, message: { [name: string]: any } = {}): void {
-    this.win.top.postMessage(
+    this.win.top?.postMessage(
       {
         // actual messages
         ...message,
