@@ -1,6 +1,6 @@
-const replace = require('rollup-plugin-replace')
-const typescript = require('rollup-plugin-typescript2')
-const json = require('rollup-plugin-json')
+const json = require('@rollup/plugin-json')
+const replace = require('@rollup/plugin-replace')
+const typescript = require('@rollup/plugin-typescript')
 const istanbul = require('rollup-plugin-istanbul')
 
 const env = process.env.NODE_ENV
