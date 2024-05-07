@@ -1,7 +1,6 @@
 import { ENTITY_PATH_MAP, ENTITY_TYPE } from './constant';
 import { IEntityModel } from './entity-model';
 import { IActionApiData, UITarget } from './interfaces';
-import { delayExecution } from './utils';
 
 export function logActivityDataGenerator(
   context: IEntityModel,
