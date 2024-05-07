@@ -10,6 +10,7 @@ const config = {
   input: 'src/index.ts',
   output: {
     format: compileEnv,
+    sourcemap: true,
   },
   plugins: [
     json(),
@@ -42,13 +43,14 @@ else if (compileEnv === 'umd') {
       },
     }),
     replace({
-      'process.env.NODE_ENV': JSON.stringify(env),
+      preventAssignment: true,
+      values: {
+        'process.env.NODE_ENV': JSON.stringify(env),
+      },
     })
   )
 
-  config.output = {
-    name: 'Copper',
-  }
+  config.output.name = 'Copper'
 }
 
 if (env === 'production') {
