@@ -44,12 +44,12 @@ export default class Copper {
   /**
    * store deferred queues by name
    */
-  private deferredQueues: { [name: string]: Array<Deferred<IMessageData>> } = {};
+  private deferredQueues: { [name: string]: Deferred<IMessageData>[] } = {};
 
   /**
    * store event callbacks by event name
    */
-  private events: { [name: string]: Array<() => any> } = {};
+  private events: { [name: string]: (() => any)[] } = {};
 
   private _context: IEntityModel | null;
 
