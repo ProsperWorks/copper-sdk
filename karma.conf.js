@@ -33,13 +33,17 @@ const baseConfig = {
         tsconfig: './test/tsconfig.json',
       }),
       replace({
-        'process.env.NODE_ENV': JSON.stringify(env),
+        preventAssignment: true,
+        values: {
+          'process.env.NODE_ENV': JSON.stringify(env),
+        },
       }),
       json(),
     ],
     output: {
+      dir: 'test/dist',
       format: 'iife',
-      sourcemap: 'inline',        // Sensible for testing.
+      sourcemap: 'inline',
       globals: {
         chai: 'chai',
         sinon: 'sinon',
@@ -55,7 +59,10 @@ const baseConfig = {
 function addCoverage(config) {
   config.rollupPreprocessor.plugins.push(
     istanbul({
-      exclude: ['test/**/*.ts'],
+      exclude: [
+        'node_modules/**/*',
+        'test/**/*',
+      ],
     })
   )
 
