@@ -210,7 +210,7 @@ const entityType = 'task';
 const entityId = 1;
 const target = {
   id: 10,
-  type: 'opportuntiy'
+  type: 'opportunity'
 };
 sdk.relatedEntity(entityType, entityId, target); //relate opportunity 10 to task 1
 ```
