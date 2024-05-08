@@ -2031,11 +2031,6 @@ gitbook-cli@^2.3.2:
     tmp "0.0.31"
     user-home "2.0.0"
 
-gitbook-plugin-edit-link@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-edit-link/-/gitbook-plugin-edit-link-2.0.2.tgz#d8fcd927eced81e7a662a72d59db609eafd7e72f"
-  integrity sha512-huqV1rWX/zGoWR7bPgcyTMEgGM1Fe4l02GKTknVi4Fvn8S9QQZCVCn+o0BtAwEACbg5VGoonymzqyIE3j+ZYnQ==
-
 gitbook-plugin-expandable-chapters@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-expandable-chapters/-/gitbook-plugin-expandable-chapters-0.2.0.tgz#45d7087ae6907a41f48128c54fe56224a9c1ada2"

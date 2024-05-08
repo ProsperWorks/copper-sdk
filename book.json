@@ -4,12 +4,8 @@
   "structure": {
     "summary": "SUMMARY.md"
   },
-  "plugins": ["edit-link", "github", "expandable-chapters"],
+  "plugins": ["github", "expandable-chapters"],
   "pluginsConfig": {
-    "edit-link": {
-      "base": "https://github.com/ProsperWorks/copper-sdk/tree/main",
-      "label": "Edit This Page"
-    },
     "github": {
       "url": "https://github.com/ProsperWorks/copper-sdk/"
     },
