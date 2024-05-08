@@ -4,9 +4,9 @@ Copper App SDK
 [![npm](https://img.shields.io/npm/v/copper-sdk.svg?style=flat-square)](https://www.npmjs.com/package/copper-sdk)
 
 
-The javascript SDK provides client-side functionalities for adding embedded app to the Copper web client.
+The javascript SDK provides client-side functionalities for adding embedded apps to the Copper web client.
 
-The Embedded app is an iframe embedded in the Copper web page. The display location of the iframe is configured in the embedded app's settings page.
+The embedded app is an iframe embedded in the Copper web page. The display location of the iframe is configured in the embedded app's settings page.
 
 ## Usage
 Execute the following with your webpack/rollup/browserify etc.
@@ -43,16 +43,13 @@ sdk.getContext()
 </script>
 ```
 
-### SDK Docs
-
-https://docs.copper.com/copper-sdk
 
 ## Development
 ### Prerequisites
 
 We recommend Node 18 or newer.
 
-Confirm all packages have been installed before development. Yarn will be used for this particular project.
+Confirm all packages have been installed. This project uses yarn for package management.
 
 ```bash
 yarn
