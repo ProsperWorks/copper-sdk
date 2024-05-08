@@ -4,13 +4,10 @@
   "structure": {
     "summary": "SUMMARY.md"
   },
-  "plugins": ["github", "expandable-chapters"],
+  "plugins": ["github"],
   "pluginsConfig": {
     "github": {
       "url": "https://github.com/ProsperWorks/copper-sdk/"
-    },
-    "pluginsConfig": {
-      "expandable-chapters":{}
     }
   }
 }
