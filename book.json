@@ -3,11 +3,5 @@
   "title": "Copper App Javascript SDK",
   "structure": {
     "summary": "SUMMARY.md"
-  },
-  "plugins": ["github"],
-  "pluginsConfig": {
-    "github": {
-      "url": "https://github.com/ProsperWorks/copper-sdk/"
-    }
   }
 }
