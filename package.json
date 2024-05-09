@@ -59,7 +59,6 @@
     "chai": "^4.4.1",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
-    "gitbook-cli": "^2.3.2",
     "karma": "^6.4.3",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.2.0",
