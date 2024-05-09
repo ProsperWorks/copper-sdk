@@ -60,7 +60,7 @@ The method setAppUI() will change the UI of the parent Copper's web page.
 ###### Parameter
 | Name | Type   | Required | Description                                                                                                                                                 |
 | ---- | ------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Data | Object | Yes      | Data uses json format. Currently six keys in the json are supported:<br> "count", "height", "width", "disableAddButton", "showActionBar", "isActionBarActive". |
+| Data | Object | Yes      | Data uses json format. Currently six keys in the json are supported:<br/> "count", "height", "width", "disableAddButton", "showActionBar", "isActionBarActive". |
 
 ###### Example
 ```javascript
@@ -81,7 +81,7 @@ The method publishMessage(type, target, data) publishes messages to other locati
 | Name   | Type   | Required | Description                                                                                                                                            |
 | ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Type   | String | Yes      | Type of message. Can be any string                                                                                                                     |
-| Target | String | Yes      | Locations of the message receiver. Currently supported locations include:<br> "sidebar", "activity_panel", "action_bar", "profile", "modal".<br> "*" means all locations except the sender. |
+| Target | String | Yes      | Locations of the message receiver. Currently supported locations include:<br/> "sidebar", "activity_panel", "action_bar", "profile", "modal".<br/> "*" means all locations except the sender. |
 | Data   | json   | Yes      | Content of message to be sent                                                                                                                             |
 
 ###### Example
@@ -119,7 +119,7 @@ The method api(url, options) will proxy the api call from the Copper api server 
 | Name    | Type   | Required | Description                                                                                                                                                                                         |
 | ------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | url     | String | Yes      | url of the api. E.g. '/v1/people/1'                                                                                                                                                                 |
-| Options | Object | Yes      | Options for the api call. Two keys are supported 'method' and 'body', where the method's value can be <br> 'GET', 'POST', 'PUT', 'PATCH' and 'DELETE'. Value of 'body' is the data sent to the api end point. |
+| Options | Object | Yes      | Options for the api call. Two keys are supported 'method' and 'body', where the method's value can be <br/> 'GET', 'POST', 'PUT', 'PATCH' and 'DELETE'. Value of 'body' is the data sent to the api end point. |
 
 ###### Example
 ```javascript
@@ -138,7 +138,7 @@ The method refreshUI(target) will refresh the target's UI section. It is primari
 ##### Parameter
 | Name   | Type   | Required | Description                                                                                                                                                                                                        |
 | ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Target | Object | Yes      | The format of the parameter is { name: targetName, data: data}, where targetName can be 'ActivityLog' or 'Related'. 'ActivityLog' data is not required. For 'Related', data format is { type: entityType }. |
+| Target | Object | Yes      | The format of the parameter is `{ name: targetName, data: data }`, where targetName can be 'ActivityLog' or 'Related'. 'ActivityLog' data is not required. For 'Related', data format is `{ type: entityType }`. |
 
 ###### Example
 ```javascript
@@ -200,7 +200,7 @@ The method relateEntity(entityType, entityId, target) relates two entities in th
 | ---------- | ------- | -------- | -------------------------------------------------------------------------------------------- |
 | entityType | String  | Yes      | Entity type. Supported values: 'lead', 'person', 'company', 'opportunity', 'project', 'task' |
 | entityId   | Integer | Yes      | Id of the entity type's record                                                      |
-| Target     | Object  | Yes      | Target entity to be related to. Format is {id: id, type: entityType}               |
+| Target     | Object  | Yes      | Target entity to be related to. Format is `{ id: id, type: entityType }`               |
 
 Please check Copper's developer api documentation for entity details.
 
