@@ -1,6 +1,5 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Copper App SDK',
@@ -21,17 +20,15 @@ const config: Config = {
     locales: ['en'],
   },
 
-  presets: [
+  themes: ['classic'],
+
+  plugins: [
     [
-      'classic',
+      'content-docs',
       {
-        docs: {
-          routeBasePath: '/',
-          // sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/ProsperWorks/copper-sdk/',
-        },
-        blog: false,
-      } satisfies Preset.Options,
+        routeBasePath: '/',
+        editUrl: 'https://github.com/ProsperWorks/copper-sdk/',
+      },
     ],
   ],
 
@@ -47,7 +44,7 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-  } satisfies Preset.ThemeConfig,
+  },
 };
 
 export default config;
