@@ -13,7 +13,7 @@ const config: Config = {
   projectName: 'copper-sdk',
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
 
   i18n: {
     defaultLocale: 'en',

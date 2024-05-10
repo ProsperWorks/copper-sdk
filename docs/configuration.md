@@ -61,4 +61,4 @@ If the browser still blocks the user from seeing the http url, following the ste
 
 ### verifyServer
 This allows users to verify that their parent frame is actually Copper. Please see more details in
-[Secure Example](./examples.html#secure-example).
+[Secure Example](examples#secure-example).
