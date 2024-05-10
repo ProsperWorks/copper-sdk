@@ -38,6 +38,11 @@ const config: Config = {
       title: 'Copper App SDK',
       items: [
         {
+          label: 'Copper',
+          href: 'https://copper.com',
+          position: 'right',
+        },
+        {
           label: 'GitHub',
           href: 'https://github.com/ProsperWorks/copper-sdk',
           position: 'right',
@@ -46,12 +51,6 @@ const config: Config = {
     },
     footer: {
       copyright: `Copyright © ${new Date().getFullYear()} Copper CRM`,
-      links: [
-        {
-          label: 'Copper Website',
-          href: 'https://copper.com',
-        },
-      ],
     },
     prism: {
       theme: prismThemes.github,

@@ -24,7 +24,7 @@ Copper supports 5 locations where users can view the embedded app:
 5. Left Navigation
 
 ## Optional Advanced Configuration
-#### html5Mode
+### html5Mode
 The URL of a typical embedded app would be:
 ```
 https://your-url.com/?location=sidebar&origin=...&instanceId=...
@@ -35,7 +35,7 @@ If a user specifies `html5Mode: true`, the URL will now become:
 https://your-url.com/sidebar?origin=...&instanceId=...
 ```
 
-#### refreshOnContextUpdate
+### refreshOnContextUpdate
 By default, when switching to a new route in the Copper app, an event is sent to the embedded app. Users will now have the capability of using the following:
 ```javascript
 sdk.on('contextUpdated', function () {
@@ -44,22 +44,21 @@ sdk.on('contextUpdated', function () {
 ```
 Instead of handling the event, users also have an option to refresh the embedded app by setting Optional Advanced Configuration as `refreshOnContextUpdate: true`. The embedded app will now refresh every time the app changes route/context.
 
-#### voip
+### voip
 By setting Optional Advanced Configuration: `voip: true`, all the phone numbers in Copper now becomes clickable. When users click on the phone number, they will be able to subscribe an event called `phoneNumberClicked`.
-e.g.
 ```javascript
 sdk.on('phoneNumberClicked', function ({ number }) {
   // do something with number
 })
 ```
 
-#### allowHttp
+### allowHttp
 By default, Copper does not allow http url to be used in an embedded app. However, setting Optional Advanced Configuration `allowHttp: true` will allow users to embed http url into the embedded app.
 
 If the browser still blocks the user from seeing the http url, following the steps below would unblock the user:
 1. Click on the small icon in the user's browser's address bar on the right
 2. Click on "allow run unsafe script"
 
-#### verifyServer
+### verifyServer
 This allows users to verify that their parent frame is actually Copper. Please see more details in
-[Secure Example](./EXAMPLES.html#secure-example)
+[Secure Example](./examples.html#secure-example).

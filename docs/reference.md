@@ -27,7 +27,7 @@ context.save()
 ```
 
 ## showModal()
-The method showModal() will open the modal in Copper's web page. The url for the modal is set as the url of the embedded app appended with "?location=modal". For example, if the url of the embdded app is "https://www.example.com", the modal url is "https://www.example.com?location=modal".
+The method showModal() will open the modal in Copper's web page. The url for the modal is set as the url of the embedded app appended with `?location=modal`. For example, if the url of the embdded app is `https://www.example.com`, the modal url is `https://www.example.com?location=modal`.
 
 #### Parameter
 | Name | Type   | Required | Description                                    |
@@ -41,7 +41,7 @@ The method showModal() will open the modal in Copper's web page. The url for the
 | ------------- | ------- | -------- | ------------------------ |
 | width         | Integer | No       | Width of the modal       |
 | height        | Integer | No       | Height of the modal      |
-| displayHeader | Bool    | No       | If display header or not |
+| displayHeader | Boolean | No       | If display header or not |
 
 #### Example
 ```javascript
@@ -135,7 +135,7 @@ All of the developer api url is supported. The method and data format for each a
 ## refreshUI()
 The method refreshUI(target) will refresh the target's UI section. It is primarily used after the above api(url, options) call to update the UI to reflect the data changed in the server.
 
-### Parameter
+#### Parameter
 | Name   | Type   | Required | Description                                                                                                                                                                                                        |
 | ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Target | Object | Yes      | The format of the parameter is `{ name: targetName, data: data }`, where targetName can be 'ActivityLog' or 'Related'. 'ActivityLog' data is not required. For 'Related', data format is `{ type: entityType }`. |
