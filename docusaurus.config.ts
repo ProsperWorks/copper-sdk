@@ -27,6 +27,7 @@ const config: Config = {
       'content-docs',
       {
         routeBasePath: '/',
+        sidebarPath: './docs/sidebars.ts',
         editUrl: 'https://github.com/ProsperWorks/copper-sdk/',
       },
     ],
@@ -35,10 +36,22 @@ const config: Config = {
   themeConfig: {
     navbar: {
       title: 'Copper App SDK',
+      items: [
+        {
+          label: 'GitHub',
+          href: 'https://github.com/ProsperWorks/copper-sdk',
+          position: 'right',
+        },
+      ],
     },
     footer: {
-      style: 'dark',
       copyright: `Copyright © ${new Date().getFullYear()} Copper CRM`,
+      links: [
+        {
+          label: 'Copper Website',
+          href: 'https://copper.com',
+        },
+      ],
     },
     prism: {
       theme: prismThemes.github,
