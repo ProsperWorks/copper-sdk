@@ -6,11 +6,12 @@ const config: Config = {
   tagline: 'Add embedded apps to Copper',
 
   url: 'https://docs.copper.com',
-  baseUrl: '/',
+  baseUrl: '/copper-sdk/',
 
   // GitHub pages deployment config.
   organizationName: 'ProsperWorks',
   projectName: 'copper-sdk',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
