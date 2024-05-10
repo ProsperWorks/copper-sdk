@@ -1,4 +1,4 @@
-name: Node.js CI
+name: copper-sdk CI
 
 on:
   push:
@@ -17,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@v1
