@@ -10,16 +10,16 @@ const config: Config = {
   baseUrl: '/',
 
   // GitHub pages deployment config.
-  // organizationName: 'ProsperWorks',
-  // projectName: 'copper-sdk',
+  organizationName: 'ProsperWorks',
+  projectName: 'copper-sdk',
 
-  // onBrokenLinks: 'throw',
-  // onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
 
-  // i18n: {
-  //   defaultLocale: 'en',
-  //   locales: ['en'],
-  // },
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
 
   presets: [
     [
@@ -28,38 +28,26 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           // sidebarPath: './sidebars.ts',
-          // editUrl:
-          //   'https://github.com/ProsperWorks/copper-sdk/',
+          editUrl: 'https://github.com/ProsperWorks/copper-sdk/',
         },
         blog: false,
-        // theme: {
-        //   customCss: './src/css/custom.css',
-        // },
       } satisfies Preset.Options,
     ],
   ],
 
-  // themeConfig: {
-  //   navbar: {
-  //     title: 'Copper App SDK',
-  //     items: [
-  //       {
-  //         type: 'docSidebar',
-  //         sidebarId: 'tutorialSidebar',
-  //         position: 'left',
-  //         label: 'Tutorial',
-  //       },
-  //     ],
-  //   },
-  //   footer: {
-  //     style: 'dark',
-  //     copyright: `Copyright © ${new Date().getFullYear()} Copper CRM`,
-  //   },
-  //   prism: {
-  //     theme: prismThemes.github,
-  //     darkTheme: prismThemes.dracula,
-  //   },
-  // } satisfies Preset.ThemeConfig,
+  themeConfig: {
+    navbar: {
+      title: 'Copper App SDK',
+    },
+    footer: {
+      style: 'dark',
+      copyright: `Copyright © ${new Date().getFullYear()} Copper CRM`,
+    },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
+  } satisfies Preset.ThemeConfig,
 };
 
 export default config;
