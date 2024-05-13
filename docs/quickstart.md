@@ -1,3 +1,7 @@
+---
+slug: /
+---
+
 # Quick Start
 
 ## Using webpack/rollup/browserify etc.

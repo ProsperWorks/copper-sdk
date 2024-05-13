@@ -65,9 +65,8 @@ typings/
 /lib
 /es
 
-
 .rpt2_cache
 
 .vscode
-
-_book/
+.docusaurus
+/build
