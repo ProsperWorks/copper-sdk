@@ -1,6 +1,6 @@
 {
   "name": "copper-sdk",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Copper App SDK",
   "main": "lib/copper-sdk.js",
   "module": "es/copper-sdk.js",
