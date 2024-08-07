@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 
 const config: Config = {
   title: 'Copper App SDK',
@@ -18,7 +18,7 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'zh-Hant'],
   },
 
   themes: ['classic'],
@@ -38,6 +38,10 @@ const config: Config = {
     navbar: {
       title: 'Copper App SDK',
       items: [
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
         {
           label: 'Copper',
           href: 'https://copper.com',
