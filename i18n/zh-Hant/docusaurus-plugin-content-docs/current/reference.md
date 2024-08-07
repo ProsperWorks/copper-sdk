@@ -161,3 +161,150 @@ sdk.refreshUI({ name: 'Related', data: { type: 'lead'}})
 | Details | 物件   | 是     | 活動日誌的詳細數據           |
 
 請參閱 Copper 的開發者 API 文檔，以獲取活動類型和詳細信息。
+
+#### 範例
+```javascript
+const activityType = 0;  // 活動類型 'note'
+const details = '這是一條備註';
+sdk.logActivity(activityType, details);
+```
+
+## createEntity()
+`createEntity(entityType, entityData)` 方法在 Copper 網頁應用中創建一個實體。
+
+#### 參數
+
+| 名稱       | 類型   | 必填   | 描述                                                                                  |
+| ---------- | ------ | ------ | ------------------------------------------------------------------------------------ |
+| EntityType | 字串   | 是     | 實體類型。支持的值有：'lead', 'person', 'company', 'opportunity', 'project', 'task' |
+| entityData  | 物件   | 是     | 實體數據。                                                                             |
+
+請參閱 Copper 的開發者 API 文檔以獲取實體詳細信息。
+
+#### 範例
+```javascript
+const entityType = 'lead';
+const entityData = {
+  name: '我的潛在客戶',
+  email: {
+    email: 'mylead@noemail.com',
+    category: 'work'
+  },
+  phone_numbers: [
+    {
+      number: '1234567',
+      category: 'mobile'
+    }
+  ]
+};
+sdk.createEntity(entityType, entityData);
+```
+
+## relateEntity()
+`relateEntity(entityType, entityId, target)` 方法將兩個實體在 Copper 網頁應用中關聯起來。
+
+#### 參數
+| 名稱       | 類型    | 必填   | 描述                                                                                  |
+| ---------- | ------- | ------ | ------------------------------------------------------------------------------------ |
+| entityType | 字串    | 是     | 實體類型。支持的值有：'lead', 'person', 'company', 'opportunity', 'project', 'task' |
+| entityId   | 整數    | 是     | 實體記錄的 ID                                                                       |
+| Target     | 物件    | 是     | 目標實體。格式為 `{ id: id, type: entityType }`                                     |
+
+請參閱 Copper 的開發者 API 文檔以獲取實體詳細信息。
+
+#### 範例
+```javascript
+const entityType = 'task';
+const entityId = 1;
+const target = {
+  id: 10,
+  type: 'opportunity'
+};
+sdk.relateEntity(entityType, entityId, target); // 將機會 10 關聯到任務 1
+```
+
+## navigateToEntityDetail()
+此方法允許嵌入式應用導航到特定實體記錄的頁面。
+
+#### 參數
+| 名稱       | 類型    | 必填   | 描述                                                                                  |
+| ---------- | ------- | ------ | ------------------------------------------------------------------------------------ |
+| entityType | 字串    | 是     | 實體類型。支持的值有：'lead', 'person', 'company', 'opportunity', 'project', 'task' |
+| entityId   | 整數    | 是     | 實體記錄的 ID                                                                       |
+
+請參閱 Copper 的開發者 API 文檔以獲取實體詳細信息。
+
+#### 範例
+```javascript
+const entityType = 'task';
+const entityId = 1;
+sdk.navigateToEntityDetail(entityType, entityId); // 導航到 ID 為 1 的任務
+```
+
+## getSelectedRecords()
+通過 `pageNumber` 和 `pageSize` 獲取選中的記錄。
+
+#### 參數
+| 名稱       | 類型    | 必填   | 描述                                                                                  |
+| ---------- | ------- | ------ | ------------------------------------------------------------------------------------ |
+| pageNumber | 整數    | 否     | 頁碼                                                                                  |
+| pageSize   | 整數    | 否     | 頁面大小                                                                              |
+
+#### 範例
+```javascript
+await sdk.getSelectedRecords({ pageNumber: 0, pageSize: 100 });
+// 返回
+[
+  {
+    "id": 165837,
+    "first_name": "Jason",
+    "last_name": "Mraz",
+    "middle_name": null,
+    ...
+  }
+]
+```
+
+## getUserInfo()
+獲取當前用戶信息。
+
+返回的響應將包含用戶所擁有的角色列表。Copper 目前支持三種角色：
+
+* `user`: 用戶可以正常使用系統。
+* `admin`: 用戶可以執行管理操作。
+* `account_owner`: 用戶是帳戶擁有者。
+
+#### 範例
+```javascript
+await sdk.getUserInfo();
+// 返回
+{
+  "account": {
+    "id": 1,
+    "name": "Google"
+  },
+  "user": {
+    "email": "larry@google.com",
+    "id": 1,
+    "name": "Larry Page",
+    "roles": ["user", "admin"]
+  }
+}
+```
+
+## getConfig()
+獲取當前應用和安裝配置。
+
+#### 範例
+```javascript
+await sdk.getConfig();
+// 返回
+{
+  "appConfig": {
+    "height": 600
+  },
+  "config": { // 這是安裝配置
+    "token": "my_token"
+  }
+}
+```
