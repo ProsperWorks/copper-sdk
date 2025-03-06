@@ -1,3 +1,9 @@
+## 0.9.0
+
+### Development
+
+* Add showFullScreen() and closeFullScreen()
+
 ## 0.8.0
 
 ### Development
