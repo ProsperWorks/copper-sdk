@@ -55,6 +55,20 @@ The method closeModal() will close the current active modal.
 sdk.closeModal()
 ```
 
+## showFullScreen()
+The method showFullScreen() will display the Copper web-app in full-screen mode, with the top and left navs hidden.
+#### Example
+```javascript
+sdk.showFullScreen()
+```
+
+## closeFullScreen()
+The method closeFullScreen() will exit out of full-screen mode and restore the top and left navs.
+#### Example
+```javascript
+sdk.closeFullScreen()
+```
+
 ## setAppUI()
 The method setAppUI() will change the UI of the parent Copper's web page.
 #### Parameter

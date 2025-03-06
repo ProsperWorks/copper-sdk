@@ -212,6 +212,36 @@ describe('Copper', function () {
       });
     });
 
+    context('#showFullScreen', function () {
+      it('should be able to display the Copper web-app in full-screen mode', function () {
+        sdk.showFullScreen();
+        win.top.postMessage.calledOnceWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'showFullScreen',
+              instanceId,
+              version,
+            });
+          }),
+        );
+      });
+    });
+
+    context('#closeFullScreen', function () {
+      it('should be able to exit out of full-screen mode', function () {
+        sdk.closeFullScreen();
+        win.top.postMessage.calledOnceWith(
+          sinon.match((value: IPostMessageData) => {
+            return expect(value).to.eql({
+              type: 'closeFullScreen',
+              instanceId,
+              version,
+            });
+          }),
+        );
+      });
+    });
+
     context('#publishMessage', function () {
       it('should be able to close modal', function () {
         sdk.publishMessage('closeModal', 'target', {

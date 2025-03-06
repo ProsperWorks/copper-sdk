@@ -116,6 +116,14 @@ export default class Copper {
     this._postMessage('closeModal');
   }
 
+  public showFullScreen(): void {
+    this._postMessage('showFullScreen');
+  }
+
+  public closeFullScreen(): void {
+    this._postMessage('closeFullScreen');
+  }
+
   /**
    * Allows developer to send message to another instance of its app
    * e.g. Sending data from modal to sidebar, so sidebar can display some data immediately
