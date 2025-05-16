@@ -633,6 +633,56 @@ describe('Copper', function () {
       });
     });
 
+    context('#navigateToSavedFilter', function () {
+      it('should navigate to saved filter correctly ', async function () {
+        win.top.postMessage.callsFake(function (message: any) {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: message.type,
+                id: message.id,
+                data: { entityType: 'person', savedFilterId: 1 },
+              },
+            }),
+          );
+        });
+
+        const data = await sdk.navigateToSavedFilter('person', 1);
+        expect(data.entityType).to.equal('person');
+        expect(data.savedFilterId).to.equal(1);
+      });
+
+      it('should fail if entity type is not valid', async function () {
+        win.top.postMessage.callsFake(function (message: any) {
+          window.dispatchEvent(
+            new MessageEvent('message', {
+              origin,
+              data: {
+                type: message.type,
+                id: message.id,
+                error: {
+                  id: 'copper-navigateToSavedFilter',
+                  version,
+                  detail: 'Error Message',
+                },
+              },
+            }),
+          );
+        });
+
+        try {
+          await sdk.navigateToSavedFilter('wrong', 1);
+        } catch (e) {
+          expect(e).to.eql({
+            id: 'copper-navigateToSavedFilter',
+            version,
+            detail: 'Error Message',
+          });
+        }
+      });
+    });
+
     context('#getSelectedRecords', function () {
       it('should fetch list view selected records ', async function () {
         win.top.postMessage.callsFake(function (message: any) {
