@@ -243,8 +243,8 @@ export default class Copper {
     return this._deferredPost('navigateToEntityDetail', { entityType, entityId });
   }
 
-  public navigateToSavedFilter(entityType: string, savedFilterId: number): Promise<any> {
-    return this._deferredPost('navigateToSavedFilter', { entityType, savedFilterId });
+  public navigateToSavedFilter(entityType: string, savedFilterId: number, pipelineId?: number): Promise<any> {
+    return this._deferredPost('navigateToSavedFilter', { entityType, savedFilterId, pipelineId });
   }
 
   public getSelectedRecords({ pageSize = 100, pageNumber = 0 } = {}): Promise<any> {
