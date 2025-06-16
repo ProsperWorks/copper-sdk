@@ -243,6 +243,13 @@ export default class Copper {
     return this._deferredPost('navigateToEntityDetail', { entityType, entityId });
   }
 
+  public navigateToSavedFilter(entityType: string, savedFilterId: number, pipelineId?: number, openEmailAutomationForm?: boolean): Promise<any> {
+    return this._deferredPost(
+      'navigateToSavedFilter',
+      { entityType, savedFilterId, pipelineId, openEmailAutomationForm },
+    );
+  }
+
   public getSelectedRecords({ pageSize = 100, pageNumber = 0 } = {}): Promise<any> {
     return this._deferredPost('getSelectedRecords', { pageSize, pageNumber });
   }
