@@ -247,7 +247,7 @@ sdk.navigateToEntityDetail(entityType, entityId); //navigate to task with id 1
 ```
 
 ## getSelectedRecords()
-Get selected records by pageNumber and pageSzie
+Get selected records by pageNumber and pageSize
 #### Parameter
 | Name       | Type    | Required | Description                                                                                  |
 | ---------- | ------- | -------- | -------------------------------------------------------------------------------------------- |
