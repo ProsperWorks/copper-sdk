@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "Copper App SDK",
+    "description": "The title in the navbar"
+  },
+  "item.label.Copper": {
+    "message": "Copper",
+    "description": "Navbar item with label Copper"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
